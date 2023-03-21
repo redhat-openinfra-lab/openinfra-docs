@@ -1,6 +1,6 @@
-# Welcome to MkDocs
+# Welcome to the Red Hat NA Solutions Specialist Architecture Lab's Documentation Site.
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+This site is created using MKDocs.  For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Commands
 
