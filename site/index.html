@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-the-red-hat-na-solutions-specialist-architecture-labs-documentation-site" class="md-skip">
+        <a href="#welcome-to-the-red-hat-na-ssa-labs-documentation-site" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Welcome to the Red Hat NA Solutions Specialist Architecture Lab's Documentation Site.
+              Welcome to the Red Hat NA-SSA Lab's Documentation Site.
             
           </span>
         </div>
@@ -191,9 +191,7 @@
                     
 
 
-  
-
-<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
       
@@ -224,12 +222,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Welcome to the Red Hat NA Solutions Specialist Architecture Lab's Documentation Site.
+          Welcome to the Red Hat NA-SSA Lab's Documentation Site.
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="." class="md-nav__link md-nav__link--active">
-        Welcome to the Red Hat NA Solutions Specialist Architecture Lab's Documentation Site.
+        Welcome to the Red Hat NA-SSA Lab's Documentation Site.
       </a>
       
         
@@ -248,8 +246,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
-    Commands
+  <a href="#pre-requisites" class="md-nav__link">
+    Pre-Requisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-the-site-or-add-documentation" class="md-nav__link">
+    Update the Site or Add Documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helpful-commands" class="md-nav__link">
+    Helpful commands
   </a>
   
 </li>
@@ -291,6 +303,60 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pre-requisites" class="md-nav__link">
+    Pre-Requisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-the-site-or-add-documentation" class="md-nav__link">
+    Update the Site or Add Documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helpful-commands" class="md-nav__link">
+    Helpful commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-layout" class="md-nav__link">
+    Project layout
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           
             <div class="md-content" data-md-component="content">
@@ -299,9 +365,13 @@
                   
 
 
-<h1 id="welcome-to-the-red-hat-na-solutions-specialist-architecture-labs-documentation-site">Welcome to the Red Hat NA Solutions Specialist Architecture Lab's Documentation Site.</h1>
+<h1 id="welcome-to-the-red-hat-na-ssa-labs-documentation-site">Welcome to the Red Hat NA-SSA Lab's Documentation Site.</h1>
 <p>This site is created using MKDocs.  For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+<h2 id="pre-requisites">Pre-Requisites</h2>
+<p>Local client must have python, and git.  After installing python, use pip to install the mkdocs and mkdocs-material packages.</p>
+<h2 id="update-the-site-or-add-documentation">Update the Site or Add Documentation</h2>
+<p>Clone the site to your local repository.  Once you have a copy of the repository, update the documentation locally.  Preview your changes using mkdocs serve.  This will initial a local webserver as 127.0.0.1:8000.</p>
+<h2 id="helpful-commands">Helpful commands</h2>
 <ul>
 <li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
 <li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
@@ -312,7 +382,8 @@
 <div class="highlight"><pre><span></span><code>mkdocs.yml    # The configuration file.
 docs/
     index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
+    ...       # Other markdown pages.
+    /images   # images that are used in docs pages
 </code></pre></div>
 
 
@@ -327,11 +398,6 @@ docs/
   <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
 
         </div>
-        
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-            Back to top
-          </button>
         
       </main>
       
@@ -362,7 +428,7 @@ docs/
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["toc.integrate", "navigation.instant", "navigation.sections", "navigation.expand", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="assets/javascripts/bundle.efa0ade1.min.js"></script>

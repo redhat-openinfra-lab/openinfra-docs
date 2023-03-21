@@ -2,12 +2,10 @@ site_name: Openinfrastructure Lab
 theme: 
   name: material
   features:
-    - toc.integrate
-    - navigation.instant
     - navigation.sections
-    - navigation.expand
-    - toc.integrate
+    - navigation.instance
     - navigation.top
+    - toc.integrate
     - search.suggest
     - search.highlight
     - content.tabs.link
