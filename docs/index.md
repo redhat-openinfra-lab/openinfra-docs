@@ -1,8 +1,17 @@
-# Welcome to the Red Hat NA Solutions Specialist Architecture Lab's Documentation Site.
+# Welcome to the Red Hat NA-SSA Lab's Documentation Site.
 
 This site is created using MKDocs.  For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
-## Commands
+## Pre-Requisites
+
+Local client must have python, and git.  After installing python, use pip to install the mkdocs and mkdocs-material packages.
+
+
+## Update the Site or Add Documentation
+
+Clone the site to your local repository.  Once you have a copy of the repository, update the documentation locally.  Preview your changes using mkdocs serve.  This will initial a local webserver as 127.0.0.1:8000.
+
+## Helpful commands
 
 * `mkdocs new [dir-name]` - Create a new project.
 * `mkdocs serve` - Start the live-reloading docs server.
@@ -14,4 +23,5 @@ This site is created using MKDocs.  For full documentation visit [mkdocs.org](ht
     mkdocs.yml    # The configuration file.
     docs/
         index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+        ...       # Other markdown pages.
+        /images   # images that are used in docs pages
