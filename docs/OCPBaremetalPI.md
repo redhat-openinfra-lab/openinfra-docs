@@ -51,7 +51,7 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 ### Customized Deployment  
 
-1.  To build your environment, please ensure you are connected to Red Hat VPN.  
+1.  To build your environment, please ensure you are connected to NA-SSA VPN.  
 
 2.  Access RHAAP via link - [NA-SSA Ansible Automation Platform](https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login).  
 
