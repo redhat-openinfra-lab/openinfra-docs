@@ -42,9 +42,11 @@ HextupleO is an upstream project built with ansible playbooks talking directly t
 
 3. Go to *Templates* tab and hit the “rocket” icon next to *Deploy OpenStack Environment*. 
 
-4. Provide Unique Username and Password. The user name/project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  
+4. Provide a unique *project_name* and *password*. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  
 
-5. Wait for the deployment to finish.  
+5. Wait for the deployment to finish.  You can monitor via the Jobs Output screen or you can monitor each individual job by selecting Jobs from the left pane and selecting the appropriate jobs.  There are four jobs, create project, create networks, create instances, and configure OSP undercloud.
+
+
 
 
 ### Customized Deployment
@@ -136,7 +138,7 @@ This is accessing the Openstack that your environment is deployed to.
     > NOTE: 
     Repos:  Even though you could register to your CDN and start using your own repos, there are local synced repos that are available over LAN. This should be much quicker to download from. Simply grap the osp repo file from here:
 
-    > [stack@undercloud ~]$ sudo curl http://172.20.129.11/osp16.2.repo -o /etc/yum.repos.d/osd16.2.repo
+    > [stack@undercloud ~]$ sudo curl http://172.20.129.11/osp16.2.repo -o /etc/yum.repos.d/osp16.2.repo
 
     > ~/GoodieBag/deploy.sh - pre-configured deploy script that can be used as a template.
 
@@ -144,7 +146,7 @@ This is accessing the Openstack that your environment is deployed to.
     Undercloud.conf - sample undercloud.conf file with pre-configured known working settings like IP pools, interface settings, and more.  The egrep command is used to remove blank and comment lines.
 
     ```
-    [stack@undercloud ~]$ egrep -v '(^$|^#) undercloud.conf
+    [stack@undercloud ~]$ egrep -v '(^$|^#)' undercloud.conf
     [DEFAULT]  
     certificate_generation_ca = local  
     clean_nodes = true  
@@ -190,7 +192,13 @@ Please review the official documentation for accuracy and open any Bugzilla’s 
 
 1. Log into the undercloud VM as the *stack* user using the IP address that was obtained during the VM deployments in Horizon.
 
+    > NOTE: You must be connected to the NA-SSA VPN to access the environment.
+
 2. Complete the RHEL upgrade requirements.
+
+    > Make sure you grabbed the repo configuration from the DNS server.
+    > [stack@undercloud ~]$ sudo curl http://172.20.129.11/osp16.2.repo -o /etc/yum.repos.d/osp16.2.repo
+
 
     ```
     [stack@undercloud ~]$ sudo dnf module reset container-tools
@@ -203,6 +211,38 @@ Please review the official documentation for accuracy and open any Bugzilla’s 
     ```
     [stack@undercloud ~]$ sudo yum install -y python3-tripleoclient ceph-ansible
     [stack@undercloud ~]$ openstack tripleo container image prepare default --local-push-destination --output-env-file ~/templates/containers-prepare-parameter.yaml
+    # Generated with the following on 2023-03-22T16:49:09.066277
+    #
+    #   openstack tripleo container image prepare default --local-push-destination --output-env-file /home/stack/templates/containers-prepare-parameter.yaml
+    #
+
+    parameter_defaults:
+      ContainerImagePrepare:
+      - push_destination: true
+        set:
+          ceph_alertmanager_image: ose-prometheus-alertmanager
+          ceph_alertmanager_namespace: registry.redhat.io/openshift4
+          ceph_alertmanager_tag: v4.6
+          ceph_grafana_image: rhceph-4-dashboard-rhel8
+          ceph_grafana_namespace: registry.redhat.io/rhceph
+          ceph_grafana_tag: 4
+          ceph_image: rhceph-4-rhel8
+          ceph_namespace: registry.redhat.io/rhceph
+          ceph_node_exporter_image: ose-prometheus-node-exporter
+          ceph_node_exporter_namespace: registry.redhat.io/openshift4
+          ceph_node_exporter_tag: v4.6
+          ceph_prometheus_image: ose-prometheus
+          ceph_prometheus_namespace: registry.redhat.io/openshift4
+          ceph_prometheus_tag: v4.6
+          ceph_tag: latest
+          name_prefix: openstack-
+          name_suffix: ''
+          namespace: registry.redhat.io/rhosp-rhel8
+          neutron_driver: ovn
+          rhel_containers: false
+          tag: '16.2'
+        tag_from_label: '{version}-{release}'
+    Output env file exists, moving it to backup.
     ```
 
 4.  Starting with OSP15, Red Hat is moving to the Container Registry that requires an active Red Hat account.  In order to continue the installation, you need to include your credentials into the *container-prepare-parameter.yaml* file.  Service credentials can be created for the deployment using the [Customer Portal Terms-Based-Registry](https://access.redhat.com/terms-based-registry) site.
@@ -216,9 +256,9 @@ Please review the official documentation for accuracy and open any Bugzilla’s 
     ![TokenCopy](images/osp-tokencopy.png)
 
 
-5. Update the containers-prepare-parameter.yaml file with the new service account name and token.  Open the file and jump to the bottom
+5. Update the containers-prepare-parameter.yaml file with the new service account name and token.  Open the file and jump to the bottom.  Add the highlighted lines and paste the user name and token generated from Step 4.  The *ContainerImageRegistryCredentials* space aligns with the *ContainerImagePrepare* line at the top of the file.
 
-    ``` hl_lines="9 10 11 12 13"
+    ``` hl_lines="7 8 9 10 11 12 13"
     [stack@undercloud ~]$ vi templates/containers-prepare-parameter.yaml
     # Generated with the following on 2023-03-08T09:20:45.446840
     #
@@ -227,7 +267,7 @@ Please review the official documentation for accuracy and open any Bugzilla’s 
     ...
       ContainerImageRegistryCredentials:
         registry.redhat.io:
-          11009103my-ospdeployment: eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxOGFlYTA2ZjVmNjg0MGUzYWZlODQ0YTdkZGIzYTc4N
+          11009103|my-ospdeployment: eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxOGFlYTA2ZjVmNjg0MGUzYWZlODQ0YTdkZGIzYTc4N
           ...
           j1ivaZNDw-u8lwRCVtj7ZnQ
     ```
@@ -239,6 +279,8 @@ Please review the official documentation for accuracy and open any Bugzilla’s 
 
     ```
     [stack@undercloud ~]$ openstack undercloud install
+    undercloud_admin_host or undercloud_public_host is not in the same cidr as local_ip.
+    \
     ```
 
 8. Once the installation is complete, verify the containers are up and source the stackrc file to set the environment for the undercloud environment.

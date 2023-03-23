@@ -1,6 +1,6 @@
 # Certificates
 
-##CA Key and Certificate Files
+## CA Key and Certificate Files
 
  The CA .key and .pem files are in the /etc/httpd/conf/ssl.key directory on the DNS Utility server in the same directory.
 
@@ -10,8 +10,8 @@ Generating RSA private key, 2048 bit long modulus (2 primes)
 .......................................................................................................................................+++++
 ...........................................................................................+++++
 e is 65537 (0x010001)
-Enter pass phrase for openinfraCA.key: Redhat1!
-Verifying - Enter pass phrase for openinfraCA.key: Redhat1!
+Enter pass phrase for openinfraCA.key: *******
+Verifying - Enter pass phrase for openinfraCA.key: *******
 
 
 # openssl req -x509 -new -nodes -key openinfraCA.key -sha256 -days 1095 -out openinfraCA.pem
@@ -29,7 +29,7 @@ Locality Name (eg, city) [Default City]:Raleigh
 Organization Name (eg, company) [Default Company Ltd]:Red Hat
 Organizational Unit Name (eg, section) []:OpenInfrastructure Lab
 Common Name (eg, your name or your server's hostname) []:openinfra.lab
-Email Address []:bmclaren@redhat.com
+Email Address []:userName@redhat.com
 ```
 
 Copy the new CA .pem file to the anchors directory; run update-ca-trust to add it to the list of trusted CA certificates:
@@ -48,8 +48,38 @@ pkcs11:id=%91%54%10%D3%0D%E4%AD%A7%08%E7%18%EF%A8%62%F7%BF%59%D6%4D%6E;type=cert
     label: openinfra.lab
     trust: anchor
     category: authority
-Creating a Certificate for a Server/Service
+```    
+
+## Creating a Certificate for a Server/Service
+
+There’s two ways to do this, manual and scripted.  Both are provided here.
+
+### Scripted Process
+
+Login to the Lab DNS server (172.20.129.10).  
+Switch to the root user.    
+Add an entry in /etc/hosts for the Server/Service you are generating the SSL certificate for.  
+Change directory to /root/ssl-certifcates and run the script.  
+
 ```
+cd /root/ssl-certificates  
+./create-certificate.sh <FQDN>  
+```
+
+> Example: ./create-certificate jira-sm.openinfra.lab  
+
+You will be prompted for the pass phrase to the openinfraCA.key. 
+
+> NOTE: The pass phrase is in the Cloud Infra Lab spreadsheet.
+
+All output files will start with the FQDN. Example:  
+
+-rw-r--r--. 1 root root 1517 Mar 22 17:16 jira-sm.openinfra.lab.crt  
+-rw-r--r--. 1 root root 1054 Mar 22 17:16 jira-sm.openinfra.lab.csr  
+-rw-r--r--. 1 root root  254 Mar 22 17:16 jira-sm.openinfra.lab.ext  
+-rw-------. 1 root root 1675 Mar 22 17:16 jira-sm.openinfra.lab.key  
+
+### Manual Process
 
 Generate the key file:
 
