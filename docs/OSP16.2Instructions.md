@@ -331,7 +331,8 @@ Please review the official documentation for accuracy and open any Bugzilla’s 
 
 13. Verify the DNS server has been set for the cltplane subnet.
 
-    ``` hl_lines="8"
+    ``` hl_lines="9"
+    (undercloud) [stack@undercloud ~]$ openstack subnet show ctlplane-subnet
     +-------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
     | Field             | Value                                                                                                                                                   |
     +-------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
