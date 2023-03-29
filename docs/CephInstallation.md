@@ -54,33 +54,25 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 4. Update the *Project Name* and *Password* fields. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  
 
-5.  Go to *Templates* tab and hit the “rocket” icon next to - “Hextupleo - create networks”.  In hexo4 you are encouraged to experiment with different settings. However if you’d like to start with the known network configuration the default templates should be fine.  
+5.  Go to *Templates* tab and hit the “rocket” icon next to - “Hextupleo - create networks”.  In hexo4 you are encouraged to experiment with different settings. However if you’d like to start with the known network configuration the default templates should be fine.  Update the project_name and project_password along with the networks to just include the ones below.  Click *Next*, verify the configuration and click *Launch*.  Monitor the progress of the job executing in the output. 
 
     ```
+    external_network: vlan1117
     networks:  
-      - { name: "ceph-frontend", cidr: "10.20.0.0/24", dhcp: "False", snat: "False", mtu: "8938" }  
-      - { name: "ceph-backend", cidr: "10.20.1.0/24", dhcp: "False", snat: "False", mtu: "8938" }  
+      - { name: "ceph-frontend", cidr: "10.20.0.0/24", dhcp: "True", snat: "True", mtu: "8938" }  
+      - { name: "ceph-backend", cidr: "10.20.1.0/24", dhcp: "True", snat: "True", mtu: "8938" }  
     ```  
-     
-6.  Set user/project and password using the same project and password used previously when creating the project.  Submit the job.  
+      
 
-7. Go to *Templates* tab and hit the “rocket” icon next to - “Hextupleo - create instances”.  Below is a good starting config with 3 ceph nodes.  
+6. Go to *Templates* tab and hit the “rocket” icon next to - “Hextupleo - create instances”.  Below is a good starting config with 3 ceph nodes.  Update the project_name and project_password along with the instances to just include the ones below.  Click *Next*, verify the configuration and click *Launch*.  Monitor the progress of the job executing in the output.  
 
     ```
     instances:  
-      - { name: "ceph1", image: "rhel-8.7", flavor: "ceph", ipmi: "False", extra_volume_size: "100", net_name1:
-     "ceph-frontend", net_name2: "ceph-backend", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "",
-     net_name8: "" }  
-      - { name: "ceph2", image: "rhel-8.7", flavor: "ceph", ipmi: "False", extra_volume_size: "100", net_name1:
-     "ceph-frontend", net_name2: "ceph-backend", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "",
-     net_name8: "" }  
-     - { name: "ceph3", image: "rhel-8.7", flavor: "ceph", ipmi: "False", extra_volume_size: "100", net_name1:
-     "ceph-frontend", net_name2: "ceph-backend", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "",
-     net_name8: "" }  
+      - { name: "ceph1", image: "rhel8.7", flavor: "ceph", ipmi: "False", extra_volume_size: "100", net_name1: "ceph-frontend", net_name2: "ceph-backend", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "",net_name8: "" }  
+      - { name: "ceph2", image: "rhel8.7", flavor: "ceph", ipmi: "False", extra_volume_size: "100", net_name1: "ceph-frontend", net_name2: "ceph-backend", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "",net_name8: "" }  
+      - { name: "ceph3", image: "rhel8.7", flavor: "ceph", ipmi: "False", extra_volume_size: "100", net_name1: "ceph-frontend", net_name2: "ceph-backend", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "",net_name8: "" }  
     
     ```  
-
-8.  Set user/project and password and submit the job using the same project and password used previously when creating the project.  Submit the job. 
 
 
 ## Accessing Your Project in Horizon
@@ -101,11 +93,11 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
     > INFO: We have created Tenant (overlay) networks to satisfy all the non-routable networks.    
 
-
-4. Go to *Routers*, select the existing router (projectName_router); click the *Interfaces* tab and then click the *Add Interface* icon on the right.   Add the *baremetal0* interface in the Subnet dropdown.  Click *Submit*.  
+  
+4. Go to *Routers*, select the existing router (projectName_router); click the *Interfaces* tab and then click the *Add Interface* icon on the right.   Add the ceph-frontend interface in the Subnet dropdown.  Click *Submit*.  
 
     ![Router Screenshot](images/hextupleo-horizon2.png)
-
+  
 
 ## Ceph v5. Installation
 

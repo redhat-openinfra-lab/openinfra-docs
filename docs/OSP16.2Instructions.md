@@ -161,7 +161,7 @@ This is accessing the Openstack that your environment is deployed to.
     subnets - ctlplane-subnet  
     undercloud_admin_host = 10.10.0.11  
     undercloud_debug = false  
-    undercloud = hostname = osp-test-undercloud.hextupleo.lab  
+    undercloud = hostname = myproject-undercloud.hextupleo.lab  
     undercloud_nameservers = 10.9.71.7  
     undercloud_ntp_servers = 10.9.71.7  
     undercloud_public_host = 10.1.0.11  
@@ -206,10 +206,10 @@ Please review the official documentation for accuracy and open any Bugzilla’s 
     [stack@undercloud ~]$ sudo yum update -y
     [stack@undercloud ~]$ sudo reboot 
     ```
-3. Install the TripleO Director and Ceph Ansible packages, and prepare the container images.
+3. Install the TripleO Director, Ceph Ansible, tmux (optional) packages, and prepare the container images.
 
     ```
-    [stack@undercloud ~]$ sudo yum install -y python3-tripleoclient ceph-ansible
+    [stack@undercloud ~]$ sudo yum install -y python3-tripleoclient ceph-ansible tmux
     [stack@undercloud ~]$ openstack tripleo container image prepare default --local-push-destination --output-env-file ~/templates/containers-prepare-parameter.yaml
     # Generated with the following on 2023-03-22T16:49:09.066277
     #
@@ -371,7 +371,7 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
 
     ```
     (undercloud) [stack@undercloud ~]$ cd ~/GoodieBag
-    (undercloud) [stack@undercloud ~]$ ansible-playbook generate-instackenv.yml
+    (undercloud) [stack@undercloud ~]$ ansible-playbook generate_instackenv.yml
     (undercloud) [stack@undercloud ~]$ source *projectName*rc
     (myproject) [stack@undercloud ~]$ openstack server list --insecure | awk '/ipmi_/ { print $4 "    " $8 }'
     ipmi_overcloud_ceph3    virtualipmi=10.70.0.240
@@ -397,7 +397,7 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
     done
     ```
 
-    > NOTE: Make sure you view the ~/instackenv.yaml file to ensure it is correct before continueing with the installation.
+    > NOTE: Make sure you view the ~/instackenv.yaml file to ensure it is correct before continuing with the installation.
 
 3. Register the nodes for the overcloud.  Make sure you source the stackrc file for the undercloud environment.  Once the import is complete, list the baremetal nodes and ensure all information is correct for the deployment.  All nodes will be in a *power off* or *manageable* state.
 
@@ -418,11 +418,13 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
     | 19367e0f-45ac-4242-b867-423e5a81727e | overcloud_controller1 | 7f573f3c-8389-4973-aba7-99f055071632 | power off    | manageable             | False       |
     +--------------------------------------+-----------------------+--------------------------------------+-------------+--------------------+-------------+
     ```
-    > Continue to monitor until the nodes are all in an *available* state.
+    > Continue to monitor until the nodes are all in an *manageable* state.
 
-4. After all nodes are in an *available* state, verify the proper profiles were assigned.
+4. Run the introspect to assign the profiles and configure the nodes successfully.  After all nodes are in an *available* state, verify the proper profiles were assigned.  
 
     ```
+    (undercloud) [stack@undercloud ~]$ openstack overcloud node introspect --all-manageable --provide
+    (undercloud) [stack@undercloud ~]$ openstack overcloud profiles list
     +--------------------------------------+-----------------------+-----------------+-----------------+-------------------+
     | Node UUID                            | Node Name             | Provision State | Current Profile | Possible Profiles |
     +--------------------------------------+-----------------------+-----------------+-----------------+-------------------+
@@ -436,7 +438,7 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
     | 19367e0f-45ac-4242-b867-423e5a81727e | overcloud_controller1 | active          | control         |                   |
     +--------------------------------------+-----------------------+-----------------+-----------------+-------------------+
     ```
-
+  
 5. The undercloud public endpoints have been most likely encrypted with self-signed certificates.  Make sure to inject the cert into the deployment of the overcloud.  Copy the inject-trust-anchor-hiera.yaml file to the templates directory, copy the cert from the cm-local-ca.pem file and paste into the new file in the templates directory.
 
     ```
@@ -481,8 +483,10 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
             -----END CERTIFICATE-----
     ```
 
+    > NOTE: Make sure that you line up the indentation for the certificate data.  It must be indented two spaces under the *content* tag.  
 
-6. Copy the deploy.sh template from the GoodieBag directory to the stack user's home directory.  Edit the /home/stack/deploy.sh file and add the inject-trust-anchor-hiera.yaml file.  Ensure you have an understanding of each of the yaml files included.
+
+6. Copy the deploy.sh template from the GoodieBag directory to the stack user's home directory.  Edit the /home/stack/deploy.sh file and add the inject-trust-anchor-hiera.yaml file.  Ensure you have an understanding of each of the yaml files included.  
 
     > NOTE: If you are going to enable the RGW service in Ceph, make sure to include the *ceph-rgw.yaml* file in the initial deployment.  
 
@@ -494,7 +498,7 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
     ##############################
     source ~/stackrc
     cd ~/
-    time openstack overcloud deploy --templates --stack blm-osp \
+    time openstack overcloud deploy --templates --stack myproject \
          -n templates/network_data.yaml \
          -e templates/node-info.yaml \
          -e templates/storage-environment.yaml \
@@ -506,9 +510,8 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
          -e templates/inject-trust-anchor-hiera.yaml \
          -e templates/host-memory.yaml \
          -e templates/containers-prepare-parameter.yaml \
-         -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-dashboard.yaml \
          -e templates/ceph_dashboard_network_override.yaml \
-         --log-file blm-osp_deployment.log \
+         --log-file myproject_deployment.log \
          --ntp-server 10.10.0.10
     ```
 
@@ -517,7 +520,7 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
 
     ```
     (undercloud) [stack@undercloud ~]$ sudo iptables -I INPUT -m state --state NEW -m udp -p udp --dport 123 -j ACCEPT
-    (undercloud) [stack@undercloud ~]$ sudo echo allow 0.0.0.0/0 >> /etc/chrony.conf
+    (undercloud) [stack@undercloud ~]$ echo "echo allow 0.0.0.0/0 >> /etc/chrony.conf" | sudo /bin/bash
     (undercloud) [stack@undercloud ~]$ cat /etc/chrony.conf
     # Do not manually edit this file.
     # Managed by ansible-role-chrony
@@ -538,7 +541,53 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
     ```
     (undercloud) [stack@undercloud ~]$ tmux  
     (undercloud) [stack@undercloud ~]$ cd   
-    (undercloud) [stack@undercloud ~]$ ./deploy.sh  
+    (undercloud) [stack@undercloud ~]$ ./deploy.sh 
+    ...
+    PLAY RECAP *********************************************************************
+    myproject-cephstorage-0 : ok=294  changed=149  unreachable=0    failed=0    skipped=153  rescued=0    ignored=0   
+    myproject-cephstorage-1 : ok=291  changed=149  unreachable=0    failed=0    skipped=153  rescued=0    ignored=0   
+    myproject-cephstorage-2 : ok=291  changed=149  unreachable=0    failed=0    skipped=153  rescued=0    ignored=0   
+    myproject-controller-0 : ok=380  changed=217  unreachable=0    failed=0    skipped=193  rescued=0    ignored=0   
+    myproject-controller-1 : ok=378  changed=211  unreachable=0    failed=0    skipped=195  rescued=0    ignored=0   
+    myproject-controller-2 : ok=378  changed=211  unreachable=0    failed=0    skipped=195  rescued=0    ignored=0   
+    myproject-novacompute-0 : ok=333  changed=177  unreachable=0    failed=0    skipped=179  rescued=0    ignored=0   
+    myproject-novacompute-1 : ok=333  changed=177  unreachable=0    failed=0    skipped=179  rescued=0    ignored=0    
+    undercloud                 : ok=172  changed=56   unreachable=0    failed=0    skipped=44   rescued=0    ignored=2   
+
+    2023-03-27 16:11:25.971578 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Summary Information ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    2023-03-27 16:11:25.971826 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Total Tasks: 2517       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    2023-03-27 16:11:25.972000 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Elapsed Time: 1:22:22.733271 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    2023-03-27 16:11:25.972191 |                                 UUID |       Info |       Host |   Task Name |   Run Time
+    2023-03-27 16:11:25.972394 | fa163e91-32a1-f7b4-b63f-000000007b9f |    SUMMARY | myproject-controller-0 | Wait for containers to start for step 3 using paunch | 1087.73s
+    2023-03-27 16:11:25.972600 | fa163e91-32a1-f7b4-b63f-00000000707e |    SUMMARY | undercloud | tripleo-ceph-run-ansible : run ceph-ansible | 479.52s
+    2023-03-27 16:11:25.972762 | fa163e91-32a1-f7b4-b63f-000000006641 |    SUMMARY | myproject-controller-2 | Wait for container-puppet tasks (generate config) to finish | 390.19s
+    2023-03-27 16:11:25.972917 | fa163e91-32a1-f7b4-b63f-00000000660c |    SUMMARY | myproject-controller-1 | Wait for container-puppet tasks (generate config) to finish | 390.03s
+    2023-03-27 16:11:25.973060 | fa163e91-32a1-f7b4-b63f-00000000667b |    SUMMARY | myproject-controller-0 | Wait for container-puppet tasks (generate config) to finish | 379.89s
+    2023-03-27 16:11:25.973195 | fa163e91-32a1-f7b4-b63f-000000007235 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for haproxy | 250.51s
+    2023-03-27 16:11:25.973368 | fa163e91-32a1-f7b4-b63f-0000000076d6 |    SUMMARY | myproject-controller-0 | Wait for containers to start for step 2 using paunch | 215.77s
+    2023-03-27 16:11:25.973582 | fa163e91-32a1-f7b4-b63f-000000007609 |    SUMMARY | myproject-controller-1 | Wait for containers to start for step 2 using paunch | 195.36s
+    2023-03-27 16:11:25.973734 | fa163e91-32a1-f7b4-b63f-00000000763f |    SUMMARY | myproject-controller-2 | Wait for containers to start for step 2 using paunch | 195.29s
+    2023-03-27 16:11:25.973875 | fa163e91-32a1-f7b4-b63f-00000000659a |    SUMMARY | myproject-controller-0 | Wait for puppet host configuration to finish | 154.03s
+    2023-03-27 16:11:25.974022 | fa163e91-32a1-f7b4-b63f-000000007803 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for ovn_dbs | 150.17s
+    2023-03-27 16:11:25.974162 | fa163e91-32a1-f7b4-b63f-000000006516 |    SUMMARY | myproject-controller-1 | Wait for puppet host configuration to finish | 143.97s
+    2023-03-27 16:11:25.974322 | fa163e91-32a1-f7b4-b63f-00000000655d |    SUMMARY | myproject-controller-2 | Wait for puppet host configuration to finish | 143.71s
+    2023-03-27 16:11:25.974517 | fa163e91-32a1-f7b4-b63f-000000007268 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for redis | 125.43s
+    2023-03-27 16:11:25.974698 | fa163e91-32a1-f7b4-b63f-000000007245 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for mysql | 125.22s
+    2023-03-27 16:11:25.974839 | fa163e91-32a1-f7b4-b63f-000000007b1a |    SUMMARY | myproject-controller-1 | Wait for containers to start for step 3 using paunch | 124.18s
+    2023-03-27 16:11:25.974974 | fa163e91-32a1-f7b4-b63f-000000007b50 |    SUMMARY | myproject-controller-2 | Wait for containers to start for step 3 using paunch | 123.86s
+    2023-03-27 16:11:25.975119 | fa163e91-32a1-f7b4-b63f-000000007258 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for oslo_messaging_rpc | 123.83s
+    2023-03-27 16:11:25.975276 | fa163e91-32a1-f7b4-b63f-000000008a1e |    SUMMARY | myproject-controller-0 | Wait for puppet host configuration to finish | 123.51s
+    2023-03-27 16:11:25.975468 | fa163e91-32a1-f7b4-b63f-000000008e17 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for cinder_volume | 122.44s
+    2023-03-27 16:11:25.975619 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ End Summary Information ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Ansible passed.Overcloud configuration completed.
+    Overcloud Endpoint: http://10.1.0.99:5000
+    Overcloud Horizon Dashboard URL: http://10.1.0.99:80/dashboard
+    Overcloud rc file: /home/stack/myprojectrc
+    Overcloud Deployed without error
+
+    real    101m32.022s
+    user    0m13.412s
+    sys     0m1.491s
     ```
 
     > NOTE: In a separate session, you can monitor the deployment with the openstack commands.  
@@ -546,6 +595,233 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
     > (undercloud) [stack@undercloud ~]$ openstack server list  
     > (undercloud) [stack@undercloud ~]$ openstack baremetal node list  
 
+
+### Post Deployment Validations
+
+1. Check the health of the cluster and the avialability zones.  Source the \<projectName\>rc file first.
+
+    ```
+    (myproject) [stack@myproject-undercloud ~]$ source myprojectrc
+    (myproject) [stack@myproject-undercloud ~]$ openstack service list
+    +----------------------------------+-----------+----------------+
+    | ID                               | Name      | Type           |
+    +----------------------------------+-----------+----------------+
+    | 2cf5a8efe59e429f913ed11f0fe29d58 | glance    | image          |
+    | 3a3aaac39577402ca2d91ae8ca70f359 | heat      | orchestration  |
+    | 5879421c8cda4f2fa1b98a1ff159b10a | placement | placement      |
+    | 9ce51c3e27f9448182a52c733a4cda2d | cinderv3  | volumev3       |
+    | a3ddde9d1c0b48c19bf9005680716d38 | keystone  | identity       |
+    | b22f9ce59c404fdbab27dd9fdd819149 | swift     | object-store   |
+    | bed225f252b74b6d96dcb23249d20da0 | heat-cfn  | cloudformation |
+    | e3c472eb17f545ebb7278bbcf475f322 | nova      | compute        |
+    | e460149135bd4f2dabe03d8a8f3eedc1 | cinderv2  | volumev2       |
+    | e7c30296b07f4147bb843723d10a7859 | neutron   | network        |
+    +----------------------------------+-----------+----------------+
+    ```
+
+    ```
+    (myproject) [stack@myproject-undercloud ~]$ openstack network agent list
+    +--------------------------------------+------------------------------+------------------------------------------+-------------------+-------+-------+----------------+
+    | ID                                   | Agent Type                   | Host                                     | Availability Zone | Alive | State | Binary         |
+    +--------------------------------------+------------------------------+------------------------------------------+-------------------+-------+-------+----------------+
+    | 9e202644-48b9-4d40-a484-4ad6420bc752 | OVN Controller agent         | myproject-novacompute-0.localdomain |                   | :-)   | UP    | ovn-controller |
+    | a43a0c19-669b-40d0-84d4-48ad9d5f514e | OVN Controller Gateway agent | myproject-controller-2.localdomain  |                   | :-)   | UP    | ovn-controller |
+    | f26f3981-1e67-4063-b1ce-848deff49d18 | OVN Controller Gateway agent | myproject-controller-0.localdomain  |                   | :-)   | UP    | ovn-controller |
+    | e1538367-7b98-49a0-a9cb-98273b01938a | OVN Controller agent         | myproject-novacompute-1.localdomain |                   | :-)   | UP    | ovn-controller |
+    | bf65bc54-80d5-4614-b28c-9b42aaf08bc5 | OVN Controller Gateway agent | myproject-controller-1.localdomain  |                   | :-)   | UP    | ovn-controller |
+    +--------------------------------------+------------------------------+------------------------------------------+-------------------+-------+-------+----------------+
+    ```
+
+2.  Create an image with central and remote/dcn Glance service.
+
+    ```
+    (myproject) [stack@myproject-undercloud ~]$ curl http://10.9.71.7/cirros-0.4.0-x86_64-disk.img -o ~/cirros-0.4.0-x86_64-disk.img  
+    (myproject) [stack@myproject-undercloud ~]$ qemu-img convert -f qcow2 -o raw cirros-0.4.0-x86_64-disk.img cirros-0.4.0-x86_64-disk.raw  
+    (myproject) [stack@myproject-undercloud ~]$ glance image-create --disk-format raw --container-format bare --name cirros --file cirros-0.4.0-x86_64-disk.raw --visibility public  
+    ```
+
+
+
+### Installation of Ceph Dashboard
+
+The Ceph dashboard is disabled by default but can easily be enabled in the overcloud using Director.  Full documentation can be found [here](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html/deploying_red_hat_ceph_storage_and_red_hat_openstack_platform_together_with_director/assembly_adding-rhcs-dashboard-to-overcloud_deployingcontainerizedrhcs).
+
+For quick reference, follow these procedures:
+
+1. Source the stackrc file; cat the templates/containers-prepare-parameter.yaml file.  This was generated in the overcloud deployment procedures.  This file contains the container required for Ceph and the dashboard.
+
+    ```
+    [stack@blm-ospinstall-undercloud ~]$ source ./stackrc
+    (undercloud) [stack@blm-ospinstall-undercloud ~]$ cat templates/containers-prepare-parameter.yaml
+    # Generated with the following on 2023-03-22T16:49:09.066277
+    #
+    #   openstack tripleo container image prepare default --local-push-destination --output-env-file /home/stack/templates/containers-prepare-parameter.yaml
+    #
+
+    parameter_defaults:
+      ContainerImagePrepare:
+      - push_destination: true
+        set:
+          ceph_alertmanager_image: ose-prometheus-alertmanager
+          ceph_alertmanager_namespace: registry.redhat.io/openshift4
+          ceph_alertmanager_tag: v4.6
+          ceph_grafana_image: rhceph-4-dashboard-rhel8
+          ceph_grafana_namespace: registry.redhat.io/rhceph
+          ceph_grafana_tag: 4
+          ceph_image: rhceph-4-rhel8
+          ceph_namespace: registry.redhat.io/rhceph
+          ceph_node_exporter_image: ose-prometheus-node-exporter
+          ceph_node_exporter_namespace: registry.redhat.io/openshift4
+          ceph_node_exporter_tag: v4.6
+          ceph_prometheus_image: ose-prometheus
+          ceph_prometheus_namespace: registry.redhat.io/openshift4
+          ceph_prometheus_tag: v4.6
+          ceph_tag: latest
+          name_prefix: openstack-
+          name_suffix: ''
+          namespace: registry.redhat.io/rhosp-rhel8
+          neutron_driver: ovn
+          rhel_containers: false
+          tag: '16.2'
+        tag_from_label: '{version}-{release}'
+      ContainerImageRegistryCredentials:
+        registry.redhat.io:
+          11009103|my-ospdeployment: eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxOGFlYTA2ZjVmNjg0MGUzYWZlODQ0YTdkZGIzYTc4NyJ9.
+          ...
+          edIJ9DVJCI8MzWcouwKXIfGiMzjbj1ivaZNDw-u8lwRCVtj7ZnQ
+    ```
+
+2. The Ceph dashboard network is set by default to the provisioning network.  If you want to access through a different network, create an environment file and set the network to use.  Include this file in the deploy.sh script.
+
+    ``` hl_lines="20 21"
+    (undercloud) [stack@blm-ospinstall-undercloud ~]$ vi templates/ceph_dashboard_newtork_override.yaml
+    parameter_defaults:
+        CephDashboardNetwork:  ctlplane
+    :wq
+    (undercloud) [stack@blm-ospinstall-undercloud ~]$ vi deploy.sh
+    #!/bin/bash
+    #############################
+    # This is not fully dynamic file and it might have not been populated with all right information. This is a template. You might still want to verify this is what you want before executing it
+    ##############################
+
+    source ~/stackrc
+    cd ~/
+    time openstack overcloud deploy --templates --stack blm-ospinstall \
+         -n templates/network_data.yaml \
+         -e templates/node-info.yaml \
+         -e templates/storage-environment.yaml \
+         -e templates/ceph-custom-config.yaml \
+         -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
+         -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-rgw.yaml \
+         -e /usr/share/openstack-tripleo-heat-templates/environments/cephadm/ceph-dashboard.yaml \
+         -e templates/ceph_dashboard_network_override.yaml \
+         -e templates/network-environment.yaml \
+         -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
+         -e templates/inject-trust-anchor-hiera.yaml \
+         -e templates/host-memory.yaml \
+         -e templates/containers-prepare-parameter.yaml \
+         --log-file blm-ospinstall_deployment.log \
+         --ntp-server 10.10.0.10
+    ```
+
+3. Run the deploy.sh script to deploy the dashboard stack.  This will deploy grafana, prometheus, alertmanager, and the node-exporter containers on the same nodes as the manager containers.
+
+    ```
+    (undercloud) [stack@undercloud ~]$ ./deploy.sh
+    ...
+    ```
+
+
+
+## Appendix
+
+
+### OpenStack Resource and Event List
+
+```
+watch -n 30 "openstack stack event list blm-ospinstall --nested-depth 5 | grep -v COMPLETE|  tail -n 10; openstack stack resource list blm-ospinstall -n 5 | grep -v COMPLETE | tail -n 10"
+
+2023-03-27 18:46:26Z [blm-ospinstall.AllNodesDeploySteps.BootstrapServerId]: CREATE_IN_PROGRESS  state changed
+2023-03-27 18:46:27Z [blm-ospinstall.AllNodesDeploySteps.ExternalPostDeployTasks]: CREATE_IN_PROGRESS  state changed
+2023-03-27 18:46:28Z [blm-ospinstall.AllNodesDeploySteps.ExternalUpdateTasks]: CREATE_IN_PROGRESS  state changed
+2023-03-27 18:46:29Z [blm-ospinstall.AllNodesDeploySteps.ControllerExtraConfigPost]: CREATE_IN_PROGRESS  state changed
+2023-03-27 18:46:30Z [blm-ospinstall.AllNodesDeploySteps.CephStorageExtraConfigPost]: CREATE_IN_PROGRESS  state changed
+2023-03-27 18:46:31Z [blm-ospinstall.AllNodesDeploySteps.ComputeExtraConfigPost]: CREATE_IN_PROGRESS  state changed
+2023-03-27 18:46:32Z [blm-ospinstall.AllNodesDeploySteps.ExternalDeployTasks]: CREATE_IN_PROGRESS  state changed
+2023-03-27 18:46:33Z [blm-ospinstall.AllNodesDeploySteps.ControllerPostConfig]: CREATE_IN_PROGRESS  state changed
+2023-03-27 18:46:33Z [blm-ospinstall.AllNodesDeploySteps.CephStoragePostConfig]: CREATE_IN_PROGRESS  state changed
+2023-03-27 18:46:33Z [blm-ospinstall.AllNodesDeploySteps.ComputePostConfig]: CREATE_IN_PROGRESS  state changed
++--------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------
+---------------------------------------------------------------------------------------------------------+-----------------+----------------------+-------------------------------------------------------------------------------------------------
+--------------------------------------------------------+
+| resource_name                              | physical_resource_id                                                                                                                                       | resource_type
+                                                                                                         | resource_status | updated_time         | stack_name
+                                                        |
++--------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------
+---------------------------------------------------------------------------------------------------------+-----------------+----------------------+-------------------------------------------------------------------------------------------------
+--------------------------------------------------------+
++--------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------
+---------------------------------------------------------------------------------------------------------+-----------------+----------------------+-------------------------------------------------------------------------------------------------
+--------------------------------------------------------+
+```
+
+
+## Logs
+
+During the deployment, as the Ansible playbooks are executing, the output is written to the ansible.log under the mistral service.  The logs is located in /var/lib/mistral/\<stackName\>
+
+```
+tail -f ansible.log
+2023-03-27 15:19:33,748 p=89502 u=mistral n=ansible | 2023-03-27 15:19:33.748105 | fa163e91-32a1-f7b4-b63f-000000007235 |         OK | Run init bundle puppet on the host for haproxy | blm-ospinstall-controller-1
+2023-03-27 15:19:33,817 p=89502 u=mistral n=ansible | 2023-03-27 15:19:33.817014 | fa163e91-32a1-f7b4-b63f-000000007236 |       TASK | Run pacemaker restart if the config file for the service changed
+2023-03-27 15:19:34,338 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.337763 | fa163e91-32a1-f7b4-b63f-000000007235 |         OK | Run init bundle puppet on the host for haproxy | blm-ospinstall-controller-2
+2023-03-27 15:19:34,340 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.340029 | fa163e91-32a1-f7b4-b63f-000000007236 |    CHANGED | Run pacemaker restart if the config file for the service changed | blm-ospinstall-controller-1
+2023-03-27 15:19:34,401 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.401495 | fa163e91-32a1-f7b4-b63f-000000007244 |       TASK | Gather variables for each operating system
+2023-03-27 15:19:34,423 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.422923 | fa163e91-32a1-f7b4-b63f-000000007236 |       TASK | Run pacemaker restart if the config file for the service changed
+2023-03-27 15:19:34,550 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.550269 | fa163e91-32a1-f7b4-b63f-000000007245 |       TASK | Run init bundle puppet on the host for mysql
+2023-03-27 15:19:34,865 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.865084 | fa163e91-32a1-f7b4-b63f-000000007236 |    CHANGED | Run pacemaker restart if the config file for the service changed | blm-ospinstall-controller-2
+2023-03-27 15:19:34,928 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.928633 | fa163e91-32a1-f7b4-b63f-000000007244 |       TASK | Gather variables for each operating system
+2023-03-27 15:19:35,050 p=89502 u=mistral n=ansible | 2023-03-27 15:19:35.049924 | fa163e91-32a1-f7b4-b63f-000000007245 |       TASK | Run init bundle puppet on the host for mysql
+...
+```
+
+
+
+### Ceph Specific Info
+
+```
+tail -f /var/lib/mistral/blm-ospinstall/ceph-ansible
+...
+2023-03-27 15:18:02,889 p=683304 u=root n=ansible | INSTALLER STATUS ***************************************************************
+2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph Monitor           : Complete (0:01:10)
+2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph Manager           : Complete (0:01:03)
+2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph OSD               : Complete (0:02:05)
+2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph RGW               : Complete (0:00:33)
+2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph Client            : Complete (0:00:27)
+2023-03-27 15:18:02,897 p=683304 u=root n=ansible | Install Ceph Crash             : Complete (0:00:41)
+2023-03-27 15:18:02,897 p=683304 u=root n=ansible | Monday 27 March 2023  15:18:02 -0400 (0:00:00.044)       0:07:56.045 ********** 
+2023-03-27 15:18:02,897 p=683304 u=root n=ansible | =============================================================================== 
+2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-container-common : pulling blm-ospinstall-undercloud.ctlplane.hextupleo.lab:8787/rhceph/rhceph-4-rhel8:latest image -- 27.71s
+2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-mon : waiting for the monitor(s) to form the quorum... ------------ 17.18s
+2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-mgr : create ceph mgr keyring(s) on a mon node -------------------- 12.77s
+2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-handler : restart the ceph-crash service -------------------------- 12.47s
+2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-osd : wait for all osd to be up ----------------------------------- 12.34s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-mon : fetch ceph initial keys ------------------------------------- 12.06s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : generate keys ------------------------------------------------ 8.93s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : use ceph-volume lvm batch to create bluestore osds ----------- 8.36s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-mgr : wait for all mgr to be up ------------------------------------ 7.46s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : assign application to pool(s) -------------------------------- 7.25s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : create openstack pool(s) ------------------------------------- 6.75s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | gather and delegate facts ----------------------------------------------- 5.94s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : customize pool crush_rule ------------------------------------ 5.88s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : customize pool min_size -------------------------------------- 5.78s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : customize pool size ------------------------------------------ 5.78s
+2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : set pg_autoscale_mode value on pool(s) ----------------------- 5.69s
+2023-03-27 15:18:02,902 p=683304 u=root n=ansible | ceph-crash : create client.crash keyring -------------------------------- 4.56s
+2023-03-27 15:18:02,902 p=683304 u=root n=ansible | ceph-config : create ceph initial directories --------------------------- 4.27s
+2023-03-27 15:18:02,902 p=683304 u=root n=ansible | ceph-config : create ceph initial directories --------------------------- 4.24s
+2023-03-27 15:18:02,902 p=683304 u=root n=ansible | ceph-config : create ceph initial directories --------------------------- 4.01s
+```
 
 
 
