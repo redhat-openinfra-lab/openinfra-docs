@@ -98,6 +98,8 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
     ![Router Screenshot](images/hextupleo-horizon2.png)
   
+5. To access your instance, ssh as the cloud-user.  Make sure you are connected to the NA-SSA VPN.
+
 
 ## Ceph v5. Installation
 
