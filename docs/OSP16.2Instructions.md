@@ -636,7 +636,7 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
 
     ```
     (myproject) [stack@myproject-undercloud ~]$ curl http://10.9.71.7/cirros-0.4.0-x86_64-disk.img -o ~/cirros-0.4.0-x86_64-disk.img  
-    (myproject) [stack@myproject-undercloud ~]$ qemu-img convert -f qcow2 -o raw cirros-0.4.0-x86_64-disk.img cirros-0.4.0-x86_64-disk.raw  
+    (myproject) [stack@myproject-undercloud ~]$ qemu-img convert -f qcow2 -O raw cirros-0.4.0-x86_64-disk.img cirros-0.4.0-x86_64-disk.raw  
     (myproject) [stack@myproject-undercloud ~]$ glance image-create --disk-format raw --container-format bare --name cirros --file cirros-0.4.0-x86_64-disk.raw --visibility public  
     ```
 
@@ -644,11 +644,11 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
 
 ### Installation of Ceph Dashboard
 
-The Ceph dashboard is disabled by default but can easily be enabled in the overcloud using Director.  Full documentation can be found [here](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html/deploying_red_hat_ceph_storage_and_red_hat_openstack_platform_together_with_director/assembly_adding-rhcs-dashboard-to-overcloud_deployingcontainerizedrhcs).
+The Ceph dashboard is disabled by default but can easily be enabled in the overcloud using Director.  Full documentation can be found [here](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/deploying_an_overcloud_with_containerized_red_hat_ceph/adding-ceph-dashboard).
 
 For quick reference, follow these procedures:
 
-1. Source the stackrc file; cat the templates/containers-prepare-parameter.yaml file.  This was generated in the overcloud deployment procedures.  This file contains the container required for Ceph and the dashboard.
+1. Source the stackrc file; reivew the templates/containers-prepare-parameter.yaml file.  This was generated in the overcloud deployment procedures and includes the containers required for Ceph and the dashboard.
 
     ```
     [stack@blm-ospinstall-undercloud ~]$ source ./stackrc
@@ -713,7 +713,7 @@ For quick reference, follow these procedures:
          -e templates/ceph-custom-config.yaml \
          -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
          -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-rgw.yaml \
-         -e /usr/share/openstack-tripleo-heat-templates/environments/cephadm/ceph-dashboard.yaml \
+         -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-dashboard.yaml \
          -e templates/ceph_dashboard_network_override.yaml \
          -e templates/network-environment.yaml \
          -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
@@ -724,12 +724,53 @@ For quick reference, follow these procedures:
          --ntp-server 10.10.0.10
     ```
 
-3. Run the deploy.sh script to deploy the dashboard stack.  This will deploy grafana, prometheus, alertmanager, and the node-exporter containers on the same nodes as the manager containers.
+3. Run the deploy.sh script to install the dashboard stack.  This will deploy grafana, prometheus, alertmanager, and the node-exporter containers on the same nodes as the manager containers.
 
     ```
     (undercloud) [stack@undercloud ~]$ ./deploy.sh
     ...
+    Ansible passed.Overcloud configuration completed.
+    The output file /home/stack/overcloud-deploy/myproject/myproject-deployment_status.yaml will be overriden
+    Overcloud Endpoint: http://10.1.0.99:5000
+    Overcloud Horizon Dashboard URL: http://10.1.0.99:80/dashboard
+    Overcloud rc file: /home/stack/myprojectrc
+    Overcloud Deployed without error
+
+    real	92m45.065s
+    user	 0m12.506s
+    sys	      0m1.494s
     ```
+
+### Accessing the Ceph Dashboard
+
+The dashboard is read only by default.  You can change the permissions, see the [full documentation](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/deploying_an_overcloud_with_containerized_red_hat_ceph/adding-ceph-dashboard#proc_changing-the-default-permissions) for the procedures keeping in mind that changes made could be overwritten by the Director.
+
+1. The VIP address and the Ceph admin credentials are contained within the all.yml file on the Undercloud Director.
+
+    ```
+    (undercloud) [stack@undercloud ~]$ sudo grep -e dashboard_admin_password -e dashboard_frontend_vip /var/lib/mistral/myproject/ceph-ansible/group_vars/all.yml
+    dashboard_admin_password: ********************
+    dashboard_frontend_vip: 10.10.0.137
+    (undercloud) [stack@undercloud ~]$ 
+    ```  
+
+2. Given that the VIP is on the private network, open a sshuttle VPN connection using the undercloud director.
+
+    ```
+    bmclaren@bmclaren-mac ~ % sshuttle -r stack@blm-ospinstall 10.10.0.0/24
+    [local sudo] Password: 
+    stack@blm-ospinstall's password: 
+    c : Connected to server.
+     s: warning: closed channel 1 got cmd=TCP_DATA len=432
+    ```
+
+
+3. In your favorite browswer, access the dashboard at the VIP on port 8444.  
+
+   ![CephDashboard](images/ceph-dashboard.png)
+
+> NOTE: An error indicating you don't have permission to view this page will display, just click the *Go to Dashboard* icon.  
+   
 
 
 
