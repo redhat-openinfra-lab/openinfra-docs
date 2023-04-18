@@ -98,7 +98,13 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
     ![Router Screenshot](images/hextupleo-horizon2.png)
   
-5. To access your instance, ssh as the cloud-user.  Make sure you are connected to the NA-SSA VPN.
+5. Associate a Floating IP to each instance; select Compute->Instances.  In the Actions dropdown column, select *Associate Floating IP*.  Select an IP address from the dropdown, select the IP of the ceph-frontend network, click *Associate*.    
+
+
+6. Start each instance; In the Actions colume, select *Start Instance* for each node in the cluster.
+
+
+To access your instance, ssh as the cloud-user using these floating IP addresses.  Make sure you are connected to the NA-SSA VPN.
 
 
 ## Ceph v5. Installation
@@ -113,5 +119,156 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 * Root-level access to all nodes.  
 * An active Red Hat Network or service account to access the Red Hat Registry.  
 
+1. Login to ceph1.  Update the /etc/hosts files with the IP and names.
+
+    ```
+    ssh cloud-user@172.20.17.117
+    vi /etc/hosts
+    127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+    ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+    172.20.17.40     ceph1 cephstg01
+    172.20.17.120    ceph2 cephstg02
+    172.20.17.191    ceph3 cephstg03
+
+    10.20.1.190      ceph1-stg
+    10.20.1.125      ceph2-stg
+    10.20.1.245      ceph3-stg
+    ```
+
+2. Grab the repo from the DNS Utility server
+
+    ```
+    [cloud-user@ceph1 ~]$ sudo curl http://172.20.129.10/hextupleo-repo/rhel8.repo -o /etc/yum.repos.d/rhel8.repo
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100  1379  100  1379    0     0   269k      0 --:--:-- --:--:-- --:--:--  448k
+    [cloud-user@ceph1 ~]$ cat /etc/yum.repos.d/rhel8.repo
+    [ansible-2.9-for-rhel-8-x86_64-rpms]
+    name=ansible-2.9-for-rhel-8-x86_64-rpms
+    baseurl=http://172.20.129.10/repos/ansible-2.9-for-rhel-8-x86_64-rpms/
+    enabled=1
+    gpgcheck=0
+    ...
+    [rhel-8-for-x86_64-highavailability-rpms]
+    name=rhel-8-for-x86_64-highavailability-rpms
+    baseurl=http://172.20.129.10/repos/rhel-8-for-x86_64-highavailability-rpms/
+    enabled=1
+    gpgcheck=0
+    ```
+
+3. Update all packages using dnf on all servers.
+
+    ```
+    [cloud-user@ceph1 ~]$ cat /etc/redhat-release 
+    Red Hat Enterprise Linux release 8.7 (Ootpa)
+    [cloud-user@ceph1 ~]$ uname -a
+    Linux ceph1 4.18.0-425.3.1.el8.x86_64 #1 SMP Fri Sep 30 11:45:06 EDT 2022 x86_64 x86_64 x86_64 GNU/Linux
+    [cloud-user@ceph1 ~]$ sudo dnf update -y
+    ...
+    Upgraded:
+      NetworkManager-1:1.40.0-5.el8_7.x86_64                          NetworkManager-libnm-1:1.40.0-5.el8_7.x86_64                 NetworkManager-team-1:1.40.0-5.el8_7.x86_64                                      
+      NetworkManager-tui-1:1.40.0-5.el8_7.x86_64                      authselect-1.2.5-2.el8_7.x86_64                              authselect-compat-1.2.5-2.el8_7.x86_64                                           
+      authselect-libs-1.2.5-2.el8_7.x86_64                            curl-7.61.1-25.el8_7.1.x86_64                                dbus-1:1.12.8-23.el8_7.1.x86_64                                                  
+      dbus-common-1:1.12.8-23.el8_7.1.noarch                          dbus-daemon-1:1.12.8-23.el8_7.1.x86_64                       dbus-libs-1:1.12.8-23.el8_7.1.x86_64                                             
+    ...
+    Installed:
+      bubblewrap-0.4.0-1.el8.x86_64               fwupd-1.7.8-1.el8.x86_64                  grub2-tools-efi-1:2.02-142.el8_7.1.x86_64 kernel-4.18.0-425.10.1.el8_7.x86_64   kernel-core-4.18.0-425.10.1.el8_7.x86_64
+      kernel-modules-4.18.0-425.10.1.el8_7.x86_64 libatasmart-0.19-14.el8.x86_64            libblockdev-2.24-11.el8.x86_64            libblockdev-crypto-2.24-11.el8.x86_64 libblockdev-fs-2.24-11.el8.x86_64       
+      libblockdev-loop-2.24-11.el8.x86_64         libblockdev-mdraid-2.24-11.el8.x86_64     libblockdev-part-2.24-11.el8.x86_64       libblockdev-swap-2.24-11.el8.x86_64   libblockdev-utils-2.24-11.el8.x86_64    
+      libbytesize-1.4-3.el8.x86_64                libgcab1-1.1-1.el8.x86_64                 libgudev-232-4.el8.x86_64                 libgusb-0.3.0-1.el8.x86_64            libsmbios-2.4.1-2.el8.x86_64            
+    ...
+    Complete!
+    [cloud-user@ceph1 ~]$ sudo reboot
+    Connection to 172.20.17.117 closed by remote host.
+    Connection to 172.20.17.117 closed.
+    ```
+
+    > NOTE: Don't forget to do all servers in the cluster.
+
+4.  Generate the ssh key files for the root user on ceph1.  Update the authorized_keys file on all nodes and append the contents of the id_rsa.pub file.
+
+5.  Install the cephadm-ansible package on ceph1 (or the first node in the cluster).
+
+    ```
+    [cloud-user@ceph1 ~]$ sudo dnf install -y cephadm-ansible
+    ...
+    Installed:
+      ansible-2.9.27-1.el8ae.noarch                    cephadm-ansible-1.8.0-1.el8cp.noarch                    python3-jmespath-0.9.0-11.el8.noarch                    sshpass-1.09-4.el8.x86_64                   
+
+    Complete!
+    ```
+
+6.  Create the inventory hosts and registry-login.json files on ceph1.  Change the permissions on the registry-login.json file.
+
+    ```
+    [cloud-user@ceph1 ~]$ cd /usr/share/cephadm-ansible 
+    [cloud-user@ceph1 cephadm-ansible]$ vi hosts
+    ceph1
+    ceph2
+    ceph3
+
+    [admin]
+    ceph1
+    [cloud-user@ceph1 cephadm-ansible]$ sudo mkdir /root/ceph
+    [cloud-user@ceph1 cephadm-ansible]$ sudo vi /root/ceph/registry.json
+    {
+     "url":"registry.redhat.io",
+     "username":"myuser1",
+     "password":"mypassword1"
+    }
+    [cloud-user@ceph1 cephadm-ansible]$ sudo chmod 600 registry.json     
+    ```
+
+    > NOTE: The user name is the user name that you use to login to registry.redhat.io.  This is used to download the ceph containers.
+
+7.  Run the Ceph ansible preflight playbook.  
+
+    ```
+    # ansible-playbook -i hosts cephadm-preflight.yml --extra-vars "ceph_origin="
+    ```
+
+8. Create the bootstrap configuration file on ceph1 (or first node in the cluster).
+
+    ```
+    service_type: host
+    addr: ceph1
+    hostname: ceph1
+    ---
+    service_type: host
+    addr: ceph2
+    hostname: ceph2
+    ---
+    service_type: host
+    addr: ceph3
+    hostname: ceph3
+    ---
+    service_type: mon
+    placement:
+      host_pattern: "ceph[1-3]"
+    ---
+    service_type: osd
+    service_id: initial_osds
+    placement:
+      host_pattern: "ceph[1-3]"
+    data_devices:
+      paths:
+       - /dev/vdb
+    ```
+
+7.  Run the cephadm bootstrap command.
+
+    ```
+    [root@ceph1 ceph]# cephadm bootstrap --mon-ip 172.20.17.40 --apply-spec /root/ceph/initial-cluster-config.yaml --initial-dashboard-password changeme --registry-json /root/ceph/registry-login.json --cluster-network 10.20.1.0/24
 
 
+
+
+
+## Appendix
+
+### Create floating IP address
+
+```
+[stack@bgp-undercloud ~] openstack floating ip create --subnet 372459e8-25f9-4885-b71a-6889ffff02bf --project ceph-blm 18743df0-57aa-4571-9d62-439e0570b059
+```
