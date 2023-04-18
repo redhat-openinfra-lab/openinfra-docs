@@ -1,0 +1,1416 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../OCPBaremetalPI/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
+    
+    
+      
+        <title>OSP 16.2 Installation Instructions - Openinfrastructure Lab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.c4a75a56.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#osp-162-installation-instructions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Openinfrastructure Lab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OSP 16.2 Installation Instructions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Go to the dark side"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Go to the dark side" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Light side"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Light side" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Openinfrastructure Lab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Welcome to the Red Hat NA-SSA Lab's Documentation Site.
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephInstallation/" class="md-nav__link">
+        Ceph v5.x Installation Instructions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Certificates/" class="md-nav__link">
+        Certificates
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OCPBaremetalPI/" class="md-nav__link">
+        OCP Baremetal IPI Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          OSP 16.2 Installation Instructions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        OSP 16.2 Installation Instructions
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    Goals:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hextupleo" class="md-nav__link">
+    HextupleO
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-your-hextupleo-lab" class="md-nav__link">
+    Building your HextupleO Lab:
+  </a>
+  
+    <nav class="md-nav" aria-label="Building your HextupleO Lab:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-deployment" class="md-nav__link">
+    Default Deployment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customized-deployment" class="md-nav__link">
+    Customized Deployment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-your-project-in-horizon" class="md-nav__link">
+    Accessing Your Project in Horizon
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessing Your Project in Horizon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#horizon" class="md-nav__link">
+    Horizon
+  </a>
+  
+    <nav class="md-nav" aria-label="Horizon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undercloud" class="md-nav__link">
+    Undercloud
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-vanilla-osp-162" class="md-nav__link">
+    Deploy Vanilla OSP 16.2
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploy Vanilla OSP 16.2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undercloud-installation" class="md-nav__link">
+    Undercloud Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overcloud-installation" class="md-nav__link">
+    Overcloud Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-deployment-validations" class="md-nav__link">
+    Post Deployment Validations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-of-ceph-dashboard" class="md-nav__link">
+    Installation of Ceph Dashboard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-the-ceph-dashboard" class="md-nav__link">
+    Accessing the Ceph Dashboard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    Appendix
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openstack-resource-and-event-list" class="md-nav__link">
+    OpenStack Resource and Event List
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logs" class="md-nav__link">
+    Logs
+  </a>
+  
+    <nav class="md-nav" aria-label="Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ceph-specific-info" class="md-nav__link">
+    Ceph Specific Info
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="osp-162-installation-instructions">OSP 16.2 Installation Instructions</h1>
+<h2 id="introduction">Introduction</h2>
+<h2 id="goals">Goals:</h2>
+<ul>
+<li>Enable field on OSP 16.2</li>
+<li>Test basics features work (no regression)</li>
+<li>Test new selected set of features</li>
+<li>Optionally test tech preview features</li>
+<li>Report product and documentation bugs </li>
+<li>Send valuable feedback to OSP Product management and engineering teams</li>
+<li>Convert the work accomplished into lab training guides in order to enable more folks in the field</li>
+<li>Have fun with OSP and director </li>
+<li>Get to work with and get to know each other.</li>
+</ul>
+<h2 id="hextupleo">HextupleO</h2>
+<p>The lab access will be provided in the form of nested virtualization managed by RHOSP 16.1.  We have limited resources available, but there should be enough room for about 20 virtual environments.</p>
+<p>Standard roles have been pre-defined, but since we are using OpenStack to manage it, we are capable of being flexible, with resizing flavors, snapshotting, adding more cinder volumes to ceph nodes or even adding more networks via either OpenStack CLI Horizon or Cloudforms.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>vRAM</th>
+<th>vCPU</th>
+<th>vNIC</th>
+<th>Disk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undercloud</td>
+<td>16G</td>
+<td>4</td>
+<td><ul><li>1x pxe</li><li>1x external</li></td>
+<td>100GB</td>
+</tr>
+<tr>
+<td>Controller</td>
+<td>12GB</td>
+<td>2</td>
+<td><ul><li>1x pxe</li><li>1x internal api</li><li>1x tenant</li><li>1x storage</li><li>1x storagemgmt</li><li>1x external</li></td>
+<td>60 GB</td>
+</tr>
+<tr>
+<td>Compute</td>
+<td>4GB</td>
+<td>4</td>
+<td><ul><li>1x pxe</li><li>1x internal api</li><li>1x tenant</li><li>1x storage</li></td>
+<td>60GB</td>
+</tr>
+<tr>
+<td>Ceph</td>
+<td>4GB</td>
+<td>2</td>
+<td><ul><li>1x pxe</li><li>1x storage</li><li>1x storagemgmt</li><li>1x storage</li></td>
+<td><ul><li>50GB OSD</li><li>100GB (osd)</li></td>
+</tr>
+<tr>
+<td>HCI (optional)</td>
+<td>8GB</td>
+<td>4</td>
+<td><ul><li>1x pxe</li><li>1x internal api</li><li>1x tenant</li><li>1x storage</li><li>1x storagemgmt</li></td>
+<td><ul><li>60GB OSD</li><li>100GB (osd)</li></td>
+</tr>
+<tr>
+<td>Custom (optional)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="building-your-hextupleo-lab">Building your HextupleO Lab:</h2>
+<p>HextupleO is an upstream project built with ansible playbooks talking directly to OpenStack APIs via python-shade libraries. It also nicely integrates with Ansible Automation Platform for ease of deployment and manageability (you can learn more about it <a href="https://github.com/OOsemka/hextupleo">here</a>).</p>
+<h3 id="default-deployment">Default Deployment</h3>
+<ol>
+<li>
+<p>To build your environment, please ensure you are connected to NA-SSA VPN.  </p>
+</li>
+<li>
+<p>Access RHAAP via this link: <a href="https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login">Ansible Automation Platform</a>  </p>
+</li>
+<li>
+<p>Go to <em>Templates</em> tab and hit the “rocket” icon next to <em>Deploy OpenStack Environment</em>. </p>
+</li>
+<li>
+<p>Provide a unique <em>project_name</em> and <em>password</em>. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  </p>
+</li>
+<li>
+<p>Wait for the deployment to finish.  You can monitor via the Jobs Output screen or you can monitor each individual job by selecting Jobs from the left pane and selecting the appropriate jobs.  There are four jobs, create project, create networks, create instances, and configure OSP undercloud.</p>
+</li>
+</ol>
+<h3 id="customized-deployment">Customized Deployment</h3>
+<ol>
+<li>
+<p>To build your environment, please ensure you are connected to NA-SSA VPN.  </p>
+</li>
+<li>
+<p>Access RHAAP via this link: <a href="https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login">Ansible Automation Platform</a>  </p>
+</li>
+<li>
+<p>Go to Templates Tab and hit the “rocket” icon next to - “Hextupleol - create  project”, after you hit “Next”, you will get a survey prompting for user and password</p>
+</li>
+<li>
+<p>Set user/project and password and submit the job. The user name/project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  </p>
+</li>
+<li>
+<p>Go to <em>Templates</em> tab and hit the “rocket” icon next to <em>Hextupleo - create networks</em>.  In hexo4 you are encouraged to experiment with different settings. However if you’d like to start with the known network configuration the default templates should be fine.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>networks:  
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  - { name: &quot;external0&quot;, cidr: &quot;10.1.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }  
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  - { name: &quot;provisioning0&quot;, cidr: &quot;10.10.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }  
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  - { name: &quot;internalAPI0&quot;, cidr: &quot;10.20.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }  
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  - { name: &quot;tenant0&quot;, cidr: &quot;10.30.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }  
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  - { name: &quot;storage0&quot;, cidr: &quot;10.40.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }  
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  - { name: &quot;storagemgmt0&quot;, cidr: &quot;10.50.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }  
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  - { name: &quot;provider0&quot;, cidr: &quot;10.60.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }  
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  - { name: &quot;virtualipmi&quot;, cidr: &quot;10.70.0.0/24&quot;, dhcp: &quot;True&quot;, snat: &quot;True&quot;, mtu: &quot;8938&quot; }  
+</code></pre></div>
+</li>
+<li>
+<p>Set user/project and password and submit the job.  The user name/project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  </p>
+</li>
+<li>
+<p>Go to <em>Templates</em> tab and hit the “rocket” icon next to <em>Hextupleo - create instances</em>.  Below is a good starting config with controllers, 2 compute, and 3 Ceph nodes.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>instances:  
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  - { name: &quot;undercloud&quot;, image: &quot;rhel-8.2&quot;, flavor: &quot;undercloud&quot;, ipmi: &quot;False&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provider1-vlan217, net_name2: &quot;provisioning0, net_name3: &quot;external0&quot;, net_name4: &quot;provider0&quot;, net_name5: &quot;virtualipmi&quot;, net_name6: &quot;&quot;, net_name7: &quot;&quot;, net_name8: &quot;&quot; }  
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  - { name: &quot;overcloud_controller1&quot;, image: &quot;pxeboot&quot;, flavor: &quot;overcloud-controller&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0, net_name2: &quot;external0, net_name3: &quot;internalAPI0&quot;, net_name4: &quot;tenant0&quot;, net_name5: &quot;storage0&quot;, net_name6: &quot;storagemgmt&quot;, net_name7: &quot;provider0&quot;, net_name8: &quot;&quot; }  
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  - { name: &quot;overcloud_controller2&quot;, image: &quot;pxeboot&quot;, flavor: &quot;overcloud-controller&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0, net_name2: &quot;external0, net_name3: &quot;internalAPI0&quot;, net_name4: &quot;tenant0&quot;, net_name5: &quot;storage0&quot;, net_name6: &quot;storagemgmt&quot;, net_name7: &quot;provider0&quot;, net_name8: &quot;&quot; }  
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  - { name: &quot;overcloud_controller3&quot;, image: &quot;pxeboot&quot;, flavor: &quot;overcloud-controller&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0, net_name2: &quot;external0, net_name3: &quot;internalAPI0&quot;, net_name4: &quot;tenant0&quot;, net_name5: &quot;storage0&quot;, net_name6: &quot;storagemgmt&quot;, net_name7: &quot;provider0&quot;, net_name8: &quot;&quot; }  
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  - { name: &quot;overcloud_compute1&quot;, image: &quot;pxeboot&quot;, flavor: &quot;overcloud-compute&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0, net_name2: &quot;interalAPI0, net_name3: &quot;tenant0&quot;, net_name4: &quot;storage0&quot;, net_name5: &quot;provider0&quot;, net_name6: &quot;&quot;, net_name7: &quot;&quot;, net_name8: &quot;&quot; }  
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  - { name: &quot;overcloud_compute2&quot;, image: &quot;pxeboot&quot;, flavor: &quot;overcloud-compute&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0, net_name2: &quot;interalAPI0, net_name3: &quot;tenant0&quot;, net_name4: &quot;storage0&quot;, net_name5: &quot;provider0&quot;, net_name6: &quot;&quot;, net_name7: &quot;&quot;, net_name8: &quot;&quot; }  
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  - { name: &quot;overcloud_ceph1&quot;, image: &quot;pxeboot&quot;, flavor: &quot;overcloud-ceph&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;provisioning0, net_name2: &quot;storage0, net_name3: &quot;storagemgmt0&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;, net_name7: &quot;&quot;, net_name8: &quot;&quot; }  
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  - { name: &quot;overcloud_ceph2&quot;, image: &quot;pxeboot&quot;, flavor: &quot;overcloud-ceph&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;provisioning0, net_name2: &quot;storage0, net_name3: &quot;storagemgmt0&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;, net_name7: &quot;&quot;, net_name8: &quot;&quot; }  
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  - { name: &quot;overcloud_ceph3&quot;, image: &quot;pxeboot&quot;, flavor: &quot;overcloud-ceph&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;provisioning0, net_name2: &quot;storage0, net_name3: &quot;storagemgmt0&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;, net_name7: &quot;&quot;, net_name8: &quot;&quot; }  
+</code></pre></div>
+</li>
+<li>
+<p>Set user/project and password and submit the job.  The user name/project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  </p>
+</li>
+<li>
+<p>Finally, go to <em>Templates</em> tab and hit the “rocket” icon next to <em>Hextupleo - configure OSP undercloud</em>.  </p>
+</li>
+<li>
+<p>Follow the survey and submit the job.</p>
+</li>
+<li>
+<p>At the end you will be getting a screen similar to this:</p>
+</li>
+</ol>
+<p><img alt="OSPUnderCloud" src="../images/osp-custom.png" /></p>
+<p>You can ssh to this IP as the user <em>stack</em> using the password you set in the playbook.</p>
+<h2 id="accessing-your-project-in-horizon">Accessing Your Project in Horizon</h2>
+<p>This is accessing the Openstack that your environment is deployed to.</p>
+<h3 id="horizon">Horizon</h3>
+<ol>
+<li>
+<p>Using the project name as the username and password that you specified when you launched your job, log into the Horizon Dashboard with this link: </p>
+<p><a href="https://172.20.11.50/dashboard/auth/login/">Horizon Login</a></p>
+<blockquote>
+<p>NOTE: You must be connected to the NA-SSA VPN</p>
+</blockquote>
+</li>
+<li>
+<p>Go to the <em>Compute-&gt;Instances</em> tab and make sure all of your requested nodes have been created.  </p>
+</li>
+<li>
+<p>Scroll down to the bottom of the list and note the Undercloud Public IP address that is associated with a provider vlan. You will use that IP to access your undercloud node. This should match the above output from the Ansible job.  You can SSH to this IP as the <em>stack</em> user using the password you provided in the playbook.  </p>
+<p><img alt="UndercloudIP" src="../images/osp-undercloudIP.png" /></p>
+</li>
+<li>
+<p>Go to <em>Network-&gt;Network Topology</em> and get familiar with how the VMs are connected. </p>
+</li>
+</ol>
+<blockquote>
+<p>NOTE: We have created Tenant (over GENEVE/VXLAN) networks to satisfy all the non-routable networks. Only External Network is connected to one of the provider routable networks and accessible from outside of your deployed environment.</p>
+</blockquote>
+<p><img alt="OSPNetworkTopology" src="../images/osp-newtorktopology.png" /></p>
+<h4 id="undercloud">Undercloud</h4>
+<ol>
+<li>
+<p>Access undercloud via ssh using stack@<ip-learned-from-horizon>  / password specified in Tower.  </p>
+</li>
+<li>
+<p>You can now start deploying OSP16.2 based on standard instructions (or whatever version you have staged).  See below notes for helpful information in the deployment process.</p>
+<blockquote>
+<p>NOTE: 
+Repos:  Even though you could register to your CDN and start using your own repos, there are local synced repos that are available over LAN. This should be much quicker to download from. Simply grap the osp repo file from here:</p>
+<p>[stack@undercloud ~]$ sudo curl http://172.20.129.11/osp16.2.repo -o /etc/yum.repos.d/osp16.2.repo</p>
+<p>~/GoodieBag/deploy.sh - pre-configured deploy script that can be used as a template.</p>
+<p>~/templates - Directory that has multiple templates that have been pre-configured for making the vanilla deployment easier to perform.
+Undercloud.conf - sample undercloud.conf file with pre-configured known working settings like IP pools, interface settings, and more.  The egrep command is used to remove blank and comment lines.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[stack@undercloud ~]$ egrep -v &#39;(^$|^#)&#39; undercloud.conf
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[DEFAULT]  
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>certificate_generation_ca = local  
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>clean_nodes = true  
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>container_images_file = /home/stack/templates/containers-prepare-parameter.yaml  
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>generate_services_certificate = true  
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>hieradata_override = /home/stack/templates/undercloud_hiera.yaml  
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>local_interface = eth1  
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>local_ip = 10.10.0.10/24  
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>local_mtu = 8946  
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>local_subnet = ctlplane-subnet  
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>overcloud_domain_name = hextupleo.lab  
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>subnets - ctlplane-subnet  
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>undercloud_admin_host = 10.10.0.11  
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>undercloud_debug = false  
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>undercloud = hostname = myproject-undercloud.hextupleo.lab  
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>undercloud_nameservers = 10.9.71.7  
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>undercloud_ntp_servers = 10.9.71.7  
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>undercloud_public_host = 10.1.0.11  
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>[ctlplane-subnet]  
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>cidr = 10.10.0.0/24  
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>dhcp_end = 10.10.0.149  
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>dhcp_start = 10.10.0.100  
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>dns_nameservers = 10.10.0.10  
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>gateway = 10.10.0.10  
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>inspection_iprange = 10.10.0.200,10.10.0.249  
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>masquerade = true  
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>masquerade_network = 10.10.0.0/16  
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>[auth]  
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>undercloud_admin_password = changeme  
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>[stack@undercloud ~]$  
+</code></pre></div>
+</li>
+</ol>
+<h2 id="deploy-vanilla-osp-162">Deploy Vanilla OSP 16.2</h2>
+<p>Even though you don’t have to follow this guide and just jump right into hacking, It is highly encouraged for everyone to get at least one vanilla deployment done to get themselves familiar with the process.</p>
+<p>Steps below are going to be very similar if not mostly identical to <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/director_installation_and_usage/index">Red Hat official documentation</a>.
+Please review the official documentation for accuracy and open any Bugzilla’s against it!</p>
+<h3 id="undercloud-installation">Undercloud Installation</h3>
+<ol>
+<li>
+<p>Log into the undercloud VM as the <em>stack</em> user using the IP address that was obtained during the VM deployments in Horizon.</p>
+<blockquote>
+<p>NOTE: You must be connected to the NA-SSA VPN to access the environment.</p>
+</blockquote>
+</li>
+<li>
+<p>Complete the RHEL upgrade requirements.</p>
+<blockquote>
+<p>Make sure you grabbed the repo configuration from the DNS server.
+[stack@undercloud ~]$ sudo curl http://172.20.129.11/osp16.2.repo -o /etc/yum.repos.d/osp16.2.repo</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[stack@undercloud ~]$ sudo dnf module reset container-tools
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[stack@undercloud ~]$ sudo dnf module enable -y container-tools:3.0
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>[stack@undercloud ~]$ sudo yum update -y
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>[stack@undercloud ~]$ sudo reboot 
+</code></pre></div>
+3. Install the TripleO Director, Ceph Ansible, tmux (optional) packages, and prepare the container images.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[stack@undercloud ~]$ sudo yum install -y python3-tripleoclient ceph-ansible tmux
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>[stack@undercloud ~]$ openstack tripleo container image prepare default --local-push-destination --output-env-file ~/templates/containers-prepare-parameter.yaml
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a># Generated with the following on 2023-03-22T16:49:09.066277
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>#
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>#   openstack tripleo container image prepare default --local-push-destination --output-env-file /home/stack/templates/containers-prepare-parameter.yaml
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>#
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>parameter_defaults:
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>  ContainerImagePrepare:
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>  - push_destination: true
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    set:
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>      ceph_alertmanager_image: ose-prometheus-alertmanager
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>      ceph_alertmanager_namespace: registry.redhat.io/openshift4
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>      ceph_alertmanager_tag: v4.6
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>      ceph_grafana_image: rhceph-4-dashboard-rhel8
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>      ceph_grafana_namespace: registry.redhat.io/rhceph
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>      ceph_grafana_tag: 4
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>      ceph_image: rhceph-4-rhel8
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>      ceph_namespace: registry.redhat.io/rhceph
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>      ceph_node_exporter_image: ose-prometheus-node-exporter
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>      ceph_node_exporter_namespace: registry.redhat.io/openshift4
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>      ceph_node_exporter_tag: v4.6
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>      ceph_prometheus_image: ose-prometheus
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>      ceph_prometheus_namespace: registry.redhat.io/openshift4
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>      ceph_prometheus_tag: v4.6
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>      ceph_tag: latest
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>      name_prefix: openstack-
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>      name_suffix: &#39;&#39;
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>      namespace: registry.redhat.io/rhosp-rhel8
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>      neutron_driver: ovn
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>      rhel_containers: false
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>      tag: &#39;16.2&#39;
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>    tag_from_label: &#39;{version}-{release}&#39;
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>Output env file exists, moving it to backup.
+</code></pre></div>
+</li>
+<li>
+<p>Starting with OSP15, Red Hat is moving to the Container Registry that requires an active Red Hat account.  In order to continue the installation, you need to include your credentials into the <em>container-prepare-parameter.yaml</em> file.  Service credentials can be created for the deployment using the <a href="https://access.redhat.com/terms-based-registry">Customer Portal Terms-Based-Registry</a> site.</p>
+<p>Click the <em>New Service Account</em> icon in the upper right corner.  Enter a name for the service account and a description.  Click the <em>Create</em> icon.</p>
+<p><img alt="TokenCreation" src="../images/osp-tokencreation.png" /></p>
+<p>Click the <em>Copy</em> icon on the far right to copy the new token to your local clipboard.</p>
+<p><img alt="TokenCopy" src="../images/osp-tokencopy.png" /></p>
+</li>
+<li>
+<p>Update the containers-prepare-parameter.yaml file with the new service account name and token.  Open the file and jump to the bottom.  Add the highlighted lines and paste the user name and token generated from Step 4.  The <em>ContainerImageRegistryCredentials</em> space aligns with the <em>ContainerImagePrepare</em> line at the top of the file.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>[stack@undercloud ~]$ vi templates/containers-prepare-parameter.yaml
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a># Generated with the following on 2023-03-08T09:20:45.446840
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>#
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>#   openstack tripleo container image prepare default --local-push-destination --output-env-file /home/stack/templates/containers-prepare-parameter.yaml
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>#
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>...
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="hll">  ContainerImageRegistryCredentials:
+</span><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="hll">    registry.redhat.io:
+</span><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="hll">      11009103|my-ospdeployment: eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxOGFlYTA2ZjVmNjg0MGUzYWZlODQ0YTdkZGIzYTc4N
+</span><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="hll">      ...
+</span><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="hll">      j1ivaZNDw-u8lwRCVtj7ZnQ
+</span></code></pre></div>
+</li>
+<li>
+<p>Update the undercloud.conf file if necessary.  This should not be required, but feel free to review and understand the parameters.</p>
+</li>
+<li>
+<p>Install the undercloud.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[stack@undercloud ~]$ openstack undercloud install
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>undercloud_admin_host or undercloud_public_host is not in the same cidr as local_ip.
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>\
+</code></pre></div>
+</li>
+<li>
+<p>Once the installation is complete, verify the containers are up and source the stackrc file to set the environment for the undercloud environment.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>[stack@undercloud ~]$ sudo podman ps
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>[stack@undercloud ~]$ source ~/stackrc
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>(undercloud) [stack@undercloud ~]$ 
+</code></pre></div>
+</li>
+<li>
+<p>Obtain the images for the overcloud nodes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>(undercloud) [stack@undercloud ~]$ sudo dnf -y install rhosp-director-images rhosp-director-images-ipa-x86_64
+</code></pre></div>
+</li>
+<li>
+<p>Extract the tar balls for the overcloud and ironic images.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>(undercloud) [stack@undercloud ~]$ cd ~/images
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>(undercloud) [stack@undercloud ~]$ tar -xvf /usr/share/rhosp-director-images/overcloud-full-latest-16.2.tar
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>(undercloud) [stack@undercloud ~]$ tar -xvf /usr/share/rhosp-director-images/ironic-python-agent-latest-16.2.tar
+</code></pre></div>
+</li>
+<li>
+<p>The root password can be changed in the overcloud image using the procedures below.  This is optional and is not required.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>(undercloud) [stack@undercloud ~]$ export LIBGUESTFS_BACKEND=direct
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>(undercloud) [stack@undercloud ~]$ virt-customize -a overcloud-full.qcow2 --root-password password:changeme
+</code></pre></div>
+<blockquote>
+<p>NOTE: the libguestfs-tools package may need to be installed: 
+      sudo dnf install -y libguestfs-tools</p>
+</blockquote>
+</li>
+<li>
+<p>Upload the overcloud images and verify they are available to the undercloud.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>(undercloud) [stack@undercloud ~]$ openstack overcloud image upload --image-path /home/stack/images
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>(undercloud) [stack@undercloud ~]$ openstack image list
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>+--------------------------------------+------------------------+--------+
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>| ID                                   | Name                   | Status |
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>+--------------------------------------+------------------------+--------+
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>| f3e73e81-acca-45d7-a848-7d6de40933ed | overcloud-full         | active |
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>| f8162188-4ec9-4312-9519-2e6421bd52a8 | overcloud-full-initrd  | active |
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>| da2195d1-d75f-4134-b906-1302ff9943af | overcloud-full-vmlinuz | active |
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>+--------------------------------------+------------------------+--------+
+</code></pre></div>
+</li>
+<li>
+<p>Verify the DNS server has been set for the cltplane subnet.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>(undercloud) [stack@undercloud ~]$ openstack subnet show ctlplane-subnet
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>| Field             | Value                                                                                                                                                   |
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>| allocation_pools  | 10.10.0.100-10.10.0.149                                                                                                                                 |
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>| cidr              | 10.10.0.0/24                                                                                                                                            |
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>| created_at        | 2023-03-08T15:07:54Z                                                                                                                                    |
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>| description       |                                                                                                                                                         |
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="hll">| dns_nameservers   | 10.10.0.10                                                                                                                                              |
+</span><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>| enable_dhcp       | True                                                                                                                                                    |
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>| gateway_ip        | 10.10.0.10                                                                                                                                              |
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>| host_routes       |                                                                                                                                                         |
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>| id                | 2096d5b9-7516-4146-ae4b-919a73f82a8f                                                                                                                    |
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>| ip_version        | 4                                                                                                                                                       |
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>| ipv6_address_mode | None                                                                                                                                                    |
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>| ipv6_ra_mode      | None                                                                                                                                                    |
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>| location          | cloud=&#39;&#39;, project.domain_id=, project.domain_name=&#39;Default&#39;, project.id=&#39;cd6a92e810154ab882d290a70e8c6afc&#39;, project.name=&#39;admin&#39;, region_name=&#39;&#39;, zone= |
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>| name              | ctlplane-subnet                                                                                                                                         |
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>| network_id        | 316ccfd5-f1b3-455c-9856-cbbed5b65ba7                                                                                                                    |
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>| prefix_length     | None                                                                                                                                                    |
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>| project_id        | cd6a92e810154ab882d290a70e8c6afc                                                                                                                        |
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>| revision_number   | 0                                                                                                                                                       |
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>| segment_id        | None                                                                                                                                                    |
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>| service_types     |                                                                                                                                                         |
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>| subnetpool_id     | None                                                                                                                                                    |
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>| tags              |                                                                                                                                                         |
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>| updated_at        | 2023-03-08T15:07:54Z                                                                                                                                    |
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
+</li>
+</ol>
+<h3 id="overcloud-installation">Overcloud Installation</h3>
+<p>The first step in deploying the overcloud is to generate the instackenv.yaml file.  Once this is complete, the file needs to be updated with the IP addresses of the VMs that were deployed by HextupleO.</p>
+<ol>
+<li>
+<p>Generate the instackenv.yaml file using the ansible-playbook.  Once the file is generated, source the <em>projectName</em>rc file for the overcloud environment.  This will allow you to get the list of servers and their IP addresses.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>(undercloud) [stack@undercloud ~]$ cd ~/GoodieBag
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>(undercloud) [stack@undercloud ~]$ ansible-playbook generate_instackenv.yml
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>(undercloud) [stack@undercloud ~]$ source *projectName*rc
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>(myproject) [stack@undercloud ~]$ openstack server list --insecure | awk &#39;/ipmi_/ { print $4 &quot;    &quot; $8 }&#39;
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>ipmi_overcloud_ceph3    virtualipmi=10.70.0.240
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>ipmi_overcloud_ceph2    virtualipmi=10.70.0.236
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>ipmi_overcloud_ceph1    virtualipmi=10.70.0.24
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>ipmi_overcloud_compute2    virtualipmi=10.70.0.11
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>ipmi_overcloud_compute1    virtualipmi=10.70.0.22
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>ipmi_overcloud_controller3    virtualipmi=10.70.0.70
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>ipmi_overcloud_controller2    virtualipmi=10.70.0.233
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>ipmi_overcloud_controller1    virtualipmi=10.70.0.227
+</code></pre></div>
+</li>
+<li>
+<p>Update the instackenv.yaml file with the IP addresses.  You can do this manually, or you can use this code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>openstack server list --insecure | awk &#39;/ipmi_/ {print $4 &quot;    &quot; $8}&#39; &gt; /tmp/ipmi_addreses.txt
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>cp ~/GoodieBag/instackenv.yaml ~/
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>sed -i &#39;/pm_addr/d&#39; ~/instackenv.yaml
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>for NODE in $(grep &#39;name: &#39; ~/instackenv.yaml | awk &#39;{print $NF}&#39; | sed &#39;s/&quot;//g&#39;)
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>do
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  IP=$(egrep ${NODE} /tmp/ipmi_addresses.txt | awk -F= &#39;{print $NF}&#39;)
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  sed -i &quot;/name: \&quot;${NODE}\&quot;/a \    pm_addr: \&quot;${IP}\&quot;&quot; ~/instackenv.yaml
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>done
+</code></pre></div>
+<blockquote>
+<p>NOTE: Make sure you view the ~/instackenv.yaml file to ensure it is correct before continuing with the installation.</p>
+</blockquote>
+</li>
+<li>
+<p>Register the nodes for the overcloud.  Make sure you source the stackrc file for the undercloud environment.  Once the import is complete, list the baremetal nodes and ensure all information is correct for the deployment.  All nodes will be in a <em>power off</em> or <em>manageable</em> state.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>(undercloud) [stack@undercloud ~]$ source ~/stackrc
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>(undercloud) [stack@undercloud ~]$ openstack overcloud node import ~/instackenv.yaml
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>(undercloud) [stack@undercloud ~]$ openstack baremetal node list
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>+--------------------------------------+-----------------------+--------------------------------------+-------------+--------------------+-------------+
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>| UUID                                 | Name                  | Instance UUID                        | Power State | Provisioning State | Maintenance |
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>+--------------------------------------+-----------------------+--------------------------------------+-------------+--------------------+-------------+
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>| 3a55f42d-b2d7-47f8-99b1-5e086f780896 | overcloud_ceph3       | 59118ee3-785a-45ef-bef7-8ce4739e34f6 | power off    | manageable             | False       |
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>| beb33a36-ace6-497a-9178-154c37de2a71 | overcloud_ceph2       | 55eefb7f-e5ad-4987-89ae-fe9ee2fb10dd | power off    | manageable             | False       |
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>| 9410122d-88d6-48fd-acbc-492b33ccdd12 | overcloud_ceph1       | de0b39b9-b69e-4316-a2b7-743fa95acb65 | power off    | manageable             | False       |
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>| 19677fb9-b855-410f-be3e-c433a0cfb5af | overcloud_compute2    | 5c61b62a-5324-4c20-9dc0-e3cfa866ffbb | power off    | manageable             | False       |
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>| f0e0ef33-2d4b-47e5-bb06-37b5eb3e4263 | overcloud_compute1    | d9bc6142-5780-45a2-899e-e5dc9d806ab9 | power off    | manageable             | False       |
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>| c5063619-334b-4336-8985-9ce4865a378e | overcloud_controller3 | 2bb2ca3e-819a-46ce-aa6e-7a4d900875e3 | power off    | manageable             | False       |
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>| ad1f539c-2897-4143-9281-44911fe71843 | overcloud_controller2 | 5a55912a-9c7c-4e35-bde2-c582bbfa1c28 | power off    | manageable             | False       |
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>| 19367e0f-45ac-4242-b867-423e5a81727e | overcloud_controller1 | 7f573f3c-8389-4973-aba7-99f055071632 | power off    | manageable             | False       |
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>+--------------------------------------+-----------------------+--------------------------------------+-------------+--------------------+-------------+
+</code></pre></div>
+<blockquote>
+<p>Continue to monitor until the nodes are all in an <em>manageable</em> state.</p>
+</blockquote>
+</li>
+<li>
+<p>Run the introspect to assign the profiles and configure the nodes successfully.  After all nodes are in an <em>available</em> state, verify the proper profiles were assigned.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>(undercloud) [stack@undercloud ~]$ openstack overcloud node introspect --all-manageable --provide
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>(undercloud) [stack@undercloud ~]$ openstack overcloud profiles list
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>+--------------------------------------+-----------------------+-----------------+-----------------+-------------------+
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>| Node UUID                            | Node Name             | Provision State | Current Profile | Possible Profiles |
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>+--------------------------------------+-----------------------+-----------------+-----------------+-------------------+
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>| 3a55f42d-b2d7-47f8-99b1-5e086f780896 | overcloud_ceph3       | active          | ceph-storage    |                   |
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>| beb33a36-ace6-497a-9178-154c37de2a71 | overcloud_ceph2       | active          | ceph-storage    |                   |
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>| 9410122d-88d6-48fd-acbc-492b33ccdd12 | overcloud_ceph1       | active          | ceph-storage    |                   |
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>| 19677fb9-b855-410f-be3e-c433a0cfb5af | overcloud_compute2    | active          | compute         |                   |
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>| f0e0ef33-2d4b-47e5-bb06-37b5eb3e4263 | overcloud_compute1    | active          | compute         |                   |
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>| c5063619-334b-4336-8985-9ce4865a378e | overcloud_controller3 | active          | control         |                   |
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>| ad1f539c-2897-4143-9281-44911fe71843 | overcloud_controller2 | active          | control         |                   |
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>| 19367e0f-45ac-4242-b867-423e5a81727e | overcloud_controller1 | active          | control         |                   |
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>+--------------------------------------+-----------------------+-----------------+-----------------+-------------------+
+</code></pre></div>
+</li>
+<li>
+<p>The undercloud public endpoints have been most likely encrypted with self-signed certificates.  Make sure to inject the cert into the deployment of the overcloud.  Copy the inject-trust-anchor-hiera.yaml file to the templates directory, copy the cert from the cm-local-ca.pem file and paste into the new file in the templates directory.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>(undercloud) [stack@undercloud ~]$ cp /usr/share/openstack-tripleo-heat-templates/environments/ssl/inject-trust-anchor-hiera.yaml ~/templates
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>(undercloud) [stack@undercloud ~]$ cat /etc/pki/ca-trust/source/anchors/cm-local-ca.pem
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>Bag Attributes
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    localKeyID: 39 D8 6C E9 C8 7F 65 01 20 80 25 09 E7 A4 41 EB 5D 5E 4E E9 
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    friendlyName: Local Signing Authority
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>subject=CN = Local Signing Authority, CN = b902a9d8-63a94f21-baaa93cc-f6428d97
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>issuer=CN = Local Signing Authority, CN = b902a9d8-63a94f21-baaa93cc-f6428d97
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>-----BEGIN CERTIFICATE-----
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>MIIDjjCCAnagAwIBAgIRALkCqdhjqU8huqqTzPZCjZcwDQYJKoZIhvcNAQELBQAw
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>...
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>LO+VuPv5BpVomVIT3w0cRbmzSNbUcRaX7QmcgyCxHl6FTWZllNsYYvHD6riNwWu+
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>faM=
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>-----END CERTIFICATE-----
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>(undercloud) [stack@undercloud ~]$ vi ~/templates/inject-trust-anchor-hiera.yaml
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a># *******************************************************************
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a># This file was created automatically by the sample environment
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a># generator. Developers should use `tox -e genconfig` to update it.
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a># Users are recommended to make changes to a copy of the file instead
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a># of the original, if any customizations are needed.
+<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a># *******************************************************************
+<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a># title: Inject SSL Trust Anchor on Overcloud Nodes
+<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a># description: |
+<a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>#   When using an SSL certificate signed by a CA that is not in the default
+<a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>#   list of CAs, this environment allows adding a custom CA certificate to
+<a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a>#   the overcloud nodes.
+<a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a>parameter_defaults:
+<a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a>  # Map containing the CA certs and information needed for deploying them.
+<a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a>  # Type: json
+<a id="__codelineno-17-31" name="__codelineno-17-31" href="#__codelineno-17-31"></a>  CAMap:
+<a id="__codelineno-17-32" name="__codelineno-17-32" href="#__codelineno-17-32"></a>    undercloud:
+<a id="__codelineno-17-33" name="__codelineno-17-33" href="#__codelineno-17-33"></a>      content: |
+<a id="__codelineno-17-34" name="__codelineno-17-34" href="#__codelineno-17-34"></a>        -----BEGIN CERTIFICATE-----
+<a id="__codelineno-17-35" name="__codelineno-17-35" href="#__codelineno-17-35"></a>        MIIDjjCCAnagAwIBAgIRALkCqdhjqU8huqqTzPZCjZcwDQYJKoZIhvcNAQELBQAw
+<a id="__codelineno-17-36" name="__codelineno-17-36" href="#__codelineno-17-36"></a>        ...
+<a id="__codelineno-17-37" name="__codelineno-17-37" href="#__codelineno-17-37"></a>        LO+VuPv5BpVomVIT3w0cRbmzSNbUcRaX7QmcgyCxHl6FTWZllNsYYvHD6riNwWu+
+<a id="__codelineno-17-38" name="__codelineno-17-38" href="#__codelineno-17-38"></a>        faM=
+<a id="__codelineno-17-39" name="__codelineno-17-39" href="#__codelineno-17-39"></a>        -----END CERTIFICATE-----
+</code></pre></div>
+<blockquote>
+<p>NOTE: Make sure that you line up the indentation for the certificate data.  It must be indented two spaces under the <em>content</em> tag.  </p>
+</blockquote>
+</li>
+<li>
+<p>Copy the deploy.sh template from the GoodieBag directory to the stack user's home directory.  Edit the /home/stack/deploy.sh file and add the inject-trust-anchor-hiera.yaml file.  Ensure you have an understanding of each of the yaml files included.  </p>
+<blockquote>
+<p>NOTE: If you are going to enable the RGW service in Ceph, make sure to include the <em>ceph-rgw.yaml</em> file in the initial deployment.  </p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>(undercloud) [stack@undercloud ~]$ cat deploy.sh
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>#!/bin/bash
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>#############################
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a># This is not fully dynamic file and it might have not been populated with all right information. This is a template. You might still want to verify this is what you want before executing it
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>##############################
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>source ~/stackrc
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>cd ~/
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>time openstack overcloud deploy --templates --stack myproject \
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>     -n templates/network_data.yaml \
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>     -e templates/node-info.yaml \
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>     -e templates/storage-environment.yaml \
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>     -e templates/ceph-custom-config.yaml \
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>     -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="hll">     -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-rgw.yaml \
+</span><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>     -e templates/network-environment.yaml \
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>     -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a><span class="hll">     -e templates/inject-trust-anchor-hiera.yaml \
+</span><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>     -e templates/host-memory.yaml \
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>     -e templates/containers-prepare-parameter.yaml \
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>     -e templates/ceph_dashboard_network_override.yaml \
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>     --log-file myproject_deployment.log \
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>     --ntp-server 10.10.0.10
+</code></pre></div>
+</li>
+<li>
+<p>In HextupleO 4, we are relying on the undercloud to provide NTP services.  By default, OSP v16 doesn't allow time sync from it's chrony service.  As a workaround, execute the following which opens the port via iptables and then allows a sync via chrony.  Restart the chrony service once complete.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>(undercloud) [stack@undercloud ~]$ sudo iptables -I INPUT -m state --state NEW -m udp -p udp --dport 123 -j ACCEPT
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>(undercloud) [stack@undercloud ~]$ echo &quot;echo allow 0.0.0.0/0 &gt;&gt; /etc/chrony.conf&quot; | sudo /bin/bash
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>(undercloud) [stack@undercloud ~]$ cat /etc/chrony.conf
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a># Do not manually edit this file.
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a># Managed by ansible-role-chrony
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>server 172.20.129.10 iburst minpoll 6 maxpoll 10
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>bindcmdaddress 127.0.0.1
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>bindcmdaddress ::1
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>allow 10.10.0.0/24
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>driftfile /var/lib/chrony/drift
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>logdir /var/log/chrony
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>rtcsync
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>makestep 1.0 3 
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>allow 0.0.0.0/0
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>(undercloud) [stack@undercloud ~]$ sudo systemctl restart chronyd
+</code></pre></div>
+</li>
+<li>
+<p>Execute the deploy.sh script to deploy the overcloud.  This takes a very long time to deploy so make sure you run the script in a tmux session.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>(undercloud) [stack@undercloud ~]$ tmux  
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>(undercloud) [stack@undercloud ~]$ cd   
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>(undercloud) [stack@undercloud ~]$ ./deploy.sh 
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>...
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>PLAY RECAP *********************************************************************
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>myproject-cephstorage-0 : ok=294  changed=149  unreachable=0    failed=0    skipped=153  rescued=0    ignored=0   
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>myproject-cephstorage-1 : ok=291  changed=149  unreachable=0    failed=0    skipped=153  rescued=0    ignored=0   
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>myproject-cephstorage-2 : ok=291  changed=149  unreachable=0    failed=0    skipped=153  rescued=0    ignored=0   
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>myproject-controller-0 : ok=380  changed=217  unreachable=0    failed=0    skipped=193  rescued=0    ignored=0   
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>myproject-controller-1 : ok=378  changed=211  unreachable=0    failed=0    skipped=195  rescued=0    ignored=0   
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>myproject-controller-2 : ok=378  changed=211  unreachable=0    failed=0    skipped=195  rescued=0    ignored=0   
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>myproject-novacompute-0 : ok=333  changed=177  unreachable=0    failed=0    skipped=179  rescued=0    ignored=0   
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>myproject-novacompute-1 : ok=333  changed=177  unreachable=0    failed=0    skipped=179  rescued=0    ignored=0    
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>undercloud                 : ok=172  changed=56   unreachable=0    failed=0    skipped=44   rescued=0    ignored=2   
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>2023-03-27 16:11:25.971578 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Summary Information ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>2023-03-27 16:11:25.971826 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Total Tasks: 2517       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>2023-03-27 16:11:25.972000 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Elapsed Time: 1:22:22.733271 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>2023-03-27 16:11:25.972191 |                                 UUID |       Info |       Host |   Task Name |   Run Time
+<a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a>2023-03-27 16:11:25.972394 | fa163e91-32a1-f7b4-b63f-000000007b9f |    SUMMARY | myproject-controller-0 | Wait for containers to start for step 3 using paunch | 1087.73s
+<a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a>2023-03-27 16:11:25.972600 | fa163e91-32a1-f7b4-b63f-00000000707e |    SUMMARY | undercloud | tripleo-ceph-run-ansible : run ceph-ansible | 479.52s
+<a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a>2023-03-27 16:11:25.972762 | fa163e91-32a1-f7b4-b63f-000000006641 |    SUMMARY | myproject-controller-2 | Wait for container-puppet tasks (generate config) to finish | 390.19s
+<a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a>2023-03-27 16:11:25.972917 | fa163e91-32a1-f7b4-b63f-00000000660c |    SUMMARY | myproject-controller-1 | Wait for container-puppet tasks (generate config) to finish | 390.03s
+<a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a>2023-03-27 16:11:25.973060 | fa163e91-32a1-f7b4-b63f-00000000667b |    SUMMARY | myproject-controller-0 | Wait for container-puppet tasks (generate config) to finish | 379.89s
+<a id="__codelineno-20-25" name="__codelineno-20-25" href="#__codelineno-20-25"></a>2023-03-27 16:11:25.973195 | fa163e91-32a1-f7b4-b63f-000000007235 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for haproxy | 250.51s
+<a id="__codelineno-20-26" name="__codelineno-20-26" href="#__codelineno-20-26"></a>2023-03-27 16:11:25.973368 | fa163e91-32a1-f7b4-b63f-0000000076d6 |    SUMMARY | myproject-controller-0 | Wait for containers to start for step 2 using paunch | 215.77s
+<a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a>2023-03-27 16:11:25.973582 | fa163e91-32a1-f7b4-b63f-000000007609 |    SUMMARY | myproject-controller-1 | Wait for containers to start for step 2 using paunch | 195.36s
+<a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a>2023-03-27 16:11:25.973734 | fa163e91-32a1-f7b4-b63f-00000000763f |    SUMMARY | myproject-controller-2 | Wait for containers to start for step 2 using paunch | 195.29s
+<a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a>2023-03-27 16:11:25.973875 | fa163e91-32a1-f7b4-b63f-00000000659a |    SUMMARY | myproject-controller-0 | Wait for puppet host configuration to finish | 154.03s
+<a id="__codelineno-20-30" name="__codelineno-20-30" href="#__codelineno-20-30"></a>2023-03-27 16:11:25.974022 | fa163e91-32a1-f7b4-b63f-000000007803 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for ovn_dbs | 150.17s
+<a id="__codelineno-20-31" name="__codelineno-20-31" href="#__codelineno-20-31"></a>2023-03-27 16:11:25.974162 | fa163e91-32a1-f7b4-b63f-000000006516 |    SUMMARY | myproject-controller-1 | Wait for puppet host configuration to finish | 143.97s
+<a id="__codelineno-20-32" name="__codelineno-20-32" href="#__codelineno-20-32"></a>2023-03-27 16:11:25.974322 | fa163e91-32a1-f7b4-b63f-00000000655d |    SUMMARY | myproject-controller-2 | Wait for puppet host configuration to finish | 143.71s
+<a id="__codelineno-20-33" name="__codelineno-20-33" href="#__codelineno-20-33"></a>2023-03-27 16:11:25.974517 | fa163e91-32a1-f7b4-b63f-000000007268 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for redis | 125.43s
+<a id="__codelineno-20-34" name="__codelineno-20-34" href="#__codelineno-20-34"></a>2023-03-27 16:11:25.974698 | fa163e91-32a1-f7b4-b63f-000000007245 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for mysql | 125.22s
+<a id="__codelineno-20-35" name="__codelineno-20-35" href="#__codelineno-20-35"></a>2023-03-27 16:11:25.974839 | fa163e91-32a1-f7b4-b63f-000000007b1a |    SUMMARY | myproject-controller-1 | Wait for containers to start for step 3 using paunch | 124.18s
+<a id="__codelineno-20-36" name="__codelineno-20-36" href="#__codelineno-20-36"></a>2023-03-27 16:11:25.974974 | fa163e91-32a1-f7b4-b63f-000000007b50 |    SUMMARY | myproject-controller-2 | Wait for containers to start for step 3 using paunch | 123.86s
+<a id="__codelineno-20-37" name="__codelineno-20-37" href="#__codelineno-20-37"></a>2023-03-27 16:11:25.975119 | fa163e91-32a1-f7b4-b63f-000000007258 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for oslo_messaging_rpc | 123.83s
+<a id="__codelineno-20-38" name="__codelineno-20-38" href="#__codelineno-20-38"></a>2023-03-27 16:11:25.975276 | fa163e91-32a1-f7b4-b63f-000000008a1e |    SUMMARY | myproject-controller-0 | Wait for puppet host configuration to finish | 123.51s
+<a id="__codelineno-20-39" name="__codelineno-20-39" href="#__codelineno-20-39"></a>2023-03-27 16:11:25.975468 | fa163e91-32a1-f7b4-b63f-000000008e17 |    SUMMARY | myproject-controller-0 | tripleo_ha_wrapper : Run init bundle puppet on the host for cinder_volume | 122.44s
+<a id="__codelineno-20-40" name="__codelineno-20-40" href="#__codelineno-20-40"></a>2023-03-27 16:11:25.975619 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ End Summary Information ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<a id="__codelineno-20-41" name="__codelineno-20-41" href="#__codelineno-20-41"></a>Ansible passed.Overcloud configuration completed.
+<a id="__codelineno-20-42" name="__codelineno-20-42" href="#__codelineno-20-42"></a>Overcloud Endpoint: http://10.1.0.99:5000
+<a id="__codelineno-20-43" name="__codelineno-20-43" href="#__codelineno-20-43"></a>Overcloud Horizon Dashboard URL: http://10.1.0.99:80/dashboard
+<a id="__codelineno-20-44" name="__codelineno-20-44" href="#__codelineno-20-44"></a>Overcloud rc file: /home/stack/myprojectrc
+<a id="__codelineno-20-45" name="__codelineno-20-45" href="#__codelineno-20-45"></a>Overcloud Deployed without error
+<a id="__codelineno-20-46" name="__codelineno-20-46" href="#__codelineno-20-46"></a>
+<a id="__codelineno-20-47" name="__codelineno-20-47" href="#__codelineno-20-47"></a>real    101m32.022s
+<a id="__codelineno-20-48" name="__codelineno-20-48" href="#__codelineno-20-48"></a>user    0m13.412s
+<a id="__codelineno-20-49" name="__codelineno-20-49" href="#__codelineno-20-49"></a>sys     0m1.491s
+</code></pre></div>
+<blockquote>
+<p>NOTE: In a separate session, you can monitor the deployment with the openstack commands.  </p>
+<p>(undercloud) [stack@undercloud ~]$ openstack server list<br />
+(undercloud) [stack@undercloud ~]$ openstack baremetal node list  </p>
+</blockquote>
+</li>
+</ol>
+<h3 id="post-deployment-validations">Post Deployment Validations</h3>
+<ol>
+<li>
+<p>Check the health of the cluster and the avialability zones.  Source the \&lt;projectName>rc file first.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>(myproject) [stack@myproject-undercloud ~]$ source myprojectrc
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>(myproject) [stack@myproject-undercloud ~]$ openstack service list
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>+----------------------------------+-----------+----------------+
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>| ID                               | Name      | Type           |
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>+----------------------------------+-----------+----------------+
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>| 2cf5a8efe59e429f913ed11f0fe29d58 | glance    | image          |
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>| 3a3aaac39577402ca2d91ae8ca70f359 | heat      | orchestration  |
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>| 5879421c8cda4f2fa1b98a1ff159b10a | placement | placement      |
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>| 9ce51c3e27f9448182a52c733a4cda2d | cinderv3  | volumev3       |
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>| a3ddde9d1c0b48c19bf9005680716d38 | keystone  | identity       |
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>| b22f9ce59c404fdbab27dd9fdd819149 | swift     | object-store   |
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>| bed225f252b74b6d96dcb23249d20da0 | heat-cfn  | cloudformation |
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>| e3c472eb17f545ebb7278bbcf475f322 | nova      | compute        |
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>| e460149135bd4f2dabe03d8a8f3eedc1 | cinderv2  | volumev2       |
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>| e7c30296b07f4147bb843723d10a7859 | neutron   | network        |
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>+----------------------------------+-----------+----------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>(myproject) [stack@myproject-undercloud ~]$ openstack network agent list
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>+--------------------------------------+------------------------------+------------------------------------------+-------------------+-------+-------+----------------+
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>| ID                                   | Agent Type                   | Host                                     | Availability Zone | Alive | State | Binary         |
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>+--------------------------------------+------------------------------+------------------------------------------+-------------------+-------+-------+----------------+
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>| 9e202644-48b9-4d40-a484-4ad6420bc752 | OVN Controller agent         | myproject-novacompute-0.localdomain |                   | :-)   | UP    | ovn-controller |
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>| a43a0c19-669b-40d0-84d4-48ad9d5f514e | OVN Controller Gateway agent | myproject-controller-2.localdomain  |                   | :-)   | UP    | ovn-controller |
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>| f26f3981-1e67-4063-b1ce-848deff49d18 | OVN Controller Gateway agent | myproject-controller-0.localdomain  |                   | :-)   | UP    | ovn-controller |
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>| e1538367-7b98-49a0-a9cb-98273b01938a | OVN Controller agent         | myproject-novacompute-1.localdomain |                   | :-)   | UP    | ovn-controller |
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>| bf65bc54-80d5-4614-b28c-9b42aaf08bc5 | OVN Controller Gateway agent | myproject-controller-1.localdomain  |                   | :-)   | UP    | ovn-controller |
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>+--------------------------------------+------------------------------+------------------------------------------+-------------------+-------+-------+----------------+
+</code></pre></div>
+</li>
+<li>
+<p>Create an image with central and remote/dcn Glance service.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>(myproject) [stack@myproject-undercloud ~]$ curl http://10.9.71.7/cirros-0.4.0-x86_64-disk.img -o ~/cirros-0.4.0-x86_64-disk.img  
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>(myproject) [stack@myproject-undercloud ~]$ qemu-img convert -f qcow2 -O raw cirros-0.4.0-x86_64-disk.img cirros-0.4.0-x86_64-disk.raw  
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>(myproject) [stack@myproject-undercloud ~]$ glance image-create --disk-format raw --container-format bare --name cirros --file cirros-0.4.0-x86_64-disk.raw --visibility public  
+</code></pre></div>
+</li>
+</ol>
+<h3 id="installation-of-ceph-dashboard">Installation of Ceph Dashboard</h3>
+<p>The Ceph dashboard is disabled by default but can easily be enabled in the overcloud using Director.  Full documentation can be found <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/deploying_an_overcloud_with_containerized_red_hat_ceph/adding-ceph-dashboard">here</a>.</p>
+<p>For quick reference, follow these procedures:</p>
+<ol>
+<li>
+<p>Source the stackrc file; reivew the templates/containers-prepare-parameter.yaml file.  This was generated in the overcloud deployment procedures and includes the containers required for Ceph and the dashboard.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>[stack@blm-ospinstall-undercloud ~]$ source ./stackrc
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>(undercloud) [stack@blm-ospinstall-undercloud ~]$ cat templates/containers-prepare-parameter.yaml
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a># Generated with the following on 2023-03-22T16:49:09.066277
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>#
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>#   openstack tripleo container image prepare default --local-push-destination --output-env-file /home/stack/templates/containers-prepare-parameter.yaml
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>#
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>parameter_defaults:
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>  ContainerImagePrepare:
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>  - push_destination: true
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>    set:
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>      ceph_alertmanager_image: ose-prometheus-alertmanager
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>      ceph_alertmanager_namespace: registry.redhat.io/openshift4
+<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>      ceph_alertmanager_tag: v4.6
+<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>      ceph_grafana_image: rhceph-4-dashboard-rhel8
+<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>      ceph_grafana_namespace: registry.redhat.io/rhceph
+<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>      ceph_grafana_tag: 4
+<a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>      ceph_image: rhceph-4-rhel8
+<a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a>      ceph_namespace: registry.redhat.io/rhceph
+<a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a>      ceph_node_exporter_image: ose-prometheus-node-exporter
+<a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a>      ceph_node_exporter_namespace: registry.redhat.io/openshift4
+<a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a>      ceph_node_exporter_tag: v4.6
+<a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a>      ceph_prometheus_image: ose-prometheus
+<a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a>      ceph_prometheus_namespace: registry.redhat.io/openshift4
+<a id="__codelineno-24-25" name="__codelineno-24-25" href="#__codelineno-24-25"></a>      ceph_prometheus_tag: v4.6
+<a id="__codelineno-24-26" name="__codelineno-24-26" href="#__codelineno-24-26"></a>      ceph_tag: latest
+<a id="__codelineno-24-27" name="__codelineno-24-27" href="#__codelineno-24-27"></a>      name_prefix: openstack-
+<a id="__codelineno-24-28" name="__codelineno-24-28" href="#__codelineno-24-28"></a>      name_suffix: &#39;&#39;
+<a id="__codelineno-24-29" name="__codelineno-24-29" href="#__codelineno-24-29"></a>      namespace: registry.redhat.io/rhosp-rhel8
+<a id="__codelineno-24-30" name="__codelineno-24-30" href="#__codelineno-24-30"></a>      neutron_driver: ovn
+<a id="__codelineno-24-31" name="__codelineno-24-31" href="#__codelineno-24-31"></a>      rhel_containers: false
+<a id="__codelineno-24-32" name="__codelineno-24-32" href="#__codelineno-24-32"></a>      tag: &#39;16.2&#39;
+<a id="__codelineno-24-33" name="__codelineno-24-33" href="#__codelineno-24-33"></a>    tag_from_label: &#39;{version}-{release}&#39;
+<a id="__codelineno-24-34" name="__codelineno-24-34" href="#__codelineno-24-34"></a>  ContainerImageRegistryCredentials:
+<a id="__codelineno-24-35" name="__codelineno-24-35" href="#__codelineno-24-35"></a>    registry.redhat.io:
+<a id="__codelineno-24-36" name="__codelineno-24-36" href="#__codelineno-24-36"></a>      11009103|my-ospdeployment: eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxOGFlYTA2ZjVmNjg0MGUzYWZlODQ0YTdkZGIzYTc4NyJ9.
+<a id="__codelineno-24-37" name="__codelineno-24-37" href="#__codelineno-24-37"></a>      ...
+<a id="__codelineno-24-38" name="__codelineno-24-38" href="#__codelineno-24-38"></a>      edIJ9DVJCI8MzWcouwKXIfGiMzjbj1ivaZNDw-u8lwRCVtj7ZnQ
+</code></pre></div>
+</li>
+<li>
+<p>The Ceph dashboard network is set by default to the provisioning network.  If you want to access through a different network, create an environment file and set the network to use.  Include this file in the deploy.sh script.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>(undercloud) [stack@blm-ospinstall-undercloud ~]$ vi templates/ceph_dashboard_newtork_override.yaml
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>parameter_defaults:
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    CephDashboardNetwork:  ctlplane
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>:wq
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>(undercloud) [stack@blm-ospinstall-undercloud ~]$ vi deploy.sh
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>#!/bin/bash
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>#############################
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a># This is not fully dynamic file and it might have not been populated with all right information. This is a template. You might still want to verify this is what you want before executing it
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>##############################
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>source ~/stackrc
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>cd ~/
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>time openstack overcloud deploy --templates --stack blm-ospinstall \
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>     -n templates/network_data.yaml \
+<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>     -e templates/node-info.yaml \
+<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>     -e templates/storage-environment.yaml \
+<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>     -e templates/ceph-custom-config.yaml \
+<a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>     -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
+<a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>     -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-rgw.yaml \
+<a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a><span class="hll">     -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-dashboard.yaml \
+</span><a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a><span class="hll">     -e templates/ceph_dashboard_network_override.yaml \
+</span><a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>     -e templates/network-environment.yaml \
+<a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a>     -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
+<a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a>     -e templates/inject-trust-anchor-hiera.yaml \
+<a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>     -e templates/host-memory.yaml \
+<a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a>     -e templates/containers-prepare-parameter.yaml \
+<a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a>     --log-file blm-ospinstall_deployment.log \
+<a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a>     --ntp-server 10.10.0.10
+</code></pre></div>
+</li>
+<li>
+<p>Run the deploy.sh script to install the dashboard stack.  This will deploy grafana, prometheus, alertmanager, and the node-exporter containers on the same nodes as the manager containers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>(undercloud) [stack@undercloud ~]$ ./deploy.sh
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>...
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>Ansible passed.Overcloud configuration completed.
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>The output file /home/stack/overcloud-deploy/myproject/myproject-deployment_status.yaml will be overriden
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>Overcloud Endpoint: http://10.1.0.99:5000
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>Overcloud Horizon Dashboard URL: http://10.1.0.99:80/dashboard
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>Overcloud rc file: /home/stack/myprojectrc
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>Overcloud Deployed without error
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>real    92m45.065s
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>user     0m12.506s
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>sys       0m1.494s
+</code></pre></div>
+</li>
+</ol>
+<h3 id="accessing-the-ceph-dashboard">Accessing the Ceph Dashboard</h3>
+<p>The dashboard is read only by default.  You can change the permissions, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/deploying_an_overcloud_with_containerized_red_hat_ceph/adding-ceph-dashboard#proc_changing-the-default-permissions">full documentation</a> for the procedures keeping in mind that changes made could be overwritten by the Director.</p>
+<ol>
+<li>
+<p>The VIP address and the Ceph admin credentials are contained within the all.yml file on the Undercloud Director.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>(undercloud) [stack@undercloud ~]$ sudo grep -e dashboard_admin_password -e dashboard_frontend_vip /var/lib/mistral/myproject/ceph-ansible/group_vars/all.yml
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>dashboard_admin_password: ********************
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>dashboard_frontend_vip: 10.10.0.137
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>(undercloud) [stack@undercloud ~]$ 
+</code></pre></div>
+</li>
+<li>
+<p>Given that the VIP is on the private network, open a sshuttle VPN connection using the undercloud director.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>bmclaren@bmclaren-mac ~ % sshuttle -r stack@blm-ospinstall 10.10.0.0/24
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>[local sudo] Password: 
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>stack@blm-ospinstall&#39;s password: 
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>c : Connected to server.
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a> s: warning: closed channel 1 got cmd=TCP_DATA len=432
+</code></pre></div>
+</li>
+<li>
+<p>In your favorite browswer, access the dashboard at the VIP on port 8444.  </p>
+</li>
+</ol>
+<p><img alt="CephDashboard" src="../images/ceph-dashboard.png" /></p>
+<blockquote>
+<p>NOTE: An error indicating you don't have permission to view this page will display, just click the <em>Go to Dashboard</em> icon.  </p>
+</blockquote>
+<h2 id="appendix">Appendix</h2>
+<h3 id="openstack-resource-and-event-list">OpenStack Resource and Event List</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>watch -n 30 &quot;openstack stack event list blm-ospinstall --nested-depth 5 | grep -v COMPLETE|  tail -n 10; openstack stack resource list blm-ospinstall -n 5 | grep -v COMPLETE | tail -n 10&quot;
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>2023-03-27 18:46:26Z [blm-ospinstall.AllNodesDeploySteps.BootstrapServerId]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>2023-03-27 18:46:27Z [blm-ospinstall.AllNodesDeploySteps.ExternalPostDeployTasks]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>2023-03-27 18:46:28Z [blm-ospinstall.AllNodesDeploySteps.ExternalUpdateTasks]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>2023-03-27 18:46:29Z [blm-ospinstall.AllNodesDeploySteps.ControllerExtraConfigPost]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>2023-03-27 18:46:30Z [blm-ospinstall.AllNodesDeploySteps.CephStorageExtraConfigPost]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>2023-03-27 18:46:31Z [blm-ospinstall.AllNodesDeploySteps.ComputeExtraConfigPost]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>2023-03-27 18:46:32Z [blm-ospinstall.AllNodesDeploySteps.ExternalDeployTasks]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>2023-03-27 18:46:33Z [blm-ospinstall.AllNodesDeploySteps.ControllerPostConfig]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>2023-03-27 18:46:33Z [blm-ospinstall.AllNodesDeploySteps.CephStoragePostConfig]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>2023-03-27 18:46:33Z [blm-ospinstall.AllNodesDeploySteps.ComputePostConfig]: CREATE_IN_PROGRESS  state changed
+<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>+--------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------
+<a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>---------------------------------------------------------------------------------------------------------+-----------------+----------------------+-------------------------------------------------------------------------------------------------
+<a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>--------------------------------------------------------+
+<a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>| resource_name                              | physical_resource_id                                                                                                                                       | resource_type
+<a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>                                                                                                         | resource_status | updated_time         | stack_name
+<a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>                                                        |
+<a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>+--------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------
+<a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>---------------------------------------------------------------------------------------------------------+-----------------+----------------------+-------------------------------------------------------------------------------------------------
+<a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a>--------------------------------------------------------+
+<a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a>+--------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------
+<a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a>---------------------------------------------------------------------------------------------------------+-----------------+----------------------+-------------------------------------------------------------------------------------------------
+<a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a>--------------------------------------------------------+
+</code></pre></div>
+<h2 id="logs">Logs</h2>
+<p>During the deployment, as the Ansible playbooks are executing, the output is written to the ansible.log under the mistral service.  The logs is located in /var/lib/mistral/\&lt;stackName></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>tail -f ansible.log
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>2023-03-27 15:19:33,748 p=89502 u=mistral n=ansible | 2023-03-27 15:19:33.748105 | fa163e91-32a1-f7b4-b63f-000000007235 |         OK | Run init bundle puppet on the host for haproxy | blm-ospinstall-controller-1
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>2023-03-27 15:19:33,817 p=89502 u=mistral n=ansible | 2023-03-27 15:19:33.817014 | fa163e91-32a1-f7b4-b63f-000000007236 |       TASK | Run pacemaker restart if the config file for the service changed
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>2023-03-27 15:19:34,338 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.337763 | fa163e91-32a1-f7b4-b63f-000000007235 |         OK | Run init bundle puppet on the host for haproxy | blm-ospinstall-controller-2
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>2023-03-27 15:19:34,340 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.340029 | fa163e91-32a1-f7b4-b63f-000000007236 |    CHANGED | Run pacemaker restart if the config file for the service changed | blm-ospinstall-controller-1
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>2023-03-27 15:19:34,401 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.401495 | fa163e91-32a1-f7b4-b63f-000000007244 |       TASK | Gather variables for each operating system
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>2023-03-27 15:19:34,423 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.422923 | fa163e91-32a1-f7b4-b63f-000000007236 |       TASK | Run pacemaker restart if the config file for the service changed
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>2023-03-27 15:19:34,550 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.550269 | fa163e91-32a1-f7b4-b63f-000000007245 |       TASK | Run init bundle puppet on the host for mysql
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>2023-03-27 15:19:34,865 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.865084 | fa163e91-32a1-f7b4-b63f-000000007236 |    CHANGED | Run pacemaker restart if the config file for the service changed | blm-ospinstall-controller-2
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>2023-03-27 15:19:34,928 p=89502 u=mistral n=ansible | 2023-03-27 15:19:34.928633 | fa163e91-32a1-f7b4-b63f-000000007244 |       TASK | Gather variables for each operating system
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>2023-03-27 15:19:35,050 p=89502 u=mistral n=ansible | 2023-03-27 15:19:35.049924 | fa163e91-32a1-f7b4-b63f-000000007245 |       TASK | Run init bundle puppet on the host for mysql
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>...
+</code></pre></div>
+<h3 id="ceph-specific-info">Ceph Specific Info</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>tail -f /var/lib/mistral/blm-ospinstall/ceph-ansible
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>...
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>2023-03-27 15:18:02,889 p=683304 u=root n=ansible | INSTALLER STATUS ***************************************************************
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph Monitor           : Complete (0:01:10)
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph Manager           : Complete (0:01:03)
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph OSD               : Complete (0:02:05)
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph RGW               : Complete (0:00:33)
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph Client            : Complete (0:00:27)
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>2023-03-27 15:18:02,897 p=683304 u=root n=ansible | Install Ceph Crash             : Complete (0:00:41)
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>2023-03-27 15:18:02,897 p=683304 u=root n=ansible | Monday 27 March 2023  15:18:02 -0400 (0:00:00.044)       0:07:56.045 ********** 
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>2023-03-27 15:18:02,897 p=683304 u=root n=ansible | =============================================================================== 
+<a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-container-common : pulling blm-ospinstall-undercloud.ctlplane.hextupleo.lab:8787/rhceph/rhceph-4-rhel8:latest image -- 27.71s
+<a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-mon : waiting for the monitor(s) to form the quorum... ------------ 17.18s
+<a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-mgr : create ceph mgr keyring(s) on a mon node -------------------- 12.77s
+<a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a>2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-handler : restart the ceph-crash service -------------------------- 12.47s
+<a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a>2023-03-27 15:18:02,900 p=683304 u=root n=ansible | ceph-osd : wait for all osd to be up ----------------------------------- 12.34s
+<a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-mon : fetch ceph initial keys ------------------------------------- 12.06s
+<a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : generate keys ------------------------------------------------ 8.93s
+<a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : use ceph-volume lvm batch to create bluestore osds ----------- 8.36s
+<a id="__codelineno-31-20" name="__codelineno-31-20" href="#__codelineno-31-20"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-mgr : wait for all mgr to be up ------------------------------------ 7.46s
+<a id="__codelineno-31-21" name="__codelineno-31-21" href="#__codelineno-31-21"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : assign application to pool(s) -------------------------------- 7.25s
+<a id="__codelineno-31-22" name="__codelineno-31-22" href="#__codelineno-31-22"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : create openstack pool(s) ------------------------------------- 6.75s
+<a id="__codelineno-31-23" name="__codelineno-31-23" href="#__codelineno-31-23"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | gather and delegate facts ----------------------------------------------- 5.94s
+<a id="__codelineno-31-24" name="__codelineno-31-24" href="#__codelineno-31-24"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : customize pool crush_rule ------------------------------------ 5.88s
+<a id="__codelineno-31-25" name="__codelineno-31-25" href="#__codelineno-31-25"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : customize pool min_size -------------------------------------- 5.78s
+<a id="__codelineno-31-26" name="__codelineno-31-26" href="#__codelineno-31-26"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : customize pool size ------------------------------------------ 5.78s
+<a id="__codelineno-31-27" name="__codelineno-31-27" href="#__codelineno-31-27"></a>2023-03-27 15:18:02,901 p=683304 u=root n=ansible | ceph-osd : set pg_autoscale_mode value on pool(s) ----------------------- 5.69s
+<a id="__codelineno-31-28" name="__codelineno-31-28" href="#__codelineno-31-28"></a>2023-03-27 15:18:02,902 p=683304 u=root n=ansible | ceph-crash : create client.crash keyring -------------------------------- 4.56s
+<a id="__codelineno-31-29" name="__codelineno-31-29" href="#__codelineno-31-29"></a>2023-03-27 15:18:02,902 p=683304 u=root n=ansible | ceph-config : create ceph initial directories --------------------------- 4.27s
+<a id="__codelineno-31-30" name="__codelineno-31-30" href="#__codelineno-31-30"></a>2023-03-27 15:18:02,902 p=683304 u=root n=ansible | ceph-config : create ceph initial directories --------------------------- 4.24s
+<a id="__codelineno-31-31" name="__codelineno-31-31" href="#__codelineno-31-31"></a>2023-03-27 15:18:02,902 p=683304 u=root n=ansible | ceph-config : create ceph initial directories --------------------------- 4.01s
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Red Hat NA-SSA Team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.efa0ade1.min.js"></script>
+      
+    
+  </body>
+</html>

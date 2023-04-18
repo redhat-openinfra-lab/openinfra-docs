@@ -130,7 +130,7 @@ This is accessing the Openstack that your environment is deployed to.
 
 #### Undercloud
 
-1. Access undercloud via ssh using stack@<ip-learned-from-horizon>  / password specified in Tower.  
+1. Access undercloud via ssh using stack@*ip-learned-from-horizon*  / password specified in Tower.  
 
 2. You can now start deploying OSP16.2 based on standard instructions (or whatever version you have staged).  See below notes for helpful information in the deployment process.
 
@@ -147,35 +147,33 @@ This is accessing the Openstack that your environment is deployed to.
 
     ```
     [stack@undercloud ~]$ egrep -v '(^$|^#)' undercloud.conf
-    [DEFAULT]  
-    certificate_generation_ca = local  
-    clean_nodes = true  
-    container_images_file = /home/stack/templates/containers-prepare-parameter.yaml  
-    generate_services_certificate = true  
-    hieradata_override = /home/stack/templates/undercloud_hiera.yaml  
-    local_interface = eth1  
-    local_ip = 10.10.0.10/24  
-    local_mtu = 8946  
-    local_subnet = ctlplane-subnet  
-    overcloud_domain_name = hextupleo.lab  
-    subnets - ctlplane-subnet  
-    undercloud_admin_host = 10.10.0.11  
-    undercloud_debug = false  
-    undercloud = hostname = myproject-undercloud.hextupleo.lab  
-    undercloud_nameservers = 10.9.71.7  
-    undercloud_ntp_servers = 10.9.71.7  
-    undercloud_public_host = 10.1.0.11  
-    [ctlplane-subnet]  
-    cidr = 10.10.0.0/24  
-    dhcp_end = 10.10.0.149  
-    dhcp_start = 10.10.0.100  
-    dns_nameservers = 10.10.0.10  
-    gateway = 10.10.0.10  
-    inspection_iprange = 10.10.0.200,10.10.0.249  
-    masquerade = true  
-    masquerade_network = 10.10.0.0/16  
-    [auth]  
-    undercloud_admin_password = changeme  
+    [DEFAULT]
+    certificate_generation_ca = local
+    clean_nodes = true
+    container_images_file = /home/stack/templates/containers-prepare-parameter.yaml
+    generate_service_certificate = true
+    hieradata_override = /home/stack/templates/undercloud_hiera.yaml
+    local_interface = eth1
+    local_ip = 10.10.0.10/24
+    local_mtu = 8946
+    local_subnet = ctlplane-subnet
+    overcloud_domain_name = hextupleo.lab
+    subnets = ctlplane-subnet
+    undercloud_admin_host = 10.10.0.11
+    undercloud_debug = false
+    undercloud_hostname = osp-blm-undercloud.hextupleo.lab
+    undercloud_nameservers = 172.20.129.10
+    undercloud_ntp_servers = 172.20.129.10
+    undercloud_public_host = 10.1.0.11
+    [ctlplane-subnet]
+    cidr = 10.10.0.0/24
+    dhcp_end = 10.10.0.149
+    dhcp_start =  10.10.0.100
+    dns_nameservers = 10.10.0.10
+    gateway = 10.10.0.10
+    inspection_iprange = 10.10.0.200,10.10.0.249
+    masquerade = true
+    masquerade_network = 10.10.0.0/16
     [stack@undercloud ~]$  
     ```
 
@@ -280,7 +278,13 @@ Please review the official documentation for accuracy and open any Bugzilla’s 
     ```
     [stack@undercloud ~]$ openstack undercloud install
     undercloud_admin_host or undercloud_public_host is not in the same cidr as local_ip.
-    \
+    Config option undercloud_public_host "10.1.0.11" not in defined CIDR "10.10.0.0/24"
+    Running: sudo --preserve-env openstack tripleo deploy --standalone --standalone-role Undercloud --stack undercloud --local-domain=hextupleo.lab --local-ip=10.10.0.10/24 --templates=/usr/share/openstack-tripleo-heat-templates/ --networks-file=network_data_undercloud.yaml --heat-native -e /usr/share/openstack-tripleo-heat-templates/environments/undercloud.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/use-dns-for-vips.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/podman.yaml -e /home/stack/templates/containers-prepare-parameter.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/masquerade-networks.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/ironic.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/ironic-inspector.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/mistral.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/zaqar-swift-backend.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/disable-telemetry.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/tempest.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/public-tls-undercloud.yaml --public-virtual-ip 10.1.0.11 --control-virtual-ip 10.10.0.11 -e /usr/share/openstack-tripleo-heat-templates/environments/ssl/tls-endpoints-public-ip.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/undercloud-haproxy.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/undercloud-keepalived.yaml --deployment-user stack --output-dir=/home/stack --cleanup -e /home/stack/tripleo-config-generated-env-files/undercloud_parameters.yaml --hieradata-override=/home/stack/templates/undercloud_hiera.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/tripleo-validations.yaml --log-file=install-undercloud.log -e /usr/share/openstack-tripleo-heat-templates/undercloud-stack-vstate-dropin.yaml
+    The heat stack undercloud action is CREATE
+    2023-04-10 13:54:09.767 11371 INFO migrate.versioning.api [-] 70 -> 71... 
+    2023-04-10 13:54:09.804 11371 INFO migrate.versioning.api [-] done
+    ...
+
     ```
 
 8. Once the installation is complete, verify the containers are up and source the stackrc file to set the environment for the undercloud environment.
@@ -387,7 +391,7 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
 2. Update the instackenv.yaml file with the IP addresses.  You can do this manually, or you can use this code:
 
     ```
-    openstack server list --insecure | awk '/ipmi_/ {print $4 "    " $8}' > /tmp/ipmi_addreses.txt
+    openstack server list --insecure | awk '/ipmi_/ {print $4 "    " $8}' > /tmp/ipmi_addresses.txt
     cp ~/GoodieBag/instackenv.yaml ~/
     sed -i '/pm_addr/d' ~/instackenv.yaml
     for NODE in $(grep 'name: ' ~/instackenv.yaml | awk '{print $NF}' | sed 's/"//g')
@@ -418,7 +422,7 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
     | 19367e0f-45ac-4242-b867-423e5a81727e | overcloud_controller1 | 7f573f3c-8389-4973-aba7-99f055071632 | power off    | manageable             | False       |
     +--------------------------------------+-----------------------+--------------------------------------+-------------+--------------------+-------------+
     ```
-    > Continue to monitor until the nodes are all in an *manageable* state.
+    > NOTE: Continue to monitor until the nodes are all in an *manageable* state.
 
 4. Run the introspect to assign the profiles and configure the nodes successfully.  After all nodes are in an *available* state, verify the proper profiles were assigned.  
 
@@ -439,8 +443,8 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
     +--------------------------------------+-----------------------+-----------------+-----------------+-------------------+
     ```
   
-5. The undercloud public endpoints have been most likely encrypted with self-signed certificates.  Make sure to inject the cert into the deployment of the overcloud.  Copy the inject-trust-anchor-hiera.yaml file to the templates directory, copy the cert from the cm-local-ca.pem file and paste into the new file in the templates directory.
-
+5. The undercloud public endpoints have been most likely encrypted with self-signed certificates.  Make sure to inject the cert into the deployment of the overcloud.  Copy the inject-trust-anchor-hiera.yaml file to the templates directory, copy the cert from the cm-local-ca.pem file and paste into the new file in the templates directory.  
+  
     ```
     (undercloud) [stack@undercloud ~]$ cp /usr/share/openstack-tripleo-heat-templates/environments/ssl/inject-trust-anchor-hiera.yaml ~/templates
     (undercloud) [stack@undercloud ~]$ cat /etc/pki/ca-trust/source/anchors/cm-local-ca.pem
@@ -485,12 +489,22 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
 
     > NOTE: Make sure that you line up the indentation for the certificate data.  It must be indented two spaces under the *content* tag.  
 
-
+  
 6. Copy the deploy.sh template from the GoodieBag directory to the stack user's home directory.  Edit the /home/stack/deploy.sh file and add the inject-trust-anchor-hiera.yaml file.  Ensure you have an understanding of each of the yaml files included.  
+  
+    > NOTE: If you want to deploy the Ceph Dashboard on the external network, you need to deploy it at the time of the initial overcloud deployment.  Create the ~/templates/ceph-dashboard-network-override.yaml file and include it in the ~/deploy.sh script.
+
+    ```
+    (undercloud) [stack@blm-ospinstall-undercloud ~]$ vi templates/ceph-dashboard-newtork-override.yaml
+    parameter_defaults:
+      ServiceNetworkMap: 
+        CephDashboardNetwork: external
+    :wq
+    ```
 
     > NOTE: If you are going to enable the RGW service in Ceph, make sure to include the *ceph-rgw.yaml* file in the initial deployment.  
 
-    ``` hl_lines="14 17"
+    ``` hl_lines="14 15 16 19"
     (undercloud) [stack@undercloud ~]$ cat deploy.sh
     #!/bin/bash
     #############################
@@ -505,6 +519,8 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
          -e templates/ceph-custom-config.yaml \
          -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
          -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-rgw.yaml \
+         -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-dashboard.yaml \
+         -e templates/ceph-dashboard-network-override.yaml \
          -e templates/network-environment.yaml \
          -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
          -e templates/inject-trust-anchor-hiera.yaml \
@@ -514,7 +530,7 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
          --log-file myproject_deployment.log \
          --ntp-server 10.10.0.10
     ```
-
+  
 
 7. In HextupleO 4, we are relying on the undercloud to provide NTP services.  By default, OSP v16 doesn't allow time sync from it's chrony service.  As a workaround, execute the following which opens the port via iptables and then allows a sync via chrony.  Restart the chrony service once complete.
 
@@ -646,6 +662,8 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
 
 The Ceph dashboard is disabled by default but can easily be enabled in the overcloud using Director.  Full documentation can be found [here](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/deploying_an_overcloud_with_containerized_red_hat_ceph/adding-ceph-dashboard).
 
+> NOTE: If deploying the Ceph Dashboard on the *external* network or any network other than the provisioning or ctlplane networks, it must be deployed at initial deployment of the OSP overcloud.  This is due to Puppet and HAProxy.  
+
 For quick reference, follow these procedures:
 
 1. Source the stackrc file; reivew the templates/containers-prepare-parameter.yaml file.  This was generated in the overcloud deployment procedures and includes the containers required for Ceph and the dashboard.
@@ -691,12 +709,12 @@ For quick reference, follow these procedures:
           edIJ9DVJCI8MzWcouwKXIfGiMzjbj1ivaZNDw-u8lwRCVtj7ZnQ
     ```
 
-2. The Ceph dashboard network is set by default to the provisioning network.  If you want to access through a different network, create an environment file and set the network to use.  Include this file in the deploy.sh script.
+2. The Ceph dashboard network is set by default to the provisioning network.  If you want to access through the ctlplane network, create an environment file and set the CephDashboardNetwork parameter to ctlplane.  Include this file in the deploy.sh script.
 
     ``` hl_lines="20 21"
-    (undercloud) [stack@blm-ospinstall-undercloud ~]$ vi templates/ceph_dashboard_newtork_override.yaml
+    (undercloud) [stack@blm-ospinstall-undercloud ~]$ vi templates/ceph-dashboard-newtork-override.yaml
     parameter_defaults:
-        CephDashboardNetwork:  ctlplane
+      CephDashboardNetwork: ctlplane
     :wq
     (undercloud) [stack@blm-ospinstall-undercloud ~]$ vi deploy.sh
     #!/bin/bash
@@ -714,7 +732,7 @@ For quick reference, follow these procedures:
          -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
          -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-rgw.yaml \
          -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-dashboard.yaml \
-         -e templates/ceph_dashboard_network_override.yaml \
+         -e templates/ceph-dashboard-network-override.yaml \
          -e templates/network-environment.yaml \
          -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
          -e templates/inject-trust-anchor-hiera.yaml \
@@ -746,15 +764,35 @@ For quick reference, follow these procedures:
 The dashboard is read only by default.  You can change the permissions, see the [full documentation](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/deploying_an_overcloud_with_containerized_red_hat_ceph/adding-ceph-dashboard#proc_changing-the-default-permissions) for the procedures keeping in mind that changes made could be overwritten by the Director.
 
 1. The VIP address and the Ceph admin credentials are contained within the all.yml file on the Undercloud Director.
-
+  
     ```
     (undercloud) [stack@undercloud ~]$ sudo grep -e dashboard_admin_password -e dashboard_frontend_vip /var/lib/mistral/myproject/ceph-ansible/group_vars/all.yml
     dashboard_admin_password: ********************
     dashboard_frontend_vip: 10.10.0.137
     (undercloud) [stack@undercloud ~]$ 
     ```  
+    > NOTE: If the Dashboard was deployed on the external network, the dashboard_frontend_vip will still contain an IP from the ctlplane network.  To get the external network IP address and view the HAProxy configuration, login to a control node and execute the following:
 
-2. Given that the VIP is on the private network, open a sshuttle VPN connection using the undercloud director.
+    ``` hl_lines="3"
+    $ sudo grep -A13 dashboard /var/lib/config-data/puppet-generated/haproxy/etc/haproxy/haproxy.cfg 
+    listen ceph_dashboard
+    bind 10.1.0.95:8444 transparent
+    mode http
+    balance source
+    http-check expect rstatus 2[0-9][0-9]
+    http-request set-header X-Forwarded-Proto https if { ssl_fc }
+    http-request set-header X-Forwarded-Proto http if !{ ssl_fc }
+    http-request set-header X-Forwarded-Port %[dst_port]
+    option httpchk HEAD /
+    option httplog
+    option forwardfor
+    server osp-blm-controller-0.storage.localdomain 10.40.0.108:8444 check fall 5 inter 2000 rise 2
+    server osp-blm-controller-1.storage.localdomain 10.40.0.178:8444 check fall 5 inter 2000 rise 2
+    server osp-blm-controller-2.storage.localdomain 10.40.0.160:8444 check fall 5 inter 2000 rise 2
+    ```
+2. If the VIP is on a private network, open a sshuttle VPN connection using the undercloud director.  
+
+    > NOTE: In Hextupleo, the external network still requires the use of sshuttle.
 
     ```
     bmclaren@bmclaren-mac ~ % sshuttle -r stack@blm-ospinstall 10.10.0.0/24
@@ -776,6 +814,17 @@ The dashboard is read only by default.  You can change the permissions, see the 
 
 ## Appendix
 
+### OSP and Ceph Alignment
+
+| RH-OSP | Director | External | 
+|-----|-------|-----|
+| OPS 10 | Ceph 2.x | Ceph 2.x or 3.x |
+| OPS 13 | Ceph 3.x | Ceph 3.x or 4.x |
+| OPS 16.1 | Ceph 4.x | Ceph 4.x or 5.x (16.1.8) |
+| OPS 16.2 | Ceph 4.x | Ceph 4.x or 5.x (16.2.1) |
+| OPS 17.0 | Ceph 5.2+ | Ceph 5.2 or TBD |
+| OSP 17.1 (when released)| Ceph 6 | Ceph 5.2 or 6 | 
+
 
 ### OpenStack Resource and Event List
 
@@ -792,24 +841,18 @@ watch -n 30 "openstack stack event list blm-ospinstall --nested-depth 5 | grep -
 2023-03-27 18:46:33Z [blm-ospinstall.AllNodesDeploySteps.ControllerPostConfig]: CREATE_IN_PROGRESS  state changed
 2023-03-27 18:46:33Z [blm-ospinstall.AllNodesDeploySteps.CephStoragePostConfig]: CREATE_IN_PROGRESS  state changed
 2023-03-27 18:46:33Z [blm-ospinstall.AllNodesDeploySteps.ComputePostConfig]: CREATE_IN_PROGRESS  state changed
-+--------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------
++--------------------------------------------+-------------+-----------------------------------------
 ---------------------------------------------------------------------------------------------------------+-----------------+----------------------+-------------------------------------------------------------------------------------------------
 --------------------------------------------------------+
 | resource_name                              | physical_resource_id                                                                                                                                       | resource_type
                                                                                                          | resource_status | updated_time         | stack_name
                                                         |
-+--------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------
----------------------------------------------------------------------------------------------------------+-----------------+----------------------+-------------------------------------------------------------------------------------------------
---------------------------------------------------------+
-+--------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------
----------------------------------------------------------------------------------------------------------+-----------------+----------------------+-------------------------------------------------------------------------------------------------
---------------------------------------------------------+
 ```
 
 
 ## Logs
 
-During the deployment, as the Ansible playbooks are executing, the output is written to the ansible.log under the mistral service.  The logs is located in /var/lib/mistral/\<stackName\>
+During the deployment, as the Ansible playbooks are executing, the output is written to the ansible.log under the mistral service.  The logs is located in /var/lib/mistral/*stackName*
 
 ```
 tail -f ansible.log
@@ -826,12 +869,157 @@ tail -f ansible.log
 ...
 ```
 
+### Ceph Network Interface Bonds
+
+```
+  OsNetConfigImpl:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      group: script
+      config:
+        str_replace:
+          template:
+            get_file: ../../scripts/run-os-net-config.sh
+          params:
+            $network_config:
+              network_config:
+              - type: interface
+                name: nic1  <-- Change to the provisioning network NIC (i.e. eno01)
+                mtu:
+                  get_param: ControlPlaneMtu
+                use_dhcp: false
+                addresses:
+                - ip_netmask:
+                    list_join:
+                    - /
+                    - - get_param: ControlPlaneIp
+                      - get_param: ControlPlaneSubnetCidr
+                routes:
+                  list_concat_unique:
+                    - get_param: ControlPlaneStaticRoutes
+                    - - default: true
+                        next_hop:
+                          get_param: ControlPlaneDefaultRoute
+            
+              - type: ovs_bridge
+                name: br_bond0
+                - type: linux_bond
+                  name: bond0  <-- StorageMgmt Network
+                  mtu:
+                    get_attr: [MinViableMtuBondApi, value]
+                  use_dhcp: false
+                  bonding_options:
+                    get_param: BondInterfaceOvsOptions
+                  dns_servers:
+                    get_param: DnsServers
+                  domain:
+                    get_param: DnsSearchDomains
+                  members:
+                    - type: interface
+                      name: nic2   <-- Change this to the port for storage network (i.e. eno49)
+                      mtu:
+                        get_attr: [MinViableMtuBondApi, value]
+                      primary: true
+                    - type: interface
+                      name: nic3   <-- Change this to the port for storage network (i.e. ens1f1)
+                      mtu:
+                        get_attr: [MinViableMtuBondApi, value]
+                - type: vlan
+                  device: bond0
+                  mtu:
+                    get_param: StorageMgmtMtu
+                  vlan_id:
+                    get_param: StorageMgmtNetworkVlanID
+                  addresses:
+                  - ip_netmask:
+                      get_param: StorageMgmtIpSubnet
+                  routes:
+                    list_concat_unique:
+                     - get_param: StorageMgmtInterfaceRoutes
+              - type: ovs_bridge
+                name: br_bond1
+                - type: linux_bond
+                  name: bond1    <--Storage Network
+                  mtu:
+                    get_attr: [MinViableMtuBondApi, value]
+                  use_dhcp: false
+                  bonding_options:  
+                    get_param: BondInterfaceOvsOptions
+                  dns_servers:
+                    get_param: DnsServers
+                  domain:
+                    get_param: DnsSearchDomains
+                  members:
+                    - type: interface
+                      name: nic4    <-- Change this to the port for storage network (i.e. eno50)
+                      mtu:
+                        get_attr: [MinViableMtuBondData, value]
+                      primary: true
+                    - type: interface
+                      name: nic5    <-- Change this to the port for storage network (i.e. ens1f0)
+                      mtu:
+                        get_attr: [MinViableMtuBondData, value]
+                - type: vlan
+                  device: bond1
+                  mtu:
+                    get_param: StorageMgmtMtu
+                  vlan_id:
+                    get_param: StorageMgmtNetworkVlanID
+                  addresses:
+                  - ip_netmask:
+                      get_param: StorageMgmtIpSubnet
+                  routes:
+                    list_concat_unique:
+                     - get_param: StorageMgmtInterfaceRoutes
+outputs:
+  OS::stack_id:
+    description: The OsNetConfigImpl resource.
+    value:
+      get_resource: OsNetConfigImpl
+```
+
+    ```
+    #This file is an example of an environment file for defining the isolated
+    #networks and related parameters.
+    resource_registry:
+      # Network Interface templates to use (these files must exist)
+      OS::TripleO::Compute::Net::SoftwareConfig:
+        ./nic-config/compute.yaml
+      # if you are configuring HCI (Hyperconverged nodes) comment 2 lines above and uncomment 2 lines below
+      #OS::TripleO::Compute::Net::SoftwareConfig:
+      #  ./nic-config/compute-hci.yaml
+      OS::TripleO::Controller::Net::SoftwareConfig:
+        ./nic-config/controller.yaml
+      OS::TripleO::CephStorage::Net::SoftwareConfig:
+        ./nic-config/ceph-storage.yaml   <-- Update the reference the proper location of this file.
+
+    ...
+      DnsServers: ["172.20.129.10","8.8.8.8"]
+      # List of Neutron network types for tenant networks (will be used in order)
+      NeutronNetworkType: 'geneve,vlan'
+      # The tunnel type for the tenant network (vxlan or gre). Set to '' to disable tunneling.
+      NeutronTunnelTypes: 'geneve'
+      # Neutron VLAN ranges per network, for example 'datacentre:1:499,tenant:500:1000':
+      NeutronNetworkVLANRanges: 'datacentre:1:1000'
+      #NeutronBridgeMappings: 'datacentre:br-bond0, tenant;br-tenant  <--Example update 
+      NeutronBridgeMappings: 'datacentre:br-ex,provider:br-provider'
+      NeutronFlatNetworks: 'datacentre,provider'
+      # Customize bonding options, e.g. "mode=4 lacp_rate=1 updelay=1000 miimon=100"
+      # for Linux bonds w/LACP, or "bond_mode=active-backup" for OVS active/backup.
+      # BondInterfaceOvsOptions: "mode=802.3ad lacp_rate=fast updelay=1000 miimon=100 xmit_hash_policy=layer3+4   <--Example update 
+      BondInterfaceOvsOptions: "bond_mode=active-backup"
+      TimeZone: 'US/Eastern'
+      NtpServer: 10.10.0.10    <-- Update with NTP servers is they are available outside the network, otherwise make sure the Chrony update is made.
+      # TimeZone: "America/Chicago"  <-- Add the timezone
+
+
+
 
 
 ### Ceph Specific Info
 
 ```
-tail -f /var/lib/mistral/blm-ospinstall/ceph-ansible
+tail -f /var/lib/mistral/blm-ospinstall/ceph-ansible/ceph_ansible_command.log
 ...
 2023-03-27 15:18:02,889 p=683304 u=root n=ansible | INSTALLER STATUS ***************************************************************
 2023-03-27 15:18:02,896 p=683304 u=root n=ansible | Install Ceph Monitor           : Complete (0:01:10)
@@ -867,12 +1055,25 @@ tail -f /var/lib/mistral/blm-ospinstall/ceph-ansible
 
 
 
+openstack stack resource list <stackName>
+openstack stack event list <stackName> --nested-depth 5
 
 
-   
+openstack stack list
+openstack stack event list <stackName>
+
+openstack stack failures list <stackName>
 
 
+openstack baremetal node set --property capabilities
 
+
+Manually tagging nodes for the profile:
+openstack baremetal node set --property capabilities='profile:control,boot_option:local' 1a4e30da-b6dc-499d-ba87-0bd8a3819bc0
+
+openstack baremetal node set --property capabilities='profile:compute,boot_option:local' 484587b2-b3b3-40d5-925b-a26a2fa3036f
+
+openstack baremetal node set --property capabilities='profile:ceph-storage,boot_option:local' d930e613-3e14-44b9-8240-4f3559801ea6
 
 
 
