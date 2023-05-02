@@ -79,32 +79,25 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 ### Horizon
 
-1. Using the project name as the username and password that you specified when you launched your job, log into the Horizon Dashboard with this link: 
+1. Using the project name as the username and password that you specified when you launched your job, log into the Horizon Dashboard with this link:  
 
       [HextupleO Lab](https://hextupleo.openinfra.lab) 
         
-2. Go to the *Compute->Instances* tab and make sure all of your requested nodes have been created.  Take note of the IP addresses for the ceph-frontend network.  You will use the 172.20.17.X addresses to access the servers.  
+2. Go to the *Compute->Instances* tab and make sure all of your requested nodes have been created.  Take note of the IP addresses for the VLAN1117 network.  You will use the 172.20.17.*X* addresses to access the servers.    
 
 
-    ![Screenshot](images/ceph-instancelist.png)
+    ![Screenshot](images/ceph-instancelist.png)  
 
   
-3. Go to *Network->Network Topology* and get familiar with how the VMs are connected on the networks.  
+3. Start each instance; In the *Actions* colume, select *Start Instance* for each node in the cluster.  
+
+
+4. Go to *Network->Network Topology* and get familiar with how the VMs are connected on the networks.  
 
     > INFO: We have created Tenant (overlay) networks to satisfy all the non-routable networks.    
 
-  
-4. Go to *Routers*, select the existing router (projectName_router); click the *Interfaces* tab and then click the *Add Interface* icon on the right.   Add the ceph-frontend interface in the Subnet dropdown.  Click *Submit*.  
 
-    ![Router Screenshot](images/hextupleo-horizon2.png)
-  
-5. Associate a Floating IP to each instance; select Compute->Instances.  In the Actions dropdown column, select *Associate Floating IP*.  Select an IP address from the dropdown, select the IP of the ceph-frontend network, click *Associate*.    
-
-
-6. Start each instance; In the Actions colume, select *Start Instance* for each node in the cluster.
-
-
-To access your instance, ssh as the cloud-user using these floating IP addresses.  Make sure you are connected to the NA-SSA VPN.
+To access your instance, ssh as the cloud-user using the VLAN IP addresses.  Make sure you are connected to the NA-SSA VPN.
 
 
 ## Ceph v5. Installation
@@ -119,17 +112,22 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 * Root-level access to all nodes.  
 * An active Red Hat Network or service account to access the Red Hat Registry.  
 
+> NOTE: Ensure that you are connected to the NA-SSA VPN
+
+
 1. Login to ceph1.  Update the /etc/hosts files with the IP and names.
+
+    > NOTE: Your IP address will be different.  
 
     ```
     ssh cloud-user@172.20.17.117
-    vi /etc/hosts
+    $ vi /etc/hosts
     127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
     ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
-    172.20.17.40     ceph1 cephstg01
-    172.20.17.120    ceph2 cephstg02
-    172.20.17.191    ceph3 cephstg03
+    172.20.17.40     ceph1 
+    172.20.17.120    ceph2 
+    172.20.17.191    ceph3 
 
     10.20.1.190      ceph1-stg
     10.20.1.125      ceph2-stg
@@ -139,7 +137,7 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 2. Grab the repo from the DNS Utility server
 
     ```
-    [cloud-user@ceph1 ~]$ sudo curl http://172.20.129.10/hextupleo-repo/rhel8.repo -o /etc/yum.repos.d/rhel8.repo
+    $ sudo curl http://172.20.129.10/hextupleo-repo/rhel8.repo -o /etc/yum.repos.d/rhel8.repo
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                      Dload  Upload   Total   Spent    Left  Speed
     100  1379  100  1379    0     0   269k      0 --:--:-- --:--:-- --:--:--  448k
@@ -160,11 +158,11 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 3. Update all packages using dnf on all servers.
 
     ```
-    [cloud-user@ceph1 ~]$ cat /etc/redhat-release 
+    $ cat /etc/redhat-release 
     Red Hat Enterprise Linux release 8.7 (Ootpa)
-    [cloud-user@ceph1 ~]$ uname -a
+    $ uname -a
     Linux ceph1 4.18.0-425.3.1.el8.x86_64 #1 SMP Fri Sep 30 11:45:06 EDT 2022 x86_64 x86_64 x86_64 GNU/Linux
-    [cloud-user@ceph1 ~]$ sudo dnf update -y
+    $ sudo dnf update -y
     ...
     Upgraded:
       NetworkManager-1:1.40.0-5.el8_7.x86_64                          NetworkManager-libnm-1:1.40.0-5.el8_7.x86_64                 NetworkManager-team-1:1.40.0-5.el8_7.x86_64                                      
@@ -179,19 +177,19 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
       libbytesize-1.4-3.el8.x86_64                libgcab1-1.1-1.el8.x86_64                 libgudev-232-4.el8.x86_64                 libgusb-0.3.0-1.el8.x86_64            libsmbios-2.4.1-2.el8.x86_64            
     ...
     Complete!
-    [cloud-user@ceph1 ~]$ sudo reboot
+    $ sudo reboot
     Connection to 172.20.17.117 closed by remote host.
     Connection to 172.20.17.117 closed.
     ```
 
-    > NOTE: Don't forget to do all servers in the cluster.
+    > NOTE: Don't forget to do all servers in the cluster.  
 
-4.  Generate the ssh key files for the root user on ceph1.  Update the authorized_keys file on all nodes and append the contents of the id_rsa.pub file.
+4.  Generate the ssh key files for the root user on ceph1.  Update the authorized_keys file on all nodes and append the contents of the id_rsa.pub file.  
 
-5.  Install the cephadm-ansible package on ceph1 (or the first node in the cluster).
+5.  Install the cephadm-ansible package on ceph1 (or the first node in the cluster).  
 
     ```
-    [cloud-user@ceph1 ~]$ sudo dnf install -y cephadm-ansible
+    $ sudo dnf install -y cephadm-ansible
     ...
     Installed:
       ansible-2.9.27-1.el8ae.noarch                    cephadm-ansible-1.8.0-1.el8cp.noarch                    python3-jmespath-0.9.0-11.el8.noarch                    sshpass-1.09-4.el8.x86_64                   
@@ -202,22 +200,22 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 6.  Create the inventory hosts and registry-login.json files on ceph1.  Change the permissions on the registry-login.json file.
 
     ```
-    [cloud-user@ceph1 ~]$ cd /usr/share/cephadm-ansible 
-    [cloud-user@ceph1 cephadm-ansible]$ vi hosts
+    $ cd /usr/share/cephadm-ansible 
+    $ vi hosts
     ceph1
     ceph2
     ceph3
 
     [admin]
     ceph1
-    [cloud-user@ceph1 cephadm-ansible]$ sudo mkdir /root/ceph
-    [cloud-user@ceph1 cephadm-ansible]$ sudo vi /root/ceph/registry.json
+    $ sudo mkdir /root/ceph
+    $ sudo vi /root/ceph/registry.json
     {
      "url":"registry.redhat.io",
      "username":"myuser1",
      "password":"mypassword1"
     }
-    [cloud-user@ceph1 cephadm-ansible]$ sudo chmod 600 registry.json     
+    $ sudo chmod 600 registry.json     
     ```
 
     > NOTE: The user name is the user name that you use to login to registry.redhat.io.  This is used to download the ceph containers.
@@ -225,6 +223,7 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 7.  Run the Ceph ansible preflight playbook.  
 
     ```
+    # sudo -i
     # ansible-playbook -i hosts cephadm-preflight.yml --extra-vars "ceph_origin="
     ```
 
@@ -259,9 +258,50 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 7.  Run the cephadm bootstrap command.
 
     ```
-    [root@ceph1 ceph]# cephadm bootstrap --mon-ip 172.20.17.40 --apply-spec /root/ceph/initial-cluster-config.yaml --initial-dashboard-password changeme --registry-json /root/ceph/registry-login.json --cluster-network 10.20.1.0/24
+    # cephadm bootstrap --mon-ip 172.20.17.40 --apply-spec /root/ceph/initial-cluster-config.yaml --initial-dashboard-password changeme --registry-json /root/ceph/registry-login.json --cluster-network 10.20.1.0/24
 
 
+8.  Once the bootstrap is complete, check the status of the cluster with the `ceph status` command.
+
+9.  If firewalld is enabled, ensure the following ports are opened on all nodes that run the `MON` and/or `OSD` service:  
+
+    MON:
+
+    ```
+    # firewall-cmd --zone-public --add-port=6789/tcp
+    # firewall-cmd --zone-public --add-port=6789/tcp --permanent
+    ```
+    
+    Or use the service name:  
+
+    ```
+    # firewall-cmd --zone-public --add-service=ceph-mon
+    # firewall-cmd --zone-public --add-service=ceph-mon --permanent
+    ```
+    
+    OSD:
+  
+    ```
+    # firewall-cmd --zone-public --add-port=6800-7300/tcp
+    # firewall-cmd --zone-public --add-port=6800-7300/tcp --permanent
+    ```
+    
+    Or use the service name:  
+
+    ```
+    # firewall-cmd --zone-[public|cluster] --add-service=ceph
+    # firewall-cmd --zone-[public|cluster] --add-service=ceph --permanent
+    ```
+    
+10. Ensure the MTU size is set to 9000 on the network interfaces.
+
+    ```
+    # nmcli conn modify 'eth0' 802-3-ethernet.mtu 9000
+    # nmcli conn down 'eth0'
+    # nmcli conn up 'eth0'
+    # ip link show 'eth0
+    ```
+    
 
 
 
