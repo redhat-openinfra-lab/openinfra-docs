@@ -29,19 +29,18 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 ### Default Configuration
 
-    > NOTE: I need to make the template to build a default environment including the project, networks, and instances.  Use the Customized Configuration for now.
 
-1. To build your environment, please ensure you are connected to the NA-SSA VPN first.
+1. To build your environment, please ensure you are connected to the NA-SSA VPN first.  
    
-2. Access RHAAP via link - [NA-SSA Ansible Automation Platform](https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login).
+2. Access RHAAP via link - [NA-SSA Ansible Automation Platform](https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login).  
 
-3. Select *Templates* in the left pane; click the rocket icon in the Action column to the right of *Deploy Ceph Environment*
+3. Select *Templates* in the left pane; click the rocket icon in the *Action* column to the right of *Deploy Ceph Storage Cluster*.  
 
-4. Update the *Project Name* and *Password* fields. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.
+4. Update the *project_name* and *project_password* parameters. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  
 
-    ![Screenshot](images/hextupleo-default1.png)
+    ![Screenshot](images/ceph-launchinst.png)
 
-5. Wait the deployment to finish which can take ~10-15 minutes.
+5. Wait the deployment to finish which can take up to ~10-15 minutes.  
 
 
 ### Customized Deployment  
@@ -81,10 +80,9 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 1. Using the project name as the username and password that you specified when you launched your job, log into the Horizon Dashboard with this link:  
 
-      [HextupleO Lab](https://hextupleo.openinfra.lab) 
+      [HextupleO Lab](https://hextupleo.openinfra.lab)  
         
-2. Go to the *Compute->Instances* tab and make sure all of your requested nodes have been created.  Take note of the IP addresses for the VLAN1117 network.  You will use the 172.20.17.*X* addresses to access the servers.    
-
+2. Go to the *Compute->Instances* tab and make sure all of your requested nodes have been created.  Take note of the IP addresses for the VLAN1117 network.  You will use the 172.20.17.*X* addresses to access the servers.  
 
     ![Screenshot](images/ceph-instancelist.png)  
 
@@ -94,7 +92,7 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 4. Go to *Network->Network Topology* and get familiar with how the VMs are connected on the networks.  
 
-    > INFO: We have created Tenant (overlay) networks to satisfy all the non-routable networks.    
+    > INFO: We have created Tenant (overlay) networks to satisfy all the non-routable networks.   
 
 
 To access your instance, ssh as the cloud-user using the VLAN IP addresses.  Make sure you are connected to the NA-SSA VPN.
@@ -255,15 +253,16 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
        - /dev/vdb
     ```
 
-7.  Run the cephadm bootstrap command.
+9.  Run the cephadm bootstrap command.  
 
     ```
-    # cephadm bootstrap --mon-ip 172.20.17.40 --apply-spec /root/ceph/initial-cluster-config.yaml --initial-dashboard-password changeme --registry-json /root/ceph/registry-login.json --cluster-network 10.20.1.0/24
+    # cephadm bootstrap --mon-ip 172.20.17.40 --apply-spec /root/ceph/initial-cluster-config.yaml --initial-dashboard-password changeme --dashboard-password-noupdate --registry-json /root/ceph/registry-login.json --cluster-network 10.20.1.0/24
+    ```
 
 
-8.  Once the bootstrap is complete, check the status of the cluster with the `ceph status` command.
+10.  Once the bootstrap is complete, check the status of the cluster with the `ceph status` command.  
 
-9.  If firewalld is enabled, ensure the following ports are opened on all nodes that run the `MON` and/or `OSD` service:  
+11.  If firewalld is enabled, ensure the following ports are opened on all nodes that run the `MON` and/or `OSD` service:  
 
     MON:
 
@@ -293,7 +292,7 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
     # firewall-cmd --zone-[public|cluster] --add-service=ceph --permanent
     ```
     
-10. Ensure the MTU size is set to 9000 on the network interfaces.
+12. Ensure the MTU size is set to 9000 on the network interfaces.
 
     ```
     # nmcli conn modify 'eth0' 802-3-ethernet.mtu 9000
