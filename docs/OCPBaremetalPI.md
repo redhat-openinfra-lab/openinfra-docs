@@ -59,13 +59,23 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 4. Update the *Project Name* and *Password* fields. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  
 
+    > NOTE:  Ensure the quota_vcpus value is set to at least 90 and the quota_ram value is set to at least 212000.  These the requirements needed to deploy an OCP cluster with ODF Essentials using the kni.worker.xlarge flavor.
+
+    ```
+    quota_vcpus: 90
+    quota_ram: 212000
+    quota_instances: 30
+    quota_ports: 200
+    ```
+
 5.  Go to *Templates* tab and hit the “rocket” icon next to - “Hextupleo - create networks”.  In hexo4 you are encouraged to experiment with different settings. However if you’d like to start with the known network configuration the default templates should be fine.  
 
     ```
-    networks:  
-      - { name: "provisioning0", cidr: "10.10.0.0/24", dhcp: "False", snat: "False", mtu: "1500" }  
-      - { name: "baremetal0", cidr: "10.20.0.0/24", dhcp: "False", snat: "False", mtu: "1500" }  
-      - { name: "virtualipmi", cidr: "10.30.0.0/24", dhcp: "True", snat: "True", mtu: "1500" }  
+    "ext_network": "vlan1117",
+    networks:
+    - { name: "provisioning0", cidr: "10.10.0.0/24", dhcp: "False", snat: "False", mtu: "8938" }
+    - { name: "baremetal0", cidr: "10.20.0.0/24", dhcp: "False", snat: "False", mtu: "8938" }
+    - { name: "virtualipmi", cidr: "10.30.0.0/24", dhcp: "True", snat: "True", mtu: "8938" }
     ```  
 
 
@@ -77,25 +87,26 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
     ```
     instances:
-      - { name: "bootstrap", image: "rhel-8.2", flavor: "kni.bootstrap", ipmi: "False", extra_volume_size: "0", net_name1: "vlan1117", net_name2: "provisioning0", net_name3: "baremetal0", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-worker3", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-worker2", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-worker1", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-master3", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-master2", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-master1", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "bootstrap", image: "rhel-8.2", flavor: "kni.bootstrap", ipmi: "False", extra_volume_size: "0", net_name1: "vlan1117", net_name2: "provisioning0", net_name3: "baremetal0", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-master1", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-master2", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-master3", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-worker1", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-worker2", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-worker3", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
     ```
 
     Without ODF (normal workers):
     ```
     instances:
       - { name: "bootstrap", image: "rhel-8.2", flavor: "kni.bootstrap", ipmi: "False", extra_volume_size: "0", net_name1: "vlan1117", net_name2: "provisioning0", net_name3: "baremetal0", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-worker3", image: "pxeboot", flavor: "kni.worker", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-worker2", image: "pxeboot", flavor: "kni.worker", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-worker1", image: "pxeboot", flavor: "kni.worker", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-master3", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-master2", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-master1", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-master2", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-master3", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-worker1", image: "pxeboot", flavor: "kni.worker", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-worker2", image: "pxeboot", flavor: "kni.worker", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-worker3", image: "pxeboot", flavor: "kni.worker", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+
     ```
 
 8.  Set user/project and password and submit the job using the same project and password used previously when creating the project.  Submit the job. 
@@ -136,7 +147,7 @@ You can ssh to this IP as the user kni using the password you set in the playboo
   
 ### Bootstrap
 
-1.  Access the bootstrap server via ssh using the IP address obtained in step 3 of the [Accessing Your Project’s OpenStack Environment](https://docs.google.com/document/d/1B7SlPdhHW9jmku0m7FTDdLYLLJq3ZJMXEelQi6mpdTs/edit#heading=h.b7qra7bw27o0) section and the password specified in Tower when deploying the KNI environment.
+1.  Access the bootstrap server via ssh as the `kni` user using the IP address obtained in step 3 of the *Accessing Your Project’s OpenStack Environment* section above and the password specified in Tower when deploying the KNI environment.
 
 2.  You can now start deploying Openshift Baremetal (KNI) based on the standard instructions below or feel free to deploy using any other documented process.  
 
@@ -186,7 +197,7 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
 5. Start and enable libvirtd; verify the daemon started successfully.
 
     ```
-    [kni@bootstrap ~]$ sudo systemctl enable –now libvirtd
+    [kni@bootstrap ~]$ sudo systemctl enable libvirtd --now
     [kni@bootstrap ~]$ systemctl status libvirtd
     ● libvirtd.service - Virtualization daemon
        Loaded: loaded (/usr/lib/systemd/system/libvirtd.service; enabled; vendor preset: enabled)
@@ -226,7 +237,7 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
     If -r or --router is passed, interface reconfiguration is skipped and router configuration will complete.
 
 
-    [kni@bootstrap ~]$ sudo /tmp/reconfig-net.sh -a
+    [kni@bootstrap ~]$ sudo ./reconfig-net.sh -a
     Connection 'System eth1' successfully deactivated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/2)
     Connection 'System eth2' (9c92fad9-6ecb-3e6c-eb4d-8a47c6f50c04) successfully deleted.
     Connection 'provisioning' (1b5a7497-4ff5-43ec-bb3e-df01e8f070e8) successfully added.
@@ -288,6 +299,7 @@ The installation is based on the latest-4.12 version.  This will need to be upda
     -h  Display help/usage information.
 
     [kni@bootstrap ~]$ GoodieBag/get-ocp-installer.sh
+    Getting the release image name.
     Downloading the openshift-client-linux.tar.gz file.
     Extracting the openshift-client installer.
     The openshift-baremetal-installer installed successfully.
@@ -329,7 +341,8 @@ The installation is based on the latest-4.12 version.  This will need to be upda
     done.
     Updating the install-config yaml file.
     Configuring DHCP and DNS.
-    Is this your first attempt to install OpenShift [y|n]: y
+    If you have a failed attempt at the installation, use the ~/GoodieBag/cleanup-ocp.sh script to reset the environment.
+    Go forth and deploy openshift-baremetal-installation.
     [kni@bootstrap ~]$
     ```
 
