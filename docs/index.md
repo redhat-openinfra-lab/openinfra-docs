@@ -57,6 +57,32 @@ Connecting validated the credentials.  Download the Fortinet VPN Client from the
    ![VPN-Download](images/vpn-download.png)
 
 
+Select the appropriate client and download it from where you’re redirected to.
+
+Install the client - this screenshot was taken from a forticlient running on a Mac. When you first start it, you will be prompted to configure the VPN.
+
+  ![VPN-Clientconfig](images/vpn-clientconfig.png)
+
+Click *Save*.  You can then connect to the NA SSA Lab VPN.
+
+You can also use OpenConnect (version 8+) to connect to the NA SSA Lab VPN from a Linux desktop running GNOME. First install OpenConnect (sudo dnf install openconnect - or debian or whatever Linux flavor you are running equivalent to), then install NetworkManager-openconnect-gnome (sudo dnf install NetworkManager-openconnect-gnome).
+
+Open GNOME Settings, navigate to *Network* and select the plus button to add a new VPN profile:
+
+  ![VPN-gnome](images/vpn-gnome.png)
+
+Select “openconnect”.  In the properties type the following:
+
+Name: (Whatever you like but “NA SSL Lab VPN” sounds good to me!)
+Gateway: 209.132.179.151:20443
+
+  ![VPN-addvpn](images/vpn-addvpn.png)
 
 
+Save the new VPN profile and connect to the VPN. Please note that the VPN gateway uses a self signed certificate - you might be warned about that. Accept the certificate and proceed.
 
+You can also use an alternative client that works well on headless systems. It does not have any dependencies on GNOME or dbus etc - like the network-manager method described above.
+
+* Install openforticlient (sudo dnf install openforticlient)  
+* Connect to the VPN from the command line:  
+* sudo openfortivpn 209.132.179.151:20443 --username=mlecki --trusted-cert 646fd76ad8c617bfd94f3318f25e592a88fd2735949dfde0281df19de43b47ce
