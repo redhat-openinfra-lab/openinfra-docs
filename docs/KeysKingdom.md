@@ -10,6 +10,11 @@ You can find Rover Groups in the <a href="https://rover.redhat.com/apps/ target=
 
 Access <a href="https://rover.redhat.com/groups/" target="_blank"> Rover Groups </a>; the main page will display your group membership.  The `na-ssa-infrastructure` group is the group used for BitWarden membership.  Current owners of the group are Ken, Chris, and Peter.  They can help with any membership additions and deletions.
 
+### Join the Group E-Mail
+
+Once a user is added to the group, they will recieve an e-mail invitation to accept the invitation.  Until they join, they won't be in the group.
+
+
 ## BitWarden
 
 <a href="https://vault.bitwarden.com/#/login" target="_blank">BitWarden </a> can be access via your favorite browser.  If necessary create an account using your @redhat.com email address.  

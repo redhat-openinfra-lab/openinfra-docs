@@ -28,6 +28,13 @@ Clone the site to your local repository.  Once you have a copy of the repository
 * `mkdocs build` - Build the documentation site.
 * `mkdocs -h` - Print help message and exit.
 
+## Lab Environment
+
+If you'd like to see the physical layout of the hardware in the lab, check out this diagram in <a href="https://lucid.app/lucidchart/9d8dbaa5-8a74-42f5-b0e7-5d34de9d5106/edit?invitationId=inv_27bcf624-e93e-43ef-82b7-95687fa01c0e&page=R5bDD72RxFKe# target="_blank"> Lucid Charts </a> or if you don't have access, here's a static diagram (click to open a larger version in a new tab):
+
+   <a href="images/lab-physical.png" target="_blank" ><img src=images/lab-physical.png  alt="drawing"  width="225"/></a>
+
+
 
 ## Lab VPN Access
 
