@@ -1,0 +1,825 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../CephRados/">
+      
+      
+        <link rel="next" href="../Certificates/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.13">
+    
+    
+      
+        <title>Ceph Performance Tuning - Openinfrastructure Lab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a6bdf11c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ceph-performance-tuning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Openinfrastructure Lab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ceph Performance Tuning
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Go to the dark side"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Go to the dark side" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Light side"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Light side" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Openinfrastructure Lab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Welcome to the Red Hat NA-SSA Lab's Documentation Site.
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephAuthorization/" class="md-nav__link">
+        Ceph Authorization
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephCrushMap/" class="md-nav__link">
+        Ceph CRUSH Map
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephFS/" class="md-nav__link">
+        CephFS
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephInstallation/" class="md-nav__link">
+        Ceph v5.x Installation Instructions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephLogging/" class="md-nav__link">
+        Ceph Logging
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephOSD/" class="md-nav__link">
+        Ceph OSD
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephRGW/" class="md-nav__link">
+        Ceph RGW Gateway
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephRados/" class="md-nav__link">
+        Ceph RADOS Block Devices
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ceph Performance Tuning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Ceph Performance Tuning
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#primary-osd-for-a-pg" class="md-nav__link">
+    Primary OSD for a PG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery-and-backfill" class="md-nav__link">
+    Recovery and Backfill
+  </a>
+  
+    <nav class="md-nav" aria-label="Recovery and Backfill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iops-optimized" class="md-nav__link">
+    IOPS optimized
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#throughput-optimized" class="md-nav__link">
+    Throughput optimized
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacity-optimized" class="md-nav__link">
+    Capacity optimized
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-stress-test" class="md-nav__link">
+    Performance Stress Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scrubbing" class="md-nav__link">
+    Scrubbing
+  </a>
+  
+    <nav class="md-nav" aria-label="Scrubbing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#light-scrubbing" class="md-nav__link">
+    Light Scrubbing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deep-scrubbing" class="md-nav__link">
+    Deep Scrubbing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    Logging
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Certificates/" class="md-nav__link">
+        Certificates
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Containers/" class="md-nav__link">
+        OCP
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../KeysKingdom/" class="md-nav__link">
+        Keys to the Kingdom
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OCPBaremetalPI/" class="md-nav__link">
+        OCP Baremetal IPI Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OSP16.2Instructions/" class="md-nav__link">
+        OSP 16.2 Installation Instructions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jirachangerequest/" class="md-nav__link">
+        Lab Change Requests
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="ceph-performance-tuning">Ceph Performance Tuning</h1>
+<h2 id="primary-osd-for-a-pg">Primary OSD for a PG</h2>
+<p>Use the <code>ceph osd primary-affinity osd-number affinity</code> command to influence the  selection of an OSD as the primary OSD for a placement group.</p>
+<h2 id="recovery-and-backfill">Recovery and Backfill</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>osd_recovery_op_priority</td>
+<td>Priority for recovery operations</td>
+</tr>
+<tr>
+<td>osd_recovery_max_active</td>
+<td>Max number of active recovery requests per OSD in parallel</td>
+</tr>
+<tr>
+<td>osd_recovery_threads</td>
+<td>Number of threads for data recovery</td>
+</tr>
+<tr>
+<td>osd_max_backfills</td>
+<td>Max number of back fills for an OSD</td>
+</tr>
+<tr>
+<td>osd_backfill_scan_min</td>
+<td>Minimum number of objects for backfill scan</td>
+</tr>
+<tr>
+<td>osd_backfill_scan_max</td>
+<td>Maximum number of objects for backfill scan</td>
+</tr>
+<tr>
+<td>osd_backfill_full_ratio</td>
+<td>Threshold for backfill requests to an OSd</td>
+</tr>
+<tr>
+<td>osd_rbackfill_retry_interval</td>
+<td>Seconds to wait before retrying backfill requests</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iops-optimized">IOPS optimized</h3>
+<ul>
+<li>Use two OSDs per NVMe device.  </li>
+<li>NVMe drives have data, the block database, and WAL collocated on the same storage device.  </li>
+<li>Assuming a 2 GHz CPU, use 10 cores per NVMe or 2 cores per SSD.  </li>
+<li>Allocate 16 GB RAM as a baseline, plus 5 GB per OSD.  </li>
+<li>Use 10 GbE NICs per 2 OSDs.  </li>
+</ul>
+<h3 id="throughput-optimized">Throughput optimized</h3>
+<ul>
+<li>Use one OSD per HDD.  </li>
+<li>Place the block database and WAL on SSDs or NVMes.  </li>
+<li>Use at least 7,200 RPM HDD drives.  </li>
+<li>Assuming a 2 GHz CPU, use one-half core per HDD.  </li>
+<li>Allocate 16 GB RAM as a baseline, plus 5 GB per OSD.  </li>
+<li>Use 10 GbE NICs per 12 OSDs.</li>
+</ul>
+<h3 id="capacity-optimized">Capacity optimized</h3>
+<ul>
+<li>Use one OSD per HDD.  </li>
+<li>HDDs have data, the block database, and WAL collocated on the same storage device.  </li>
+<li>Use at least 7,200 RPM HDD drives.  </li>
+<li>Assuming a 2 GHz CPU, use one-half core per HDD.  </li>
+<li>Allocate 16 GB RAM as a baseline, plus 5 GB per OSD.  </li>
+<li>Use 10 GbE NICs per 12 OSDs.  </li>
+</ul>
+<h2 id="performance-stress-test">Performance Stress Test</h2>
+<p>RADOS bench command</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># rados -p mypool bench seconds write|seq|rand -b objsize -t concurrency [--no-cleanup]
+</code></pre></div>
+NOTE: Default object size is 4 MB and default concurrency is 16</p>
+<p>RBD Bench command</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>rbd bench --io-type write testimage --pool=mypool  
+</code></pre></div>
+<p>Defaults:
+* --io-size  4096 bytes<br />
+<em> --io-threads  16<br />
+</em> --io-total  1 GB<br />
+* --io-pattern   seq</p>
+<h2 id="scrubbing">Scrubbing</h2>
+<p>You can control scrubbing globally or at the pool level.  To control at the pool level use the <code>ceph osd pool set poolName parameterValue</code> command.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>noscrub</td>
+<td>If set to true, Ceph doesn't light scrub the pool; default is false</td>
+</tr>
+<tr>
+<td>nodeep-scrub</td>
+<td>If set to true, Ceph doesn't deep scrub the pool; default is false</td>
+</tr>
+<tr>
+<td>scrub_min_interval</td>
+<td>Wait a minimum number of seconds between scrubs; default is 0 (uses global parameter)</td>
+</tr>
+<tr>
+<td>scrub_max_interval</td>
+<td>Do not wait more than this number of seconds before performing a scrub; default is 0</td>
+</tr>
+<tr>
+<td>deep_scrub_interval</td>
+<td>Interval for deep scrubbing; default is 0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="light-scrubbing">Light Scrubbing</h3>
+<p>Verifes an objects presence, checksum, and size.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>osd_scrub_end_hour = end_hour</td>
+<td>Specifies the time to stop scrubbing; 0 - 23</td>
+</tr>
+<tr>
+<td>osd_scrub_load_threshold</td>
+<td>Perform scrub is system load is below the threshold; default is .5</td>
+</tr>
+<tr>
+<td>osd_scrub_min_interval</td>
+<td>Wait a minimum number of seconds between scrubs; default is 86,400</td>
+</tr>
+<tr>
+<td>osd_scrub_internval_randomize_ratio</td>
+<td>Add a random dealy to the value defined in the osd_scrub_min_interval parameter; default is .5</td>
+</tr>
+<tr>
+<td>osd_scrub_max_interval</td>
+<td>Do not wait more than this number of seconds before performing a scrub regardless of load; default 604,800</td>
+</tr>
+<tr>
+<td>osd_scrub_priority</td>
+<td>Set the priority for scrub operations; default is 5; relative to osd_client_op_priority (default 64)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deep-scrubbing">Deep Scrubbing</h3>
+<p>Reads the data and recalculates and verifies the objects checksum.</p>
+<p>You can enable/disable deep scrubbing at the cluster level by using the <code>ceph osd set nodeep-scrub</code> and <code>ceph osd unset nodeep-scrub</code> commands.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>osd_deep_scrub_interval</td>
+<td>Interval for deep scrubbing; default is 604,800</td>
+</tr>
+<tr>
+<td>osd_scrub_sleep</td>
+<td>Introduces a pause between deep scrub disk reads.  Increase the value to slow down scrub operations; default is 0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="logging">Logging</h2>
+<p>Ceph logging levels are on a scale of 1 (terse) to 20 (verbose).  A single value can be used for both log level and memory level or separate them with a slash for different values (i.e. 1/5 where 1 is for log level and 5 is for memory log level).</p>
+<p>Get the logging config for daemons:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ceph --admin-daemon ./ceph-osd.11.asok config show | grep debug
+</code></pre></div></p>
+<blockquote>
+<p>NOTE: The asok files are found in /var/run/ceph/<em>fsid</em>.</p>
+</blockquote>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Red Hat NA-SSA Team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+    
+  </body>
+</html>
