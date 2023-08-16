@@ -38,7 +38,7 @@ Add erasure coded pool to your CephFS:
 
 Deploy the CephFS service and verify the service is up:
 ```
-# ceph orch apply mds fs-name --placement="2 ceph01,ceph02"
+# ceph orch apply mds fs-name --placement="2 ceph01 ceph02"
 # ceph mds stat
 ```
 

@@ -76,6 +76,14 @@ Get current key and permissions of a user:
 # ceph auth get client.myappuser
 ```
 
+## Update Ceph Dashboard admin Credentials
+
+```
+echo 'thepassword' > dash.pass
+ceph dashboard ac-user-set-password admin -i dash.pass
+```
+
+
 ## Update Capabilities
 
 Use the ceph auth caps command and the same options as creating an account.  Keeping in mind that any update to the user will overwrite the existing capabilities, therefore make sure you include any existing capabilites that need to be retained along with any additional.

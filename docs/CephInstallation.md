@@ -218,14 +218,17 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 
     > NOTE: The user name is the user name that you use to login to registry.redhat.io.  This is used to download the ceph containers.
 
-7.  Run the Ceph ansible preflight playbook.  
+
+## Installation
+
+1.  Run the Ceph ansible preflight playbook.  
 
     ```
     # sudo -i
     # ansible-playbook -i hosts cephadm-preflight.yml --extra-vars "ceph_origin="
     ```
 
-8. Create the bootstrap configuration file on ceph1 (or first node in the cluster).
+2. Create the bootstrap configuration file on ceph1 (or first node in the cluster).
 
     ```
     service_type: host
@@ -253,16 +256,16 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
        - /dev/vdb
     ```
 
-9.  Run the cephadm bootstrap command.  
+3.  Run the cephadm bootstrap command.  
 
     ```
     # cephadm bootstrap --mon-ip 172.20.17.40 --apply-spec /root/ceph/initial-cluster-config.yaml --initial-dashboard-password changeme --dashboard-password-noupdate --registry-json /root/ceph/registry-login.json --cluster-network 10.20.1.0/24
     ```
 
 
-10.  Once the bootstrap is complete, check the status of the cluster with the `ceph status` command.  
+4.  Once the bootstrap is complete, check the status of the cluster with the `ceph status` command.  
 
-11.  If firewalld is enabled, ensure the following ports are opened on all nodes that run the `MON` and/or `OSD` service:  
+5.  If firewalld is enabled, ensure the following ports are opened on all nodes that run the `MON` and/or `OSD` service:  
 
     MON:
 
@@ -292,7 +295,7 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
     # firewall-cmd --zone-[public|cluster] --add-service=ceph --permanent
     ```
     
-12. Ensure the MTU size is set to 9000 on the network interfaces.
+6. Ensure the MTU size is set to 9000 on the network interfaces.
 
     ```
     # nmcli conn modify 'eth0' 802-3-ethernet.mtu 9000
@@ -301,10 +304,31 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
     # ip link show 'eth0
     ```
     
+7. Set the labels for the servers.
 
+   ```
+   # ceph orch host ls
+   HOST           ADDR         LABELS                  STATUS  
+   cephstorage01  172.20.0.11  _admin mon mgr grafana          
+   cephstorage02  172.20.0.12  mon mgr rgw _admin              
+   cephstorage03  172.20.0.13  mon mgr rgw                     
+   cephstorage04  172.20.0.14  mon mgr rgw                     
+   cephstorage05  172.20.0.15                                  
+   cephstorage06  172.20.0.16                                  
+   6 hosts in cluster
+
+   # ceph orch host label add cephstorage01 mgr
+   ```
+
+   > Note: Labels can be mon, mgr, rgw, admin, or whatever you choose.
 
 
 ## Appendix
+### Export Service Specification
+
+```
+ceph orch ls --service_type type --service_name name --export
+```
 
 ### Create floating IP address
 

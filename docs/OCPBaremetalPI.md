@@ -59,11 +59,11 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 4. Update the *Project Name* and *Password* fields. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  
 
-    > NOTE:  Ensure the quota_vcpus value is set to at least 90 and the quota_ram value is set to at least 212000.  These the requirements needed to deploy an OCP cluster with ODF Essentials using the kni.worker.xlarge flavor.
+    > NOTE:  Ensure the quota_vcpus value is set to at least 100 and the quota_ram value is set to at least 240000.  These the requirements needed to deploy an OCP cluster with ODF Essentials using the kni.worker.xlarge flavor.
 
     ```
-    quota_vcpus: 90
-    quota_ram: 212000
+    quota_vcpus: 100
+    quota_ram: 240000
     quota_instances: 30
     quota_ports: 200
     ```
@@ -111,7 +111,7 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 8.  Set user/project and password and submit the job using the same project and password used previously when creating the project.  Submit the job. 
   
-9.  Finally, go to *Templates* tab and hit the “rocket” icon next to - *HextupleO - set up KNI*
+9.  Finally, go to *Templates* tab and hit the “rocket” icon next to - *HextupleO - configure OCP BM Bootstrap*
 
 10.  Follow the survey and submit the job
 
@@ -193,6 +193,8 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
     ```
     [kni@bootstrap ~]$ sudo usermod --append --groups libvirt kni
     ```
+    > NOTE: If you receive the error `DB version too old [0.21], expected [0.23] for domain implicit_files!` stop sssd with the `systemctl stop sssd` command, remove the cache files in */var/lib/sss/db* directory, and restart sssd with the `systemctl start sssd` command
+
 
 5. Start and enable libvirtd; verify the daemon started successfully.
 
@@ -226,7 +228,7 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
     Pool default marked as autostarted
     ```
 
-7. Set up networking using the reconfig-net.sh script in the ~/GoodieBag directory.  Once the connections are reconfigured, the script will display the final configuration.  The output should look similar to what is displayed below.  The script will also add the baremetal subnet to the external router if it was not completed in the Accessing Your Project’s OpenStack Environment section in the Horizon GUI.  
+7. Set up networking using the reconfig-net.sh script in the ~/GoodieBag directory.  Once the connections are reconfigured, the script will display the final configuration.  The output should look similar to what is displayed below.  The script will also add the baremetal subnet to the external router if it was not completed in the *Accessing Your Project’s OpenStack Environment* section in the Horizon GUI.  
 
     ```
     [kni@bootstrap ~]$ cd GoodieBag
@@ -269,7 +271,7 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
     [kni@bootstrap GoodieBag]$ 
     ```
 
-8. Create a pull-secret.txt file.  In a web browser, navigate to [Install OpenShift on Bare Metal with user-provisioned infrastructure](https://cloud.redhat.com/openshift/install/metal/user-provisioned), in the *Pull Secret* section, click the *Copy pull secret* link.  
+8. Create a pull-secret.txt file.  In a web browser, navigate to <a href="https://cloud.redhat.com/openshift/install/metal/user-provisioned" target="_blank"> Install OpenShift on Bare Metal with user-provisioned infrastructure</a>, in the *Pull Secret* section, click the *Copy pull secret* link.  
 
     ![CopyPull Screenshot](images/hextupleo-copypullsecret.png)
 
@@ -507,6 +509,8 @@ The OpenShift Console is not available on the VPN network the lab environment is
 
 
     > NOTE: The user name is kubeadmin.  The password can be found on the bootstrap server in the kni users’ ~/clusterconfig/auth directory in the the kubeadmin-password file.
+
+    > You will also need to add an entry in your /etc/hosts file for the DNS resolution.
 
 
 ## Using a JumpHost from OpenStack
@@ -958,3 +962,6 @@ Create the clusterconfigs working directory in the kni home directory.
 ```
 [kni@bootstrap ~]$ mkdir ~/clusterconfigs
 ```
+
+
+

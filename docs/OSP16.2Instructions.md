@@ -656,6 +656,24 @@ The first step in deploying the overcloud is to generate the instackenv.yaml fil
     (myproject) [stack@myproject-undercloud ~]$ glance image-create --disk-format raw --container-format bare --name cirros --file cirros-0.4.0-x86_64-disk.raw --visibility public  
     ```
 
+### Ceph Alias
+
+There isn't a Ceph client installed (i.e. ceph-common) on the controller nodes.  To access the Ceph cluster, all commands are run in the ceph-mon containers.  To make for less typing, I like to set up an alias for ceph on the controller nodes.
+
+```hl_lines="10 11"
+[heat-admin@osp-blm-controller-0 ~]$ vi .bash_profile
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+hn=$(hostname)
+alias ceph="sudo podman exec ceph-mon-$hn ceph"
+```
+> NOTE: Don't forget to update the `.bash_profile` on controller-[12] nodes.
 
 
 ### Installation of Ceph Dashboard
