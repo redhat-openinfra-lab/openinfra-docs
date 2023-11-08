@@ -6,7 +6,6 @@ This site is created using MKDocs.  For full documentation visit [mkdocs.org](ht
 
 Local client must have python and git.  After installing python, use pip to install the mkdocs and mkdocs-material packages.  It is not required, but using VS Code makes updating the documents easy and integrates with GitHub nicely.
 
-
 ## Update the Site or Add Documentation
 
 Clone the site to your local repository.  Once you have a copy of the repository, update the documentation locally.  Preview your changes using *mkdocs serve*.  This will initialize a local webserver as 127.0.0.1:8000.
@@ -36,7 +35,9 @@ If you'd like to see the physical layout of the hardware in the lab, check out t
 
    <a href="images/lab-physical.png" target="_blank" ><img src=images/lab-physical.png  alt="drawing"  width="225"/></a>
 
+## Lab SSA Links
 
+[SSA Links](http://172.20.129.19)
 
 ## Lab VPN Access
 
@@ -95,3 +96,9 @@ You can also use an alternative client that works well on headless systems. It d
 * Install openforticlient (sudo dnf install openforticlient)  
 * Connect to the VPN from the command line:  
 * sudo openfortivpn 209.132.179.151:20443 --username=mlecki --trusted-cert 646fd76ad8c617bfd94f3318f25e592a88fd2735949dfde0281df19de43b47ce
+
+
+## Private Bin
+
+https://privatebin.corp.redhat.com
+
