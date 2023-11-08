@@ -7,8 +7,8 @@
 nmcli conn add type bond con-name bond1 ifname bond1 bond.options "mode=802.3ad,miimon=100"
 nmcli conn add type ethernet slave-type bond con-name bond-ens4f0 ifname ens4f0 master bond1
 nmcli conn add type ethernet slave-type bond con-name bond-ens4f1 ifname ens4f1 master bond1
-nmcli conn add type vlan con-name vlan1100 bond1 id 1100 ip4 172.20.0.11/24 GW 172.20.0.1 
-nmcli conn add type vlan con-name vlan1101 bond1 id 1101 ip4 172.20.1.21/24 
+nmcli conn add type vlan con-name vlan1100 dev bond1 id 1100 ip4 172.20.0.11/24 gw4 172.20.0.1 
+nmcli conn add type vlan con-name vlan1101 dev bond1 id 1101 ip4 172.20.1.21/24 
 nmcli conn del ens4f0
 nmcli conn del ens4f1
 nmcli conn mod bond1 ipv4.method disabled
