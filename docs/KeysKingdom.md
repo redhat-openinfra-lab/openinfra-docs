@@ -12,7 +12,7 @@ Access <a href="https://rover.redhat.com/groups/" target="_blank"> Rover Groups 
 
 ### Join the Group E-Mail
 
-Once a user is added to the group, they will recieve an e-mail invitation to accept the invitation.  Until they join, they won't be in the group.
+Once a user is added to the group, they will recieve an e-mail to accept the invitation.  Until they join, they won't be in the group.
 
 
 ## BitWarden
