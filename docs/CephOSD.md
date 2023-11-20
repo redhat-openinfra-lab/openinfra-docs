@@ -54,6 +54,24 @@ Use the .asok socket to pull information from the OSD daemons.  The bluefs stats
 # ceph --admin-daemon ./ceph-osd.5.asok bluefs stats
 ```
 
+## Add OSD to the Ceph Cluster
+
+```
+# ceph orch daemon add osd serverName:/dev/vda
+Created osd(s) 9 on host ‘serverName’
+```
+
+Details of OSD:
+```
+# ceph osd find 9
+{
+   “Osd”: 9
+   “Adds”:  {
+        “Addrvec”: [
+…
+}
+```
+
 ## Remove OSD from Ceph Cluster
 
 Mark the OSD 'out'; this may already be the status.  
@@ -69,6 +87,40 @@ Remove the authentication/authorization keys
 # ceph osd rm osd.XX
 # ceph osd crush rm osd.XX
 # ceph auth del osd.XX
+```
+
+## Replace OSD
+
+```
+ceph orch daemon rm osd.xx --zap --replace
+```
+
+Use the following command to ensure the device can be reused if necessary:
+```
+ceph orch device zap --force 'serverName' /dev/sdx
+```
+
+## Manage OSDs
+
+Start|stop|restart OSD daemon:
+```
+# ceph orch daemon [start|stop|restart] osd.13
+Scheduled to stop osd.13 on host ‘ServerName’ 
+```
+
+Verify the correct OSD service is stopped
+```
+# ceph orch ps serverName —daemon-type osd 
+```
+
+## Updated OSD Device Class:
+
+```
+for i in {0..59}
+do 
+    ceph osd crush rm-device-class osd.$i
+    ceph osd crush set-device-class ssd osd.$i
+done
 ```
 
 ## Encryption
@@ -103,6 +155,16 @@ ceph pg dump pgs_brief | grep backfill
 
 ## Ceph Pools
 
+### Primary Affinity
+
+Manually control the selection of an OSD as the primary for a PG by setting the primary_affinity.  Mitigate issues or bottlenecks by configuring the cluster to avoid using slow disks or controllers for a primary OSD.
+
+```
+# ceph osd primary-affinity <osd-number> <affinity>  
+```
+Where affinity is a real number between 0 and 1.  
+
+
 ### Create Pool
 
 Replicated Pool:
@@ -128,6 +190,9 @@ Where erasureProfile is the name of the profile created with the ceph osd erasur
 
 ### Auto-scaling
 
+The pg_autoscale_mode property is enabled by default and allows Ceph to make recommendations and automatically adjust the pg_num and pgp_num parameters.  This can be changed on a per pool basis:
+
+
 Status:
 ```
 # ceph osd pool autoscale-status
@@ -135,7 +200,7 @@ Status:
 
 Set autoscale on specific pool:
 ```
-# ceph osd pool get <name> pg_autoscale_mode
+# ceph osd pool get <name> pg_autoscale_mode [off|on|warn]
 ```
 
 Get the default autoscale mode:
@@ -192,6 +257,13 @@ Details of a placement group:
 # ceph pg <pgID> query
 ```
 
+To have ceph manage all devices automatically:
+```
+# ceph orch apply osd —all-available-devices
+```
+This creates a systemd service as osd.all-available-devices (ceph orch ls)
+
+
 ## NVMe Firmware Update
 
 Grab the ISO file from Samsung Website.
@@ -206,4 +278,53 @@ mkdir /tmp/fwupdate; cd /tmp/fwupdate
 gzip -dc /mnt/iso/initrd | cpio -idv --no-absolute-filenames
 cd root/fumagician
 ./fumagician
+```
+
+## Performance Testing
+
+### FIO Utility
+
+Random Write Testing (no caching):
+```
+fio --name=rbd-test-direct1 --ioengine=libaio --direct=1 --rw=randwrite --bs=4k --numjobs=1 --size=4g --iodepth=1 --runtime=60 --time_based --end_fsync=1
+```
+
+With caching:
+```
+fio --name=rbd-test-direct0 --ioengine=libaio --rw=randwrite --bs=4k --numjobs=1 --size=4g --iodepth=1 --runtime=60 --time_based --end_fsync=1
+```
+
+Using input file:
+
+```
+cat rbd.fio
+[global]
+ioengine=rbd
+clientname=admin
+pool=rbd
+rbdname=myimage
+rw=randwrite
+bs=4k
+[rbd_iodepth32]
+iodepth=32
+
+fio ./rbd.fio
+```
+### Rados Bench Tool
+
+Random Write Testing (leave data) using 16 concurrent threads of 4194304 bytes for 10 seconds:
+```
+rados bench -p rbd 10 write --no-cleanup
+```
+
+### DD Utility
+
+Write 1 Gib of data 4 times (no caching):
+```
+dd if=/dev/zero of=here bs=1G count=4 oflag=direct
+```
+
+Wipe an msdos label from device:
+```
+# dd if=/dev/zero of=/dev/vdb bs=512 count=1
 ```
