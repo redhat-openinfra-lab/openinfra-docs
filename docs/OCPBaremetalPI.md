@@ -83,6 +83,12 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 7. Go to *Templates* tab and hit the “rocket” icon next to - “Hextupleo - create instances”.  Below is a good starting config with 3 controllers 2 computes and 3 ceph nodes.  
 
+    > NOTE: Don't forget to include the az parameter!
+
+     ```
+     "az": "leaf1"
+     ```
+
     With OCS (xlarge workers):  
 
     ```
@@ -386,9 +392,15 @@ The installation is based on the latest-4.12 version.  This will need to be upda
      Id   Name                        State
      -------------------------------------------
      1    kni-test2-ntpgv-bootstrap   running
-
+    ```
+    
+    To display the console output of the boostrap-vm (ctrl + `]` to exit):
+    ```
     [kni@bootstrap ~]$ sudo virsh console <bootstrap-vm>
-
+    ```
+    
+    View the status of the servers deployed through OpenStack:
+    ```
     [kni@bootstrap ~]$ source GoodieBag/<project_name>rc
     (kni-test2) [kni@bootstrap ~]$ openstack server list --insecure
     +--------------------------------------+------------------+---------+----------
