@@ -10,11 +10,7 @@ Local client must have python and git.  After installing python, use pip to inst
 
 The documentation is hosted in GitHub at https://github.com/redhat-openinfra-lab/openinfra-docs.
 
-Clone the [site](https://github.com/redhat-openinfra-lab/openinfra-docs/) to your local repository.  Once you have a copy of the repository, update the documentation locally.  Preview your changes using *mkdocs serve*.  This will initialize a local webserver as 127.0.0.1:8000.
-
-
-The site is configured to automatically publish changes to the gh-pages sites when a `push` to the master branch is executed.  Check the status of the pages build and deployment under the *Actions* menu.
-
+Please refer to the [Documentation Contribution](How%20To/DocumentationContribution.md) for more information on contributing to this documentation.
 
 ## Project layout
 
