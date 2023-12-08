@@ -4,7 +4,7 @@ This site is created using MKDocs.  For full documentation visit [mkdocs.org](ht
 
 ## Update the Site or Add Documentation
 
-The documentation is hosted in GitHub at https://github.com/redhat-openinfra-lab/openinfra-docs.
+The documentation is hosted in GitHub at [https://github.com/redhat-openinfra-lab/openinfra-docs](https://github.com/redhat-openinfra-lab/openinfra-docs).
 
 Please refer to the [Documentation Contribution](How%20To/DocumentationContribution.md) for more information on contributing to this documentation.
 
