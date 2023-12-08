@@ -2,10 +2,6 @@
 
 This site is created using MKDocs.  For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
-## Pre-Requisites
-
-Local client must have python and git.  After installing python, use pip to install the mkdocs and mkdocs-material packages.  It is not required, but using VS Code makes updating the documents easy and integrates with GitHub nicely.
-
 ## Update the Site or Add Documentation
 
 The documentation is hosted in GitHub at https://github.com/redhat-openinfra-lab/openinfra-docs.

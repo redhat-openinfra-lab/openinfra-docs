@@ -1,8 +1,14 @@
 # Documentation Contribution
 
-## Update the Site or Add Documentation
-
 The documentation is hosted in GitHub at [https://github.com/redhat-openinfra-lab/openinfra-docs](https://github.com/redhat-openinfra-lab/openinfra-docs).
+
+## Pre-Requisites
+
+Local client must have **python** and **git**.  After installing python, you will need to use **pip** to install the **mkdocs** and **mkdocs-material** packages.  Due to the use of **pip** we recommend using a Virtual Environment to work on the documentation.  This page will explain how to create/configure this.
+
+While it is not required, VS Code makes updating the documents easy and integrates with GitHub nicely.
+
+## Update the Site or Add Documentation
 
 As the site requires **pip** to install **mkdocs** and **mkdocs-material**, we recommend creating a Virtual Environment to work on the page documentation.  This page will explain how to do this.
 
