@@ -1,0 +1,1392 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../CephTuning/">
+      
+      
+        <link rel="next" href="../../How%20To/Certificates/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.1">
+    
+    
+      
+        <title>Ceph v6.x Installation - Openinfrastructure Lab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ceph-v6x-installation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Openinfrastructure Lab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ceph v6.x Installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Go to the dark side"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Go to the dark side" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Light side"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light side" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Openinfrastructure Lab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to the Red Hat NA-SSA Lab's Documentation Site.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../KeysKingdom/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Keys to the Kingdom
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Ceph
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ceph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephAuthorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph Authorization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephCrushMap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph CRUSH Map
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephFS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CephFS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephInstallation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph v5.x Installation Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephLogging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph Logging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephNetworking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephOSD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph OSD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephRGW/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph RGW Gateway
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephRados/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph RADOS Block Devices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephTuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph Performance Tuning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Ceph v6.x Installation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Ceph v6.x Installation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goals:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hextupleo" class="md-nav__link">
+    <span class="md-ellipsis">
+      HextupleO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-your-kni-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building Your KNI Lab
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building Your KNI Lab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customized-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customized Deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-your-project-in-horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing Your Project in Horizon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessing Your Project in Horizon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Horizon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ceph-v6-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ceph v6. Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ceph v6. Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export-service-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export Service Specification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-floating-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create floating IP address
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    How To
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            How To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Certificates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Certificates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/jirachangerequest/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab Change Requests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Openshift
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Openshift
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openshift/Containers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openshift/OCPBaremetalPI/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP Baremetal IPI Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Openstack
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Openstack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openstack/OSP16.2Instructions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OSP 16.2 Installation Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="ceph-v6x-installation">Ceph v6.x Installation</h1>
+<h2 id="introduction">Introduction</h2>
+<h2 id="goals">Goals:</h2>
+<ul>
+<li>Enable field on Ceph v6.0</li>
+<li>Test basics features work (no regression)</li>
+<li>Test new selected set of features</li>
+<li>Optionally test tech preview features</li>
+<li>Report product and documentation bugs </li>
+<li>Send valuable feedback to Ceph Product management and engineering teams at IBM</li>
+<li>Convert the work accomplished into lab training guides in order to enable more folks in the field</li>
+<li>Have fun with Ceph</li>
+<li>Get to work with and get to know each other.</li>
+</ul>
+<h2 id="hextupleo">HextupleO</h2>
+<p>The lab access will be provided in the form of nested virtualization managed by RHOSP 17.1.  We have limited resources available, but there should be enough room for about 20 virtual environments.</p>
+<p>Standard roles have been pre-defined, but since we are using OpenStack to manage it, we are capable of being flexible, with resizing flavors, snapshotting, adding more cinder volumes to ceph nodes or even adding more networks via either OpenStack CLI Horizon or Cloudforms.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>vRAM</th>
+<th>vCPU</th>
+<th>vNIC</th>
+<th>Disk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ceph</td>
+<td>32G</td>
+<td>8</td>
+<td><ul><li>1x pxe</li><li>1x ceph-frontend</li><li>1x ceph-backend</li></td>
+<td><ul><li>64GB</li><li>100GB</li></td>
+</tr>
+</tbody>
+</table>
+<h2 id="building-your-kni-lab">Building Your KNI Lab</h2>
+<h3 id="default-configuration">Default Configuration</h3>
+<ol>
+<li>
+<p>To build your environment, please ensure you are connected to the NA-SSA VPN first.  </p>
+</li>
+<li>
+<p>Access RHAAP via link - <a href="https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login">NA-SSA Ansible Automation Platform</a>.  </p>
+</li>
+<li>
+<p>Select <em>Templates</em> in the left pane; click the rocket icon in the <em>Action</em> column to the right of <em>Deploy Ceph Storage Cluster</em>.  </p>
+</li>
+<li>
+<p>Update the <em>project_name</em> and <em>project_password</em> parameters. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  </p>
+<p><img alt="Screenshot" src="../../images/ceph-launchinst.png" /></p>
+</li>
+<li>
+<p>Wait the deployment to finish which can take up to ~10-15 minutes.  </p>
+</li>
+</ol>
+<h3 id="customized-deployment">Customized Deployment</h3>
+<ol>
+<li>
+<p>To build your environment, please ensure you are connected to NA-SSA VPN.  </p>
+</li>
+<li>
+<p>Access RHAAP via link - <a href="https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login">NA-SSA Ansible Automation Platform</a>.  </p>
+</li>
+<li>
+<p>Go to <em>Templates</em> tab and hit the “rocket” icon next to - <em>Hextupleo - create  project</em>.  </p>
+</li>
+<li>
+<p>Update the <em>Project Name</em> and <em>Password</em> fields. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  </p>
+</li>
+<li>
+<p>Go to <em>Templates</em> tab and hit the “rocket” icon next to - “Hextupleo - create networks”.  In hexo4 you are encouraged to experiment with different settings. However if you’d like to start with the known network configuration the default templates should be fine.  Update the project_name and project_password along with the networks to just include the ones below.  Click <em>Next</em>, verify the configuration and click <em>Launch</em>.  Monitor the progress of the job executing in the output. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>external_network: vlan1117
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>networks:  
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  - { name: &quot;ceph-frontend&quot;, cidr: &quot;10.20.0.0/24&quot;, dhcp: &quot;True&quot;, snat: &quot;True&quot;, mtu: &quot;8938&quot; }  
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  - { name: &quot;ceph-backend&quot;, cidr: &quot;10.20.1.0/24&quot;, dhcp: &quot;True&quot;, snat: &quot;True&quot;, mtu: &quot;8938&quot; }  
+</code></pre></div>
+</li>
+<li>
+<p>Go to <em>Templates</em> tab and hit the “rocket” icon next to - “Hextupleo - create instances”.  Below is a good starting config with 3 ceph nodes.  Update the project_name and project_password along with the instances to just include the ones below.  Click <em>Next</em>, verify the configuration and click <em>Launch</em>.  Monitor the progress of the job executing in the output.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>instances:  
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  - { name: &quot;ceph1&quot;, image: &quot;rhel8.7&quot;, flavor: &quot;ceph&quot;, ipmi: &quot;False&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;ceph-frontend&quot;, net_name2: &quot;ceph-backend&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;,net_name8: &quot;&quot; }  
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  - { name: &quot;ceph2&quot;, image: &quot;rhel8.7&quot;, flavor: &quot;ceph&quot;, ipmi: &quot;False&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;ceph-frontend&quot;, net_name2: &quot;ceph-backend&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;,net_name8: &quot;&quot; }  
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  - { name: &quot;ceph3&quot;, image: &quot;rhel8.7&quot;, flavor: &quot;ceph&quot;, ipmi: &quot;False&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;ceph-frontend&quot;, net_name2: &quot;ceph-backend&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;,net_name8: &quot;&quot; }  
+</code></pre></div>
+</li>
+</ol>
+<h2 id="accessing-your-project-in-horizon">Accessing Your Project in Horizon</h2>
+<h3 id="horizon">Horizon</h3>
+<ol>
+<li>
+<p>Using the project name as the username and password that you specified when you launched your job, log into the Horizon Dashboard with this link:  </p>
+<p><a href="https://hextupleo.openinfra.lab">HextupleO Lab</a>  </p>
+</li>
+<li>
+<p>Go to the <em>Compute-&gt;Instances</em> tab and make sure all of your requested nodes have been created.  Take note of the IP addresses for the VLAN1117 network.  You will use the 172.20.17.<em>X</em> addresses to access the servers.  </p>
+<p><img alt="Screenshot" src="../../images/ceph-instancelist.png" />  </p>
+</li>
+<li>
+<p>Start each instance; In the <em>Actions</em> colume, select <em>Start Instance</em> for each node in the cluster.  </p>
+</li>
+<li>
+<p>Go to <em>Network-&gt;Network Topology</em> and get familiar with how the VMs are connected on the networks.  </p>
+<blockquote>
+<p>INFO: We have created Tenant (overlay) networks to satisfy all the non-routable networks.   </p>
+</blockquote>
+</li>
+</ol>
+<p>To access your instance, ssh as the cloud-user using the VLAN IP addresses.  Make sure you are connected to the NA-SSA VPN.</p>
+<h2 id="ceph-v6-installation">Ceph v6. Installation</h2>
+<p>The full Red Hat documentation for the Ceph installation is available <a href="https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/6/html-single/installation_guide/index#red-hat-ceph-storage_install">here</a>.  The below precedures are for the OpenInfra Lab environment and have been scaled down to only include the required steps.  </p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Red Hat Enterprise Linux 9.2 EUS or later.  </li>
+<li>Ansible 2.9 or later.  </li>
+<li>Valid Red Hat subsription with the appropriate entitlements.  </li>
+<li>Root-level access to all nodes.  </li>
+<li>An active Red Hat Network or service account to access the Red Hat Registry.  </li>
+</ul>
+<blockquote>
+<p>NOTE: Ensure that you are connected to the NA-SSA VPN</p>
+</blockquote>
+<ol>
+<li>
+<p>Login to ceph01.  Update the /etc/hosts files with the IP and names.</p>
+<blockquote>
+<p>NOTE: Your IP address will be different.  </p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ssh cloud-user@ceph01
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$ vi /etc/hosts
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>172.20.17.40     ceph01 
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>172.20.17.120    ceph02 
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>172.20.17.191    ceph03 
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>10.40.0.190      ceph01-stg
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>10.40.0.125      ceph02-stg
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>10.40.0.245      ceph03-stg
+</code></pre></div>
+</li>
+<li>
+<p>Grab the rhel9 repository file from the DNS Utility server</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ sudo curl http://172.20.129.10/hextupleo-repo/rhel9.repo -o /etc/yum.repos.d/rhel8.repo
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>                                 Dload  Upload   Total   Spent    Left  Speed
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>100  1379  100  1379    0     0   269k      0 --:--:-- --:--:-- --:--:--  448k
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>[cloud-user@ceph1 ~]$ cat /etc/yum.repos.d/rhel9.repo
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>[rhel-9-for-x86_64-highavailability-rpms]
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>name=rhel-9-for-x86_64-highavailability-rpms
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>baseurl=http://172.20.129.13/repos/rhel-9-for-x86_64-highavailability-rpms/
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>enabled=1
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>gpgcheck=0
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>...
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>[rhceph-6-tools-for-rhel-9-x86_64-rpms]
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>name=rhceph-6-tools-for-rhel-9-x86_64-rpms
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>baseurl=http://172.20.129.13/repos/rhceph-6-tools-for-rhel-9-x86_64-rpms/
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>enabled=1
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>gpgcheck=0
+</code></pre></div>
+</li>
+<li>
+<p>Update all packages using dnf on all servers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$ cat /etc/redhat-release 
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Red Hat Enterprise Linux release 9.1 (Plow)
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>$ sudo dnf update -y
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>...
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Installed:
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>ansible-collection-ansible-posix-1.2.0-1.3.el9ost.noarch                  ansible-collection-community-general-4.0.0-1.1.el9ost.noarch                 
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>ansible-core-2.14.2-5.el9_2.x86_64                                        cephadm-ansible-2.15.0-1.el9cp.noarch                                        
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>git-core-2.39.3-1.el9_2.x86_64                                            libnsl2-2.0.0-1.el9.x86_64                                                   
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>mpdecimal-2.5.1-3.el9.x86_64                                              python3.11-3.11.2-2.el9_2.1.x86_64                                           
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>python3.11-cffi-1.15.1-1.el9.x86_64                                       python3.11-cryptography-37.0.2-5.el9.x86_64                                  
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>python3.11-libs-3.11.2-2.el9_2.1.x86_64                                   python3.11-pip-wheel-22.3.1-2.el9.noarch                                     
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>python3.11-ply-3.11-1.el9.noarch                                          python3.11-pycparser-2.20-1.el9.noarch                                       
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>python3.11-pyyaml-6.0-1.el9.x86_64                                        python3.11-setuptools-wheel-65.5.1-2.el9.noarch                              
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>python3.11-six-1.16.0-1.el9.noarch                                        sshpass-1.09-4.el9.x86_64                                                    
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>Complete!    ...
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>$ sudo reboot
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>Connection to 172.20.17.117 closed by remote host.
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>Connection to 172.20.17.117 closed.
+</code></pre></div>
+<blockquote>
+<p>NOTE: Don't forget to do all servers in the cluster.  </p>
+</blockquote>
+</li>
+<li>
+<p>Generate the ssh key files for the root user on ceph01.  Update the authorized_keys file on all nodes and append the contents of the id_rsa.pub file.  </p>
+</li>
+<li>
+<p>Install the cephadm-ansible package on ceph01 (or the first node in the cluster).  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$ sudo dnf install -y cephadm-ansible
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>...
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Installed:
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  ansible-2.9.27-1.el8ae.noarch                    cephadm-ansible-1.8.0-1.el8cp.noarch                    python3-jmespath-0.9.0-11.el8.noarch                    sshpass-1.09-4.el8.x86_64                   
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>Complete!
+</code></pre></div>
+</li>
+<li>
+<p>Create the inventory hosts and registry-login.json files on ceph01.  Change the permissions on the registry-login.json file.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$ cd /usr/share/cephadm-ansible 
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$ vi hosts
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>ceph1
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>ceph2
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>ceph3
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>[admin]
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>ceph1
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>$ sudo mkdir /root/ceph
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>$ sudo vi /root/ceph/registry.json
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>{
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a> &quot;url&quot;:&quot;registry.redhat.io&quot;,
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a> &quot;username&quot;:&quot;myuser1&quot;,
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a> &quot;password&quot;:&quot;mypassword1&quot;
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>}
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>$ sudo chmod 600 registry.json     
+</code></pre></div>
+<blockquote>
+<p>NOTE: The user name is the user name that you use to login to registry.redhat.io.  This is used to download the ceph containers.</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="installation">Installation</h2>
+<ol>
+<li>
+<p>Run the Ceph ansible preflight playbook.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># sudo -i
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a># ansible-playbook -i hosts cephadm-preflight.yml --extra-vars &quot;ceph_origin=custom&quot; -e &quot;custom_repo_url=http://172.20.129.13/repos/rhceph-6-tools-for-rhel-9-x86_64-rpms/&quot;
+</code></pre></div>
+<blockquote>
+<p>NOTE: Use the custom_repo_url when for a disconnected installation.</p>
+</blockquote>
+</li>
+<li>
+<p>Create the bootstrap configuration file on ceph01 (or first node in the cluster).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>service_type: host
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>addr: ceph01
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>hostname: ceph01
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>---
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>service_type: host
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>addr: ceph02
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>hostname: ceph02
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>---
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>service_type: host
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>addr: ceph03
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>hostname: ceph03
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>---
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>service_type: host
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>addr: ceph04
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>hostname: ceph04
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>---
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>service_type: mon
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>placement:
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>  host_pattern: &quot;ceph0[1-3]&quot;
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>---
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>service_type: osd
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>service_id: initial_osds
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>placement:
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>  host_pattern: &quot;ceph0[1-3]&quot;
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>data_devices:
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>  paths:
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>   - /dev/vdb
+</code></pre></div>
+</li>
+<li>
+<p>Run the cephadm bootstrap command.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># cephadm bootstrap --mon-ip 10.40.0.193 --apply-spec /root/ceph/initial-config.yaml --initial-dashboard-password changeme  --registry-json /root/ceph/registry-login.json --cluster-network 10.20.1.0/24
+</code></pre></div>
+</li>
+<li>
+<p>Once the bootstrap is complete, check the status of the cluster with the <code>ceph status</code> command.  </p>
+</li>
+<li>
+<p>If firewalld is enabled, ensure the following ports are opened on all nodes that run the <code>MON</code> and/or <code>OSD</code> service:  </p>
+<p>MON:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a># firewall-cmd --zone-public --add-port=6789/tcp
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a># firewall-cmd --zone-public --add-port=6789/tcp --permanent
+</code></pre></div>
+<p>Or use the service name:  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a># firewall-cmd --zone-public --add-service=ceph-mon
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a># firewall-cmd --zone-public --add-service=ceph-mon --permanent
+</code></pre></div>
+<p>OSD:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a># firewall-cmd --zone-public --add-port=6800-7300/tcp
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a># firewall-cmd --zone-public --add-port=6800-7300/tcp --permanent
+</code></pre></div>
+<p>Or use the service name:  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a># firewall-cmd --zone-[public|cluster] --add-service=ceph
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a># firewall-cmd --zone-[public|cluster] --add-service=ceph --permanent
+</code></pre></div>
+</li>
+<li>
+<p>Ensure the MTU size is set to 9000 on the network interfaces.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a># nmcli conn modify &#39;eth0&#39; 802-3-ethernet.mtu 9000
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a># nmcli conn down &#39;eth0&#39;
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a># nmcli conn up &#39;eth0&#39;
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a># ip link show &#39;eth0
+</code></pre></div>
+</li>
+<li>
+<p>Set the labels for the servers.</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a># ceph orch host ls
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>HOST           ADDR         LABELS                  STATUS  
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>cephstorage01  172.20.0.11  _admin mon mgr grafana          
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>cephstorage02  172.20.0.12  mon mgr rgw _admin              
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>cephstorage03  172.20.0.13  mon mgr rgw                     
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>cephstorage04  172.20.0.14  mon mgr rgw                     
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>cephstorage05  172.20.0.15                                  
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>cephstorage06  172.20.0.16                                  
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>6 hosts in cluster
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a># ceph orch host label add cephstorage01 mgr
+</code></pre></div>
+<blockquote>
+<p>Note: Labels can be mon, mgr, rgw, admin, or whatever you choose.</p>
+</blockquote>
+<h2 id="appendix">Appendix</h2>
+<h3 id="export-service-specification">Export Service Specification</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ceph orch ls --service_type type --service_name name --export
+</code></pre></div>
+<h3 id="create-floating-ip-address">Create floating IP address</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>[stack@bgp-undercloud ~] openstack floating ip create --subnet 372459e8-25f9-4885-b71a-6889ffff02bf --project ceph-blm 18743df0-57aa-4571-9d62-439e0570b059
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Red Hat NA-SSA Team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

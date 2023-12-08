@@ -9,21 +9,25 @@
       
       
       
+        <link rel="prev" href="../CephLogging/">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="../CephOSD/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.1">
     
     
       
-        <title>Openinfrastructure Lab</title>
+        <title>Ceph Networking - Openinfrastructure Lab</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.45e1311d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -42,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -67,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ceph-networking" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -79,7 +88,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+    <a href="../.." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -99,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Ceph Networking
             
           </span>
         </div>
@@ -204,7 +213,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+    <a href="../.." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -222,7 +231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -242,7 +251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/KeysKingdom/" class="md-nav__link">
+      <a href="../../KeysKingdom/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -259,8 +268,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -269,12 +280,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -288,7 +299,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Ceph
@@ -302,7 +313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephAuthorization/" class="md-nav__link">
+      <a href="../CephAuthorization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -323,7 +334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephCrushMap/" class="md-nav__link">
+      <a href="../CephCrushMap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -344,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephFS/" class="md-nav__link">
+      <a href="../CephFS/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -365,7 +376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephInstallation/" class="md-nav__link">
+      <a href="../CephInstallation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -386,7 +397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephLogging/" class="md-nav__link">
+      <a href="../CephLogging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -404,10 +415,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/Ceph/CephNetworking/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Ceph Networking
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -416,6 +447,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#baremetal-lab-network-bonds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Baremetal Lab Network Bonds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Routes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -428,7 +497,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephOSD/" class="md-nav__link">
+      <a href="../CephOSD/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -449,7 +518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephRGW/" class="md-nav__link">
+      <a href="../CephRGW/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -470,7 +539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephRados/" class="md-nav__link">
+      <a href="../CephRados/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -491,7 +560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephTuning/" class="md-nav__link">
+      <a href="../CephTuning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -512,7 +581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/Cephv6installation/" class="md-nav__link">
+      <a href="../Cephv6installation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -580,7 +649,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/How%20To/Certificates/" class="md-nav__link">
+      <a href="../../How%20To/Certificates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -601,7 +670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/How%20To/jirachangerequest/" class="md-nav__link">
+      <a href="../../How%20To/jirachangerequest/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -669,7 +738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Openshift/Containers/" class="md-nav__link">
+      <a href="../../Openshift/Containers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -690,7 +759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Openshift/OCPBaremetalPI/" class="md-nav__link">
+      <a href="../../Openshift/OCPBaremetalPI/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -758,7 +827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Openstack/OSP16.2Instructions/" class="md-nav__link">
+      <a href="../../Openstack/OSP16.2Instructions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -791,8 +860,47 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+<h1 id="ceph-networking">Ceph Networking</h1>
+<h2 id="baremetal-lab-network-bonds">Baremetal Lab Network Bonds</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>nmcli conn add type bond con-name bond1 ifname bond1 bond.options &quot;mode=802.3ad,miimon=100&quot;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>nmcli conn add type ethernet slave-type bond con-name bond-ens4f0 ifname ens4f0 master bond1
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>nmcli conn add type ethernet slave-type bond con-name bond-ens4f1 ifname ens4f1 master bond1
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>nmcli conn add type vlan con-name vlan1100 dev bond1 id 1100 ip4 172.20.0.11/24 gw4 172.20.0.1 
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>nmcli conn add type vlan con-name vlan1101 dev bond1 id 1101 ip4 172.20.1.21/24 
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>nmcli conn del ens4f0
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>nmcli conn del ens4f1
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>nmcli conn mod bond1 ipv4.method disabled
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>nmcli conn mod bond1 ipv6.method disabled
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>nmcli conn mod bond1 802-3-ethernet.mtu 9000
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>nmcli conn mod vlan1100 ipv4.dns 172.20.129.10
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>nmcli conn mod vlan1101 ipv4.dns 172.20.129.10
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>nmcli conn mod bond1 bond.options &#39;mode=4,lacp_rate=fast,updelay=1000,miimon=100,xmit_hash_policy=layer3+4&#39;
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>nmcli conn reload
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>nmcli networking off &amp;&amp; nmcli networking on
+</code></pre></div>
+<h2 id="routes">Routes</h2>
+<p>Add a route to <em>network</em> via <em>gateway</em> on device <em>interface</em>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ip route add 10.20.0.0/24 via 10.40.0.1 dev eth1
+</code></pre></div></p>
+<p>Using NMCLI:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>nmcli conn modify eth1 _ipv4.routes &quot;10.20.0.0/24 10.40.0.1&quot;
+</code></pre></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -838,10 +946,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "/assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>
