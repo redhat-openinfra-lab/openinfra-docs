@@ -9,23 +9,25 @@
       
       
       
+        <link rel="prev" href="../CephRados/">
       
-        <link rel="next" href="KeysKingdom/">
+      
+        <link rel="next" href="../Cephv6installation/">
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.1">
     
     
       
-        <title>Openinfrastructure Lab</title>
+        <title>Ceph Performance Tuning - Openinfrastructure Lab</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.45e1311d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -44,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -70,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-the-red-hat-na-ssa-labs-documentation-site" class="md-skip">
+        <a href="#ceph-performance-tuning" class="md-skip">
           Skip to content
         </a>
       
@@ -86,7 +88,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+    <a href="../.." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -106,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Welcome to the Red Hat NA-SSA Lab's Documentation Site.
+              Ceph Performance Tuning
             
           </span>
         </div>
@@ -211,7 +213,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+    <a href="../.." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -224,6 +226,277 @@
     
       
       
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to the Red Hat NA-SSA Lab's Documentation Site.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../KeysKingdom/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Keys to the Kingdom
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Ceph
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ceph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephAuthorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph Authorization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephCrushMap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph CRUSH Map
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephFS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CephFS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephInstallation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph v5.x Installation Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephLogging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph Logging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephNetworking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephOSD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph OSD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephRGW/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph RGW Gateway
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CephRados/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ceph RADOS Block Devices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
   
   
     
@@ -242,18 +515,18 @@
           
   
   <span class="md-ellipsis">
-    Welcome to the Red Hat NA-SSA Lab's Documentation Site.
+    Ceph Performance Tuning
   </span>
   
 
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Welcome to the Red Hat NA-SSA Lab's Documentation Site.
+    Ceph Performance Tuning
   </span>
   
 
@@ -275,72 +548,135 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pre-requisites" class="md-nav__link">
+  <a href="#blog-links" class="md-nav__link">
     <span class="md-ellipsis">
-      Pre-Requisites
+      Blog Links
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#update-the-site-or-add-documentation" class="md-nav__link">
+  <a href="#recovery-and-backfill" class="md-nav__link">
     <span class="md-ellipsis">
-      Update the Site or Add Documentation
+      Recovery and Backfill
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recovery and Backfill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iops-optimized" class="md-nav__link">
+    <span class="md-ellipsis">
+      IOPS optimized
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#throughput-optimized" class="md-nav__link">
+    <span class="md-ellipsis">
+      Throughput optimized
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacity-optimized" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capacity optimized
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-stress-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Stress Test
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Stress Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rados-bench-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      RADOS Bench Command
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fragmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fragmentation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
+  <a href="#scrubbing" class="md-nav__link">
     <span class="md-ellipsis">
-      Project layout
+      Scrubbing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scrubbing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#light-scrubbing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Light Scrubbing
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#helpful-commands" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#deep-scrubbing" class="md-nav__link">
     <span class="md-ellipsis">
-      Helpful commands
+      Deep Scrubbing
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#lab-environment" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#snapshot-trimming" class="md-nav__link">
     <span class="md-ellipsis">
-      Lab Environment
+      Snapshot Trimming
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#lab-ssa-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Lab SSA Links
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#lab-vpn-access" class="md-nav__link">
+  <a href="#logging" class="md-nav__link">
     <span class="md-ellipsis">
-      Lab VPN Access
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#private-bin" class="md-nav__link">
-    <span class="md-ellipsis">
-      Private Bin
+      Logging
     </span>
   </a>
   
@@ -353,86 +689,6 @@
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="KeysKingdom/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Keys to the Kingdom
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-      
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
-    Ceph
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            Ceph
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/CephAuthorization/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ceph Authorization
-  </span>
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -442,196 +698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Ceph/CephCrushMap/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ceph CRUSH Map
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/CephFS/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    CephFS
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/CephInstallation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ceph v5.x Installation Instructions
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/CephLogging/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ceph Logging
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/CephNetworking/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ceph Networking
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/CephOSD/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ceph OSD
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/CephRGW/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ceph RGW Gateway
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/CephRados/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ceph RADOS Block Devices
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/CephTuning/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ceph Performance Tuning
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Ceph/Cephv6installation/" class="md-nav__link">
+      <a href="../Cephv6installation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -699,7 +766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="How%20To/Certificates/" class="md-nav__link">
+      <a href="../../How%20To/Certificates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -720,7 +787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="How%20To/jirachangerequest/" class="md-nav__link">
+      <a href="../../How%20To/jirachangerequest/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -788,7 +855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Openshift/Containers/" class="md-nav__link">
+      <a href="../../Openshift/Containers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -809,7 +876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Openshift/OCPBaremetalPI/" class="md-nav__link">
+      <a href="../../Openshift/OCPBaremetalPI/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -877,7 +944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Openstack/OSP16.2Instructions/" class="md-nav__link">
+      <a href="../../Openstack/OSP16.2Instructions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -913,81 +980,230 @@
                   
 
 
-<h1 id="welcome-to-the-red-hat-na-ssa-labs-documentation-site">Welcome to the Red Hat NA-SSA Lab's Documentation Site.</h1>
-<p>This site is created using MKDocs.  For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="pre-requisites">Pre-Requisites</h2>
-<p>Local client must have python and git.  After installing python, use pip to install the mkdocs and mkdocs-material packages.  It is not required, but using VS Code makes updating the documents easy and integrates with GitHub nicely.</p>
-<h2 id="update-the-site-or-add-documentation">Update the Site or Add Documentation</h2>
-<p>Clone the site to your local repository.  Once you have a copy of the repository, update the documentation locally.  Preview your changes using <em>mkdocs serve</em>.  This will initialize a local webserver as 127.0.0.1:8000.</p>
-<p>The site is configured to automatically publish changes to the gh-pages sites when a <code>push</code> to the master branch is executed.  Check the status of the pages build and deployment under the <em>Actions</em> menu.</p>
-<h2 id="project-layout">Project layout</h2>
-<div class="highlight"><pre><span></span><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages.
-    /images   # images that are used in docs pages
+<h1 id="ceph-performance-tuning">Ceph Performance Tuning</h1>
+<ul>
+<li>IOPS - HDDs are in the range of 50-200; SSDs are thousands to hundreds of thousands; NVMe are some hundreds of thousands. </li>
+<li>
+<p>Throughput - HDDs around 150Mb/s; SSDs are ~500Mb/s; NVMe are ~2,000Mb/s.  </p>
+</li>
+<li>
+<p>Tune the BlueStore back end used by OSDs</p>
+</li>
+<li>Adjust the schedule for automatic data scrubbing and deep scrubbing</li>
+<li>Adjust the schedule of asynchronous snapshot trimming (snapshot cleanup)</li>
+<li>Control rate of backfill and recovery operations with OSD failures/additions</li>
+</ul>
+<h2 id="blog-links">Blog Links</h2>
+<p><a href="https://ceph.io/en/news/blog/2022/ceph-osd-cpu-scaling/">CPU Scaling</a><br />
+<a href="https://ceph.io/en/news/blog/2019/bluestore-default-vs-tuned-performance-comparison/">BlueStore (Default vs. Tuned) Performance Comparison</a><br />
+<a href="https://ceph.com/community/ceph-block-storage-performance-on-all-flash-cluster-with-bluestore-backend/">Ceph Block Storage Performance on All-Flash Cluster with BlueStore backend</a><br />
+<a href="https://ceph.com/community/part-3-rhcs-bluestore-performance-scalability-3-vs-5-nodes/">RHCS Bluestore performance Scalability ( 3 vs 5 nodes )</a><br />
+<a href="https://ceph.io/en/news/blog/2019/part-4-rhcs-3-2-bluestore-advanced-performance-investigation/">RHCS 3.2 Bluestore Advanced Performance Investigation</a>  </p>
+<h2 id="recovery-and-backfill">Recovery and Backfill</h2>
+<ul>
+<li>
+<p>Recovery occurs when OSD becomes inaccessible and then back online.  OSD has to recover the latest copy of the data.  Default is to allow 3 simultaneous recovery operations for HDDs and 10 for SSDs.</p>
+</li>
+<li>
+<p>Backfill occurs with new OSDs and when and OSD dies and Ceph reassigns its PGs to other OSDs.  Default is to allow 1 PG backfill to/from an OSD at a time.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>osd_recovery_op_priority</td>
+<td>range of 1-63; default is 3</td>
+</tr>
+<tr>
+<td>osd_recovery_max_active</td>
+<td>concurrent recovery operations per OSD in parallel</td>
+</tr>
+<tr>
+<td>osd_recovery_threads</td>
+<td>Number of threads for data recovery</td>
+</tr>
+<tr>
+<td>osd_max_backfills</td>
+<td>concurrent backfill operations per OSD</td>
+</tr>
+<tr>
+<td>osd_backfill_scan_min</td>
+<td>Minimum number of objects for backfill scan</td>
+</tr>
+<tr>
+<td>osd_backfill_scan_max</td>
+<td>Maximum number of objects for backfill scan</td>
+</tr>
+<tr>
+<td>osd_backfill_full_ratio</td>
+<td>Threshold for backfill requests to an OSd</td>
+</tr>
+<tr>
+<td>osd_rbackfill_retry_interval</td>
+<td>Seconds to wait before retrying backfill requests</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iops-optimized">IOPS optimized</h3>
+<p>Workloads on block devices.  Typical deployments require high-performance SAS drives for storage and journals place on SSDs or NVMe.  </p>
+<ul>
+<li>Use two OSDs per NVMe device.  </li>
+<li>NVMe drives have data, the block database, and WAL collocated on the same storage device.  </li>
+<li>Assuming a 2 GHz CPU, use 10 cores per NVMe or 2 cores per SSD.  </li>
+<li>Allocate 16 GB RAM as a baseline, plus 5 GB per OSD.  </li>
+<li>Use 10 GbE NICs per 2 OSDs.  </li>
+</ul>
+<h3 id="throughput-optimized">Throughput optimized</h3>
+<p>Workloads on RGW.  </p>
+<blockquote>
+<p>NOTE: Workloads on RGW are often throughput-intensive and are backed on HDDs.  However, the bucket index pool is typically I/O-intensive so store it on SSD/NVMe.  One index/bucket that is stored in one RADOS object.  When a bucket stores more than 100K objects, the index performance degrades.  Use sharding for buckets by setting the <code>rgw_override_bucket_index_max_shards</code> parameter.  Recommended value is number of objects/100,000.  As the index grows, Ceph must reshard the bucket.  Enable automatic resharding with <code>rgw_dynamic_resharding</code>.  </p>
+</blockquote>
+<ul>
+<li>Use one OSD per HDD.  </li>
+<li>Place the block database and WAL on SSDs or NVMes.  </li>
+<li>Use at least 7,200 RPM HDD drives.  </li>
+<li>Assuming a 2 GHz CPU, use one-half core per HDD.  </li>
+<li>Allocate 16 GB RAM as a baseline, plus 5 GB per OSD.  </li>
+<li>Use 10 GbE NICs per 12 OSDs.</li>
+</ul>
+<h3 id="capacity-optimized">Capacity optimized</h3>
+<p>Workloads that require a large amount of data as inexpensively as possible; usually trading performance for price using SATA drives.</p>
+<ul>
+<li>Use one OSD per HDD.  </li>
+<li>HDDs have data, the block database, and WAL collocated on the same storage device.  </li>
+<li>Use at least 7,200 RPM HDD drives.  </li>
+<li>Assuming a 2 GHz CPU, use one-half core per HDD.  </li>
+<li>Allocate 16 GB RAM as a baseline, plus 5 GB per OSD.  </li>
+<li>Use 10 GbE NICs per 12 OSDs.  </li>
+</ul>
+<h2 id="performance-stress-test">Performance Stress Test</h2>
+<h3 id="rados-bench-command">RADOS Bench Command</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># rados -p &lt;mypool&gt; bench &lt;seconds&gt; --io-type [write|seq|rand] -b &lt;objsize&gt; -t concurrency [--no-cleanup]
 </code></pre></div>
-<h2 id="helpful-commands">Helpful commands</h2>
-<ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="lab-environment">Lab Environment</h2>
-<p>If you'd like to see the physical layout of the hardware in the lab, check out this diagram in <a href="https://lucid.app/lucidchart/9d8dbaa5-8a74-42f5-b0e7-5d34de9d5106/edit?invitationId=inv_27bcf624-e93e-43ef-82b7-95687fa01c0e&page=R5bDD72RxFKe# target="_blank"> Lucid Charts </a> or if you don't have access, here's a static diagram (click to open a larger version in a new tab):</p>
-<p><a href="images/lab-physical.png" target="_blank" ><img src=images/lab-physical.png  alt="drawing"  width="225"/></a></p>
-<h2 id="lab-ssa-links">Lab SSA Links</h2>
-<p><a href="http://172.20.129.19">SSA Links</a></p>
-<h2 id="lab-vpn-access">Lab VPN Access</h2>
-<ul>
-<li>Connect to the <em>Red Hat</em> VPN</li>
-<li>Access the <a href="https://10.9.57.124/" target="_blank">Fortigate Administration Page</a>.</li>
-<li>You will need to login as the <code>user_mgr</code> account. These credentials are in the <a href="https://vault.bitwarden.com/#/login" target="_blank">BitWarden Vault</a> under <em>Fortigate User Management FW</em>.</li>
-<li>
-<p>After logging in, navigate to the <em>User &amp; Device -&gt; User Definition</em> on the left:</p>
-<p><img alt="VPN-User" src="images/vpn-user.png" /></p>
-</li>
-<li>
-<p>Click <em>Create New</em> </p>
 <blockquote>
-<p>NOTE: If you are changing your password, click <em>Edit User</em> and change it there.</p>
+<p>Defaults:<br />
+       --io-size  4096 bytes<br />
+       --io-threads  16<br />
+       --io-total  1 GB<br />
+       --io-pattern   seq</p>
 </blockquote>
-<ul>
-<li>User Type: Local User</li>
-<li>Login Credentials: Input user name and password, use your Kerberos name for consistency.</li>
-<li>Contact Information: Input your Red Hat e-mail address</li>
-<li>Extra Information: Select the following</li>
-</ul>
-<p><img alt="VPN-Wizard" src="images/vpn-wizard.png" /></p>
-</li>
-</ul>
+<h2 id="fragmentation">Fragmentation</h2>
+<p>Check fragmentation on the OSDs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># ceph tell &lt;osd.ID&gt; bluestore allocator score block
+</code></pre></div>
+<p>Value 0 to .7 is considered acceptable.<br />
+Value .7 to .9 is considered safe fragmentation.<br />
+Value .9 and above indicates severe fragmentation that is causing performance issues.  </p>
+<h2 id="scrubbing">Scrubbing</h2>
+<p>You can control scrubbing globally or at the pool level.  To control at the pool level use the <code>ceph osd pool set poolName parameterValue</code> command.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>noscrub</td>
+<td>If set to true, Ceph doesn't light scrub the pool; default is false</td>
+</tr>
+<tr>
+<td>nodeep-scrub</td>
+<td>If set to true, Ceph doesn't deep scrub the pool; default is false</td>
+</tr>
+<tr>
+<td>scrub_min_interval</td>
+<td>Wait a minimum number of seconds between scrubs; default is 0 (uses global parameter)</td>
+</tr>
+<tr>
+<td>scrub_max_interval</td>
+<td>Do not wait more than this number of seconds before performing a scrub; default is 0</td>
+</tr>
+<tr>
+<td>deep_scrub_interval</td>
+<td>Interval for deep scrubbing; default is 0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="light-scrubbing">Light Scrubbing</h3>
+<p>Verifes an objects presence, checksum, and size.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>osd_scrub_end_hour = end_hour</td>
+<td>Specifies the time to stop scrubbing; 0 - 23</td>
+</tr>
+<tr>
+<td>osd_scrub_load_threshold</td>
+<td>Perform scrub is system load is below the threshold; default is .5</td>
+</tr>
+<tr>
+<td>osd_scrub_min_interval</td>
+<td>Wait a minimum number of seconds between scrubs; default is 86,400</td>
+</tr>
+<tr>
+<td>osd_scrub_internval_randomize_ratio</td>
+<td>Add a random dealy to the value defined in the osd_scrub_min_interval parameter; default is .5</td>
+</tr>
+<tr>
+<td>osd_scrub_max_interval</td>
+<td>Do not wait more than this number of seconds before performing a scrub regardless of load; default 604,800</td>
+</tr>
+<tr>
+<td>osd_scrub_priority</td>
+<td>Set the priority for scrub operations; default is 5; relative to osd_client_op_priority (default 64)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ceph pg scrub &lt;pg-id&gt;
+</code></pre></div>
+<h3 id="deep-scrubbing">Deep Scrubbing</h3>
+<p>Reads the data and recalculates and verifies the objects checksum.</p>
+<p>You can enable/disable deep scrubbing at the cluster level by using the <code>ceph osd set nodeep-scrub</code> and <code>ceph osd unset nodeep-scrub</code> commands.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>osd_deep_scrub_interval</td>
+<td>Interval for deep scrubbing; default is 604,800</td>
+</tr>
+<tr>
+<td>osd_scrub_sleep</td>
+<td>Introduces a pause between deep scrub disk reads.  Increase the value to slow down scrub operations; default is 0</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ceph pg deep-scrub &lt;pg-id&gt;
+</code></pre></div>
+<h3 id="snapshot-trimming">Snapshot Trimming</h3>
+<p>Ceph schedules the removal of the snapshot data as an asynchronous operation when a snapshot is removed. To reduce the impact, configure a pause after the deletion with the osd_snap_trim_sleep parameter.  This adds a delay before allowing the next snapshot trim operation. Default is 0.</p>
+<p>Control the snapshot trimming process using the osd_snap_trim_priority parameter.  Default 5</p>
+<h2 id="logging">Logging</h2>
+<p>Ceph logging levels are on a scale of 1 (terse) to 20 (verbose).  A single value can be used for both log level and memory level or separate them with a slash for different values (i.e. 1/5 where 1 is for log level and 5 is for memory log level).</p>
+<p>Get the logging config for daemons:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ceph --admin-daemon ./ceph-osd.11.asok config show | grep debug
+</code></pre></div></p>
 <blockquote>
-<p>NOTE&gt; : If you accidentally create a user and you want to delete it, first edit the user, remove the group membership from it, disable group membership and then you will be able to delete it.</p>
+<p>NOTE: The asok files are found in /var/run/ceph/<em>fsid</em>.</p>
 </blockquote>
-<p>Once you have the new credentials configured, log out in the top right corner.  Test your new credentials by connecting to the <a href="https://209.132.179.151:20443" target="_blank"> Fortinet VPN Portal</a></p>
-<p>Connecting validated the credentials.  Download the Fortinet VPN Client from their <a href="https://www.fortinet.com/support/product-downloads" target="_blank">Product Downloads</a> page or in the portal, from the <em>Download FortiClient</em> dropdown list.</p>
-<p><img alt="VPN-Download" src="images/vpn-download.png" /></p>
-<p>Select the appropriate client and download it from where you’re redirected to.</p>
-<p>Install the client - this screenshot was taken from a forticlient running on a Mac. When you first start it, you will be prompted to configure the VPN.</p>
-<p><img alt="VPN-Clientconfig" src="images/vpn-clientconfig.png" /></p>
-<p>Click <em>Save</em>.  You can then connect to the NA SSA Lab VPN.</p>
-<p>You can also use OpenConnect (version 8+) to connect to the NA SSA Lab VPN from a Linux desktop running GNOME. First install OpenConnect (sudo dnf install openconnect - or debian or whatever Linux flavor you are running equivalent to), then install NetworkManager-openconnect-gnome (sudo dnf install NetworkManager-openconnect-gnome).</p>
-<p>Open GNOME Settings, navigate to <em>Network</em> and select the plus button to add a new VPN profile:</p>
-<p><img alt="VPN-gnome" src="images/vpn-gnome.png" /></p>
-<p>Select “openconnect”.  In the properties type the following:</p>
-<p>Name: (Whatever you like but “NA SSL Lab VPN” sounds good to me!)
-Gateway: 209.132.179.151:20443</p>
-<p><img alt="VPN-addvpn" src="images/vpn-addvpn.png" /></p>
-<p>Save the new VPN profile and connect to the VPN. Please note that the VPN gateway uses a self signed certificate - you might be warned about that. Accept the certificate and proceed.</p>
-<p>You can also use an alternative client that works well on headless systems. It does not have any dependencies on GNOME or dbus etc - like the network-manager method described above.</p>
-<ul>
-<li>Install openforticlient (sudo dnf install openforticlient)  </li>
-<li>Connect to the VPN from the command line:  </li>
-<li>sudo openfortivpn 209.132.179.151:20443 --username=mlecki --trusted-cert 646fd76ad8c617bfd94f3318f25e592a88fd2735949dfde0281df19de43b47ce</li>
-</ul>
-<h2 id="private-bin">Private Bin</h2>
-<p>https://privatebin.corp.redhat.com</p>
 
 
 
@@ -1046,10 +1262,10 @@ Gateway: 209.132.179.151:20443</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>

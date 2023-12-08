@@ -9,21 +9,25 @@
       
       
       
+        <link rel="prev" href="../CephInstallation/">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="../CephNetworking/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.1">
     
     
       
-        <title>Openinfrastructure Lab</title>
+        <title>Ceph Logging - Openinfrastructure Lab</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.45e1311d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -42,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -67,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ceph-logging" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -79,7 +88,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+    <a href="../.." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -99,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Ceph Logging
             
           </span>
         </div>
@@ -204,7 +213,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+    <a href="../.." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -222,7 +231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -242,7 +251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/KeysKingdom/" class="md-nav__link">
+      <a href="../../KeysKingdom/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -259,8 +268,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -269,12 +280,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -288,7 +299,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Ceph
@@ -302,7 +313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephAuthorization/" class="md-nav__link">
+      <a href="../CephAuthorization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -323,7 +334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephCrushMap/" class="md-nav__link">
+      <a href="../CephCrushMap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -344,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephFS/" class="md-nav__link">
+      <a href="../CephFS/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -365,7 +376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephInstallation/" class="md-nav__link">
+      <a href="../CephInstallation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -383,10 +394,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/Ceph/CephLogging/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Ceph Logging
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -395,6 +426,80 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-configuration-vs-configuration-database-vs-configuration-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Configuration vs. Configuration Database vs. Configuration File
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitor-cephadm-log-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor cephadm Log Messages
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-to-stderr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging to stderr
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-boot-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      View boot log
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-location" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Location
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -407,7 +512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephNetworking/" class="md-nav__link">
+      <a href="../CephNetworking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -428,7 +533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephOSD/" class="md-nav__link">
+      <a href="../CephOSD/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -449,7 +554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephRGW/" class="md-nav__link">
+      <a href="../CephRGW/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -470,7 +575,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephRados/" class="md-nav__link">
+      <a href="../CephRados/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -491,7 +596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephTuning/" class="md-nav__link">
+      <a href="../CephTuning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -512,7 +617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/Cephv6installation/" class="md-nav__link">
+      <a href="../Cephv6installation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -580,7 +685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/How%20To/Certificates/" class="md-nav__link">
+      <a href="../../How%20To/Certificates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -601,7 +706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/How%20To/jirachangerequest/" class="md-nav__link">
+      <a href="../../How%20To/jirachangerequest/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -669,7 +774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Openshift/Containers/" class="md-nav__link">
+      <a href="../../Openshift/Containers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -690,7 +795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Openshift/OCPBaremetalPI/" class="md-nav__link">
+      <a href="../../Openshift/OCPBaremetalPI/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -758,7 +863,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Openstack/OSP16.2Instructions/" class="md-nav__link">
+      <a href="../../Openstack/OSP16.2Instructions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -791,8 +896,112 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+<h1 id="ceph-logging">Ceph Logging</h1>
+<p>For container-based deployments, by default, Ceph daemons logs to stderr and logs are captured by the container runtime environment.  These logs are sent to journald and are accessible through the <code>journalctl</code> command.  </p>
+<p>Ceph logging levels operate on a scale of 1 (terse) to 20 (verbose).  Use a single value for the log level and memory level to set them both to the same value or use different values for output log level and memory level separating the values with a forward slash (i.e. debug_mon = 1/5 sets log level to 1 and memory level to 5).  </p>
+<p>Get list of Ceph daemons, view logs: <br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># systemctl list-units &quot;ceph*&quot;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a># journalctl -eu ceph-dd6eede2-e3a6-11ed-9d9d-fa163ee4fccc@mgr.ceph1.exaerd.service
+</code></pre></div></p>
+<p>To enable logging to files instead of journald, set <code>log_to_file</code> to true.  The will create the Ceph log files in /var/log/ceph/fsid.  </p>
+<p>By default, Cephadm sets up log rotation on each host to rotate these files. You can configure the logging retention schedule by modifying /etc/logrotate.d/ceph.CLUSTER_FSID.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># ceph config set global log_to_file true 
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># ceph config set log_to_stderr false
+</code></pre></div>
+<blockquote>
+<p>NOTE: Make sure to set log_to_stderr false to avoid double logging.</p>
+</blockquote>
+<h2 id="running-configuration-vs-configuration-database-vs-configuration-file">Running Configuration vs. Configuration Database vs. Configuration File</h2>
+<p>Ceph manages the configuration database of options which centralizes management by storing options in key value pairs.  But there are a handful of Ceph options that can be defined in the local Ceph configuration file, <code>/etc/ceph/ceph.conf</code>.  These few config options control how other Ceph components connect to the monitors to authenticate and fetch the configuration information from the database.  </p>
+<p>When the same option exists in the config database and the config file, the config database option has a lower priority; the config file takes precedence.  </p>
+<p>To get the current running configuration use the <code>ceph config show</code> command.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># ceph config show mon.osp-blm-controller-1  
+</code></pre></div>
+<h2 id="configuration-checks">Configuration Checks</h2>
+<p>Cephadm periodically scans each of the hosts in the storage cluster, to understand the state of the OS, disks, and NICs . These facts are analyzed for consistency across the hosts in the storage cluster to identify any configuration anomalies. The configuration checks are an optional feature.  </p>
+<table>
+<thead>
+<tr>
+<th>Config Check</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEPHADM_CHECK_KERNEL_LSM</td>
+<td>Check to ensure all hosts are running SELINUX</td>
+</tr>
+<tr>
+<td>CEPHADM_CHECK_SUBSCRIPTION</td>
+<td>Verifies valid subscriptions</td>
+</tr>
+<tr>
+<td>CEPHADM_CHECK_PUBLIC_MEMBERSHIP</td>
+<td>At least one NIC is configured on public network</td>
+</tr>
+<tr>
+<td>CEPHADM_CHECK_MTU</td>
+<td>Ensure all OSD nodes are running the same MTU size</td>
+</tr>
+<tr>
+<td>CEPHADM_CHECK_LINKSPEED</td>
+<td>Ensure all nodes are running the same link speeds</td>
+</tr>
+<tr>
+<td>CEPHADM_CHECK_NETWORK_MISSING</td>
+<td>Ensure all nodes are running configured for the same subnets</td>
+</tr>
+<tr>
+<td>CEPHADM_CHECK_CEPH_RELEASE</td>
+<td>Ensure all nodes are running the same Ceph version</td>
+</tr>
+<tr>
+<td>CEPHADM_CHECK_KERNEL_VERSION</td>
+<td>Ensure the OS kernel version is consistent across the nodes</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># ceph config set mgr mgr/cephadm/config_checks_enabled
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># ceph cephadm config-check status
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># ceph cephadm config-check ls
+</code></pre></div>
+<h2 id="monitor-cephadm-log-messages">Monitor cephadm Log Messages</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ceph config set mgr mgr/cephadm/log_to_cluster_level [debug|info]
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ceph -W cephadm --watch-debug
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>ceph -W cephadm --verbose
+</code></pre></div>
+<h2 id="logging-to-stderr">Logging to <code>stderr</code></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>journalctl -u ceph-&lt;fsid&gt;@&lt;hostName&gt;
+</code></pre></div>
+<h2 id="view-boot-log">View boot log</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>journalctl -b 
+</code></pre></div>
+<h2 id="data-location">Data Location</h2>
+<p>Cephadm daemon data and logs are located in:</p>
+<ul>
+<li>/var/log/ceph/<fsid> - storage cluster logs (usually not present when logging to stderr)</li>
+<li>/var/lib/ceph/<fsid> - cluster daemon data besides logs</li>
+<li>/var/lib/ceph/<fsid>/<daemonName> - data for specific daemon</li>
+<li>/var/lib/ceph/<fsid>/crash - crash reports for the storage cluster</li>
+<li>/var/lib/ceph/<fsid>/removed - old daemon data that have been removed by cephadm</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -838,10 +1047,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "/assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>

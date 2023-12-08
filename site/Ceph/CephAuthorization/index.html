@@ -9,21 +9,25 @@
       
       
       
+        <link rel="prev" href="../../KeysKingdom/">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="../CephCrushMap/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.1">
     
     
       
-        <title>Openinfrastructure Lab</title>
+        <title>Ceph Authorization - Openinfrastructure Lab</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.45e1311d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -42,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -67,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ceph-authorization" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -79,7 +88,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+    <a href="../.." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -99,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Ceph Authorization
             
           </span>
         </div>
@@ -204,7 +213,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+    <a href="../.." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -222,7 +231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -242,7 +251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/KeysKingdom/" class="md-nav__link">
+      <a href="../../KeysKingdom/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -259,8 +268,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -269,12 +280,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -288,7 +299,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Ceph
@@ -299,10 +310,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/Ceph/CephAuthorization/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Ceph Authorization
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -311,6 +342,89 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capabilities
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Account
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-ceph-dashboard-admin-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Ceph Dashboard admin Credentials
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Capabilities
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete Account
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -323,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephCrushMap/" class="md-nav__link">
+      <a href="../CephCrushMap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -344,7 +458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephFS/" class="md-nav__link">
+      <a href="../CephFS/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -365,7 +479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephInstallation/" class="md-nav__link">
+      <a href="../CephInstallation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -386,7 +500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephLogging/" class="md-nav__link">
+      <a href="../CephLogging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -407,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephNetworking/" class="md-nav__link">
+      <a href="../CephNetworking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -428,7 +542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephOSD/" class="md-nav__link">
+      <a href="../CephOSD/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -449,7 +563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephRGW/" class="md-nav__link">
+      <a href="../CephRGW/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -470,7 +584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephRados/" class="md-nav__link">
+      <a href="../CephRados/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -491,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/CephTuning/" class="md-nav__link">
+      <a href="../CephTuning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -512,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Ceph/Cephv6installation/" class="md-nav__link">
+      <a href="../Cephv6installation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -580,7 +694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/How%20To/Certificates/" class="md-nav__link">
+      <a href="../../How%20To/Certificates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -601,7 +715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/How%20To/jirachangerequest/" class="md-nav__link">
+      <a href="../../How%20To/jirachangerequest/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -669,7 +783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Openshift/Containers/" class="md-nav__link">
+      <a href="../../Openshift/Containers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -690,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Openshift/OCPBaremetalPI/" class="md-nav__link">
+      <a href="../../Openshift/OCPBaremetalPI/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -758,7 +872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/Openstack/OSP16.2Instructions/" class="md-nav__link">
+      <a href="../../Openstack/OSP16.2Instructions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -791,8 +905,90 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+<h1 id="ceph-authorization">Ceph Authorization</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Ceph uses user accounts for internal communication between Ceph daemons, client applications accessing the cluster through librados, and for cluster administration.  Administrative and all client access have accounts that begin with the <em>client.</em> prefix.</p>
+<p>The Ceph super user account is client.admin with capabilities that allow the account to access everything and to modify the cluster configuration.  This is the default account that is used unless you specify a user name with the --name or --id options.</p>
+<blockquote>
+<p>NOTE: When using the --name option, use the client. prefix.  But when using the --id option, the client. prefix is assumed.  Alternately you can also export CEPH_ARGA='--id cephuser".</p>
+</blockquote>
+<p>The keyring files are maintained in the /etc/ceph directory.  If your keyring is not in this directory, you must pass it the --keyring option along with the file name that contains the secret key.</p>
+<h2 id="capabilities">Capabilities</h2>
+<ul>
+<li>r grants read access</li>
+<li>w grants write access</li>
+<li>x grants authorization to execute extended object classes</li>
+<li>* grants full access</li>
+</ul>
+<h2 id="profiles">Profiles</h2>
+<ul>
+<li>profile rbd - grants read/write access to any RBD pool</li>
+<li>profile rbd-read-only - grants read only access to any RBD pool</li>
+</ul>
+<h2 id="create-account">Create Account</h2>
+<blockquote>
+<p>NOTE: to save the key to a file use the -o /etc/ceph/ceph.client.<em>name</em>.keyring option</p>
+</blockquote>
+<p>To create a client account to read and write to any RBD pool:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># ceph auth get-or-create client.myappuser mon &#39;allow r&#39; osd &#39;allow rw&#39;
+</code></pre></div>
+<p>Limit the user to a specific pool:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># ceph auth get-or-create client.myappuser mon &#39;allow r&#39; osd &#39;allow rw pool=myapppool&#39;
+</code></pre></div></p>
+<p>Limit the user to specific objects in a specific pool:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># ceph auth get-or-create client.myappuser mon &#39;allow r&#39; osd &#39;allow rw pool=myapppool object_prefix my_prefix&#39;
+</code></pre></div></p>
+<p>Limit the user to a specific namespace with a pool:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># ceph auth get-or-create client.myappuser mon &#39;allow r&#39; osd &#39;allow rw pool=myapppool namespace=myappspace&#39;
+</code></pre></div></p>
+<p>Limit the user read/write access to a specific path (used by CephFS):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># ceph fs authorize cephfs client.myappuser /myapppath rw
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a># ceph auth get client.myappuser
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>exported keyring for client.myappuser
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>[client.myappuser]
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        key = ABE9asvIhDW7FJE#kii982qavejJKEJjEji==
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        caps mds = &#39;allow rw path=/myapppath
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        caps mon = &#39;allow r&#39;
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        caps osd = &#39;allow rw pool=cephfs_data&#39;
+</code></pre></div></p>
+<p>Limit the user to a specific administraive commands against a mon:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># ceph auth get-or-create client.operator mon &#39;allow r allow command &quot;auth get-or-create&quot;, allow command &quot;auth list&quot;&#39; 
+</code></pre></div></p>
+<p>List Users:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># ceph auth list
+</code></pre></div></p>
+<p>Get current key and permissions of a user:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># ceph auth print-key client.myappuser
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a># ceph auth get client.myappuser
+</code></pre></div></p>
+<h2 id="update-ceph-dashboard-admin-credentials">Update Ceph Dashboard admin Credentials</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>echo &#39;thepassword&#39; &gt; dash.pass
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ceph dashboard ac-user-set-password admin -i dash.pass
+</code></pre></div>
+<h2 id="update-capabilities">Update Capabilities</h2>
+<p>Use the ceph auth caps command and the same options as creating an account.  Keeping in mind that any update to the user will overwrite the existing capabilities, therefore make sure you include any existing capabilites that need to be retained along with any additional.</p>
+<h2 id="delete-account">Delete Account</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># ceph auth del client.myappuser
+</code></pre></div>
+<blockquote>
+<p>NOTE: You should also remove the /etc/ceph/ceph.client.<em>name</em>.keyring file.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -838,10 +1034,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "/assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>
