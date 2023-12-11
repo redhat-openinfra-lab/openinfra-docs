@@ -161,7 +161,7 @@ You can ssh to this IP as the user kni using the password you set in the playboo
     > Repos  
     > Even though you could register to your CDN and start using your own repos, there are local synced repos that are available over LAN. This should be much quicker to download from. Simply grap the rhel8.repo file from here:
     >
-    >[kni@bootstrap ~]$ sudo curl http://172.20.129.10/hextupleo-repo/rhel8.repo -o /etc/yum.repos.d/rhel8.repo
+    >[kni@bootstrap ~]$ sudo curl http://172.20.129.19/hextupleo-repo/rhel8.repo -o /etc/yum.repos.d/rhel8.repo
     >
 
 
