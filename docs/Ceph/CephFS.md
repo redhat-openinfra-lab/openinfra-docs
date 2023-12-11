@@ -200,4 +200,6 @@ To change the pool from the replicated pool to an erasure coded pool, create the
 ```
 # ceph fs add_data_pool mycephfs cephfs_data_ec
 # setfattr -n ceph.dir.layout.pool -v cephfs_data_ec /mnt/mycephfs/mynewdirectory
+```
+
 
