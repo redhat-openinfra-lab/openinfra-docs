@@ -135,20 +135,20 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 2. Grab the repo from the DNS Utility server
 
     ```
-    $ sudo curl http://172.20.129.10/hextupleo-repo/rhel8.repo -o /etc/yum.repos.d/rhel8.repo
+    $ sudo curl http://172.20.129.19/hextupleo-repo/rhel9.repo -o /etc/yum.repos.d/rhel9.repo
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                      Dload  Upload   Total   Spent    Left  Speed
     100  1379  100  1379    0     0   269k      0 --:--:-- --:--:-- --:--:--  448k
     [cloud-user@ceph1 ~]$ cat /etc/yum.repos.d/rhel8.repo
     [ansible-2.9-for-rhel-8-x86_64-rpms]
     name=ansible-2.9-for-rhel-8-x86_64-rpms
-    baseurl=http://172.20.129.10/repos/ansible-2.9-for-rhel-8-x86_64-rpms/
+    baseurl=http://172.20.129.19/repos/ansible-2.9-for-rhel-9-x86_64-rpms/
     enabled=1
     gpgcheck=0
     ...
     [rhel-8-for-x86_64-highavailability-rpms]
     name=rhel-8-for-x86_64-highavailability-rpms
-    baseurl=http://172.20.129.10/repos/rhel-8-for-x86_64-highavailability-rpms/
+    baseurl=http://172.20.129.19/repos/rhel-9-for-x86_64-highavailability-rpms/
     enabled=1
     gpgcheck=0
     ```
@@ -324,6 +324,21 @@ The full Red Hat documentation for the Ceph installation is available [here](htt
 
 
 ## Appendix
+
+### Ceph Dashboard
+```
+ceph dashboard get-prometheus-api-host
+```
+
+```
+ceph dashboard get-alertmanager-api-host
+```
+
+```
+ceph dashboard get-grafana-api-url
+```
+
+
 ### Export Service Specification
 
 ```
