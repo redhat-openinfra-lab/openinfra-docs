@@ -1,33 +1,35 @@
 # Multus
 
-Multus is an advanced OpenShift feature with broad capabilities
-Multus is not SDN
-Multus is not in the network data path
-Multus exposes Linux network interfaces directly into Ceph pods
+Multus is an advanced OpenShift feature with broad capabilities  
+Multus is not SDN  
+Multus is not in the network data path  
+Multus exposes Linux network interfaces directly into Ceph pods  
 
-* Improved latency 
-* Improved bandwidth
-* Improved security
+* Improved latency  
+* Improved bandwidth  
+* Improved security  
+
+![Multus Cluster and Public Network](../images/multus1.png)
 
 ## Planning
 
-Homeogeneous network interfaces across all nodes
-* All storage and worker nodes need public newtork interfaces (if applicable)
-* Only nodes hosting ODF need the cluster network interfaces (if applicable)
+Homeogeneous network interfaces across all nodes  
 
-Network Diagrams should include:
-* Node types
-* Interfaces with host-level IDs, speeds, bond info
-* Pod Network
-* ODF Public Network
-* ODF Cluster Network
-* CIDRs
-* Interfaces
-* Switches, VLANs
+* All storage and worker nodes need public newtork interfaces (if applicable)  
+* Only nodes hosting ODF need the cluster network interfaces (if applicable)  
 
-Example:
+Network Diagrams should include:  
 
-![Multus Cluster and Public Network](../images/multus1.png)
+* Node types  
+* Interfaces with host-level IDs, speeds, bond info  
+* Pod Network  
+* ODF Public Network  
+* ODF Cluster Network  
+* CIDRs  
+* Interfaces  
+* Switches  
+* VLANs  
+
 
 
 ## Configuring Multus
