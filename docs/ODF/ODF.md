@@ -9,6 +9,32 @@ oc get storageclasses -o name
 oc describe sc <storageClass>
 ```
 
+Create storage class for Windows VMs in OCPv with mapOptions parameter:
+```hl_lines="18"
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: windows-vms
+parameters:
+  clusterID: openshift-storage
+  csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/controller-expand-secret-namespace: openshift-storage
+  csi.storage.k8s.io/fstype: ext4
+  csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+  csi.storage.k8s.io/node-stage-secret-namespace: openshift-storage
+  csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/provisioner-secret-namespace: openshift-storage
+  imageFeatures: layering
+  imageFormat: "2"
+  pool: ocs-storagecluster-cephblockpool
+  mounter: rbd
+  mapOptions: "krbd:rxbounce"
+provisioner: openshift-storage.rbd.csi.ceph.com
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+```
+
 ### Persistent Volume Claim
 
 ```
@@ -83,6 +109,7 @@ Tool - must-gather
 ```
 oc adm must-gather --image=registry.redhat.io/ocs4/ocs-must-gather-rhel8:v4.7 --dest-dir=must-gather
 ```
+
 ## Monitoring Stack
 
 By default the monitoring data storage is set to ephemeral.  All metrics are lost when the pods are restarted or recreated.  Block (recommended) or file storage can be configured for persistent storage for the monitoring stack.

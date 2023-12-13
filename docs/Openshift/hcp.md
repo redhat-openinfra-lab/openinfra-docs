@@ -2,10 +2,10 @@
 
 ## Hosted Control Plane
 
- ![Hosted CP](images/ocp-hostedcp.png) 
+ ![Hosted CP](../images/ocp-hostedcp.png) 
 
 
 ## Standalone Control Plane
 
- ![StandAlone](images/ocp-standalone.png)  
+ ![StandAlone](../images/ocp-standalone.png)  
 
