@@ -27,7 +27,7 @@ Network Diagrams should include:
 
 Example:
 
-![Multus Cluster and Public Network](images/multus1.png)
+![Multus Cluster and Public Network](../images/multus1.png)
 
 
 ## Configuring Multus
