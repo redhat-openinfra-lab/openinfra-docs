@@ -1,4 +1,4 @@
-# Ceph RADOS Block Devices
+# RADOS Block Devices
 
 ## Introduction
 
