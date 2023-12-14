@@ -1,4 +1,4 @@
-# Ceph Performance Tuning
+# Performance Tuning
 
 * IOPS - HDDs are in the range of 50-200; SSDs are thousands to hundreds of thousands; NVMe are some hundreds of thousands. 
 * Throughput - HDDs around 150Mb/s; SSDs are ~500Mb/s; NVMe are ~2,000Mb/s.  

@@ -1,4 +1,4 @@
-# Ceph v5.x Installation Instructions
+# Installation Instructions v5.x
 
 ## Introduction
 

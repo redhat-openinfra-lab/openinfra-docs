@@ -1,4 +1,4 @@
-# Ceph RGW Gateway
+# RADOS Gateway (RGW)
 
 ## Introduction / Information
 

@@ -1,4 +1,4 @@
-# Ceph OSD
+# OSDs
 
 ## CPU Requirements
 

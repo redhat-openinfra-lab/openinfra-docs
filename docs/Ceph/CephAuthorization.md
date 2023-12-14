@@ -1,4 +1,4 @@
-# Ceph Authorization
+# Authorization
 
 ## Introduction
 

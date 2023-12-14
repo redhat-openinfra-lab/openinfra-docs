@@ -1,4 +1,4 @@
-# Ceph Networking  
+# Networking  
 
 
 ## Baremetal Lab Network Bonds

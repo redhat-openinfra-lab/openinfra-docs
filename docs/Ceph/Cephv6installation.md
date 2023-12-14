@@ -1,4 +1,4 @@
-# Ceph v6.x Installation
+# Installation Instructions v6.x
 
 ## Introduction
 

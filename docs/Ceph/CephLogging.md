@@ -1,4 +1,4 @@
-# Ceph Logging
+# Logging
 
 For container-based deployments, by default, Ceph daemons logs to stderr and logs are captured by the container runtime environment.  These logs are sent to journald and are accessible through the `journalctl` command.  
 

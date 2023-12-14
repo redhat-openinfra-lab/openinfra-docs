@@ -1,4 +1,4 @@
-# Ceph CRUSH Map
+# CRUSH Map
 
 ## Introduction
 
