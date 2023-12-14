@@ -328,3 +328,8 @@ Wipe an msdos label from device:
 ```
 # dd if=/dev/zero of=/dev/vdb bs=512 count=1
 ```
+
+## Crimson OSD - TP in Ceph v7
+
+<a href="https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/7/html/administration_guide/crimson#doc-wrapper" target=_blank> Crimson</a>
+
