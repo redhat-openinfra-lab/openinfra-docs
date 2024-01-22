@@ -1,5 +1,89 @@
 # Data Foundation Storage 
 
+ODF can make use of external Ceph when the OCP cluster is running on:
+
+* Bare Metal
+* VMware vSphere
+* OSP (Tech Preview)
+
+cccccbkrlteillethekiungfreuhfrcutrklddjrieuu
+
+## Deployment
+
+Label the respective nodes (in this example the worker nodes):
+```
+oc label nodes \
+-l node-role.kubernetes.io/worker= \
+cluster.ocs.openshift.io/openshift-storage=
+```
+
+Get the nodes the LSO operator discovered:
+```
+oc get localvolumediscoveryresult -n openshift-local-storage 
+```
+
+Get the disks available on one of the nodes:
+```
+oc describe localvolumediscoveryresult/discovery-result-worker01 -n openshift-local-storage
+```
+> NOTE: Use the Device ID when adding devices to the rook-ceph operator
+
+Get the PVs in use:
+```
+oc get pv -n openshift-local-storage
+```
+
+Get the PV on a specific node using the label option:
+```
+oc get pv -l kubernetes.io/hostname=worker01
+```
+> NOTE: Status of Available means it can be added to the rook-ceph operator
+
+Example `LocalVolume` manifest:
+```
+apiVersion: local.storage.openshift.io/v1
+kind: LocalVolume
+metadata:
+  name: expanded-local-block
+  namespace: openshift-local-storage
+spec:
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+        - key: cluster.ocs.openshift.io/openshift-storage
+          operator: In
+          values:
+          - ""
+  storageClassDevices:
+    - storageClassName: localblock
+      volumeMode: Block
+      devicePaths:
+        - /dev/disk/by-id/virtio-aaf40cdd-da3d-4d6d-9
+        - /dev/disk/by-id/virtio-fe40db23-a129-4dff-9
+        - /dev/disk/by-id/virtio-a0d9e043-c4b9-4a6d-8
+```
+
+Apply the yaml file with the new device paths:
+```
+oc apply -f file.yaml 
+```
+
+Use the `oc patch` or `oc edit` commands to increase the `storageDeviceSets` attribute 
+```
+oc patch storagecluster/ocs-storagecluster -n openshift-storage --type json -p \
+'[{"op": "replace", "path": "/spec/storageDeviceSets/0/count", "value": 2}]'
+```
+
+To add nodes to the cluster:
+```
+oc label nodes -l node-role.kubernetes.io/worker= cluster.ocs.openshift.io/openshift-storage=
+```
+
+Get the osd-pods:
+```
+oc get pods -n openshift-storage -l app=rook-ceph-osd
+```
+
 ## Storage Classes
 ```
 oc get storageclasses -o name
@@ -26,7 +110,7 @@ parameters:
   csi.storage.k8s.io/provisioner-secret-namespace: openshift-storage
   imageFeatures: layering
   imageFormat: "2"
-  pool: ocs-storagecluster-cephblockpool
+  pool: ocs-storagecluster-windowsblockpool
   mounter: rbd
   mapOptions: "krbd:rxbounce"
 provisioner: openshift-storage.rbd.csi.ceph.com
@@ -51,6 +135,15 @@ spec:
       storage: 10Gi
 ```
 
+Patch the PVC to increase the size:
+```
+oc patch pvc/examplePVC -p '{spec:{resources:{requests:{storage: 20Gi}}}}'
+```
+
+```
+oc rollout latest deploymentconfig.apps.openshift.io/exampleDeployentConfig
+```
+
 ### Logs
 
 Get listing of ODF pods:
@@ -60,12 +153,12 @@ oc get pods -n openshift-storage
 
 Monitor Logs
 ```
-oc logs rook-ceph-mon-a-blah -n openshift-storage
+oc logs rook-ceph-mon-a-blah -n openshift-storage -c mon
 ```
 
 OSD Logs
 ```
-oc logs rook-ceph-osd-0-blah -n openshift-storage
+oc logs rook-ceph-osd-0-blah -n openshift-storage -c osd
 ```
 
 Rook Operator Logs:
@@ -80,14 +173,14 @@ oc logs csi-rbdplugin-blah -n openshift-storage -c csi-rbdplugin
 
 CephFS Logs:
 ```
-oc logs csi-cephfsplugin-blah -n openshift-storage
+oc logs csi-cephfsplugin-blah -n openshift-storage -c cephfsplugin
 ```
 
 ## Cluster Config Tool
 
 Ceph CLI
 ```
-oc exec -ti pod/rook-ceph-operator-blah -n openshift-storage -c rook-ceph-operator -- /bin/bash
+oc exec -it pod/rook-ceph-operator-blah -n openshift-storage -c rook-ceph-operator -- /bin/bash
 ```
 
 Cluster Health
@@ -110,108 +203,76 @@ Tool - must-gather
 oc adm must-gather --image=registry.redhat.io/ocs4/ocs-must-gather-rhel8:v4.7 --dest-dir=must-gather
 ```
 
-## Monitoring Stack
+## Rook-Ceph Toolbox
 
-By default the monitoring data storage is set to ephemeral.  All metrics are lost when the pods are restarted or recreated.  Block (recommended) or file storage can be configured for persistent storage for the monitoring stack.
+To deploy the toolbox, navigate to Administration --> Custom Resource Definitions --> OCSInitialization --> Instances.  Select the `ocsinit` instance and upddate the YAML with the following:
 
+```
+spec:
+  enableCephTools: true 
+```
 
-```hl_lines="12 18 21 28  31"
-apiVersion: v1
-kind: ConfigMap
+To access the toolbox, navigate to Workloads --> Pods --> openshift-storage namespace, scroll to bottom of list of pods and select the rook-ceph-toolbox pod.  From there, select Terminal from the menu bar.
+
+To access via the command line:
+
+```
+oc rsh $(oc get pods -l app=rook-ceph-tools -o name) 
+```
+> NOTE: Make sure you are in the openshift-storage project or use the -n parameter to pass the namespace  
+
+### Debug 
+
+Enable debug logging for rook-ceph-operator container:
+```
+oc edit cm rook-ceph-operator-config
+...
 data:
-  config.yaml: |
-    prometheusOperator:
-      baseImage: quay.io/coreos/prometheus-operator
-      prometheusConfigReloaderBaseImage: quay.io/coreos/prometheus-config-reloader
-      configReloaderBaseImage: quay.io/coreos/configmap-reload
-      nodeSelector:
-        node-role.kubernetes.io/infra: ""
-    prometheusK8s:
-      retention: 15d <-- 1
-      baseImage: openshift/prometheus
-      nodeSelector:
-        node-role.kubernetes.io/infra: ""
-      volumeClaimTemplate:
-        spec:
-          storageClassName: ocs-storagecluster-ceph-rbd <-- 2
-          resources:
-            requests:
-              storage: 2000Gi <-- 3
-    alertmanagerMain:
-      baseImage: openshift/prometheus-alertmanager
-      nodeSelector:
-        node-role.kubernetes.io/infra: ""
-      volumeClaimTemplate:
-        spec:
-          storageClassName: ocs-storagecluster-ceph-rbd <-- 2
-          resources:
-            requests:
-              storage: 20Gi <-- 3
-    nodeExporter:
-      baseImage: openshift/prometheus-node-exporter
-    kubeRbacProxy:
-      baseImage: quay.io/coreos/kube-rbac-proxy
-    kubeStateMetrics:
-      baseImage: quay.io/coreos/kube-state-metrics
-      nodeSelector:
-        node-role.kubernetes.io/infra: ""
-    grafana:
-      baseImage: grafana/grafana
-      nodeSelector:
-        node-role.kubernetes.io/infra: ""
-    auth:
-      baseImage: openshift/oauth-proxy
-    k8sPrometheusAdapter:
-      nodeSelector:
-        node-role.kubernetes.io/infra: ""
+...
+  ROOK_LOG_LEVEL: DEBUG
+```
+
+Get the list of devices available on worker node:
+```
+oc debug node/worker01 -- lsblk --paths --nodeps
+```
+
+### Adding Disks to an Internal Cluster
+
+Create `LocalVolume` 
+```
+apiVersion: local.storage.openshift.io/v1
+kind: LocalVolume
 metadata:
-  name: cluster-monitoring-config
-namespace: openshift-monitoring
-
+  name: expanded-local-block
+  namespace: openshift-local-storage
+spec:
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+        - key: cluster.ocs.openshift.io/openshift-storage
+          operator: In
+          values:
+          - ""
+  storageClassDevices:
+    - storageClassName: localblock
+      volumeMode: Block
+      devicePaths:
+        - /dev/disk/by-id/virtio-aaf40cdd-da3d-4d6d-9
+        - /dev/disk/by-id/virtio-fe40db23-a129-4dff-9
+        - /dev/disk/by-id/virtio-a0d9e043-c4b9-4a6d-8
 ```
 
-1. Time units are (s)econds, (m)inutes, (h)ours, or (d)ays
-2. The object storage class provided by ODF is `ocs-storagecluster-ceph-rbd`
-3. Storage values, E,P,T,G,M,K or Ei,Pi,Ti,Gi,Mi,Ki
-
-Check the current configuration of `prometheus-k8s` or `alertmanager-main`:
+Patch or edit the storage cluster to increase the `storageDeviceSets`.
 ```
-#!/bin/bash
-set -veuo pipefail
-
-# Prometheus container volume mount spec:
-oc get statefulset/prometheus-k8s \
-  -n openshift-monitoring \
--o jsonpath='{.spec.template.spec.containers}' | \
-jq '.[] | select(.name == "prometheus") | .volumeMounts[] | select(.name == "prometheus-k8s-db")'
-
-# Prometheus container volume mount spec:
-oc get statefulset/prometheus-k8s \
-  -n openshift-monitoring \
--o jsonpath='{.spec.template.spec.volumes}' | \
-jq '.[] | select(.name == "prometheus-k8s-db")'
-
+oc patch storagecluster/ocs-storagecluster -n openshift-storage --type json \
+-p '[{op: replace, path: /spec/storageDeviceSets/0/count, value: 2}]'
 ```
+> NOTE: This triggers the creation of new OSD pods
 
-Create PVC Config Map:
-```
-prometheusK8s:
-  retention: 7d
-  volumeClaimTemplate:
-    spec:
-      storageClassName: ocs-storagecluster-ceph-rbd
-      resources:
-        requests:
-          storage: 40Gi
-alertmanagerMain:
-  volumeClaimTemplate:
-    spec:
-      storageClassName: ocs-storagecluster-ceph-rbd
-      resources:
-        requests:
-          storage: 20Gi
-```
+### Adding Nodes to an Internal Cluster
 
+Add the new node name to the `LocalVolumeDiscovery` and `LocalVolumeSet` objects or label the nodes with the `node-role.kubernetes.io/worker=` and `cluster.ocs.storage.io/openshift-storage=` labels to make the storage cluster use the nodes automatically.
 ```
-oc create -n openshift-monitoring configmap cluster-monitoring-config --from-file config.yaml=metrics-storage.yml
+oc label nodes -l node-role.kubernetes.io/worker= cluster.ocs.openshift.io/openshift-storage=
 ```
