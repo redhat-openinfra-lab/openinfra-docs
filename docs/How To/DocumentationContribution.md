@@ -41,14 +41,20 @@ git clone git@github.com:redhat-openinfra-lab/openinfra-docs.git
 
 ### Working locally
 
-Once you have a copy of the repository, **mkdocs** can serve the documentation so you can view your changes real-time.  Remember, you will need to activate the virtual environment using Step 3 above before trying to start the **mkdocs** server. If you are working on the documentation on your desktop, you can simply start the server using:
+Ensure you are in the openinfra-docs directory that you cloned from github.
+
+Checkout a new branch to make your changes.
+```
+git checkout -b <newBranch>
+```
+
+Use **mkdocs** to run a local web-server so you can view your changes real-time.  Remember, you will need to activate the virtual environment using Step 3 above before trying to start the **mkdocs** server. If you are working on the documentation on your desktop, you can simply start the server using:
 
 ```
-cd openinfra-docs
 mkdocs serve
 ```
 
-This will start a server listening on port 8000 on your loopback device.  If you are using something other than your desktop, such as a Virtual Machine, you will need to open a port on your firewall and utilize the `-a` switch when starting the **mkdocs serve** command to specify an IP:PORT to start on.  Example:
+This will start a web-server listening on port 8000 on your loopback device.  If you are using something other than your desktop, such as a Virtual Machine, you will need to open a port on your firewall and utilize the `-a` switch when starting the **mkdocs serve** command to specify an IP:PORT to start on.  Example:
 
 ```
 cd openinfra-docs
@@ -56,3 +62,17 @@ mkdocs serve -a 172.20.135.10:8000
 ```
 
 The site is configured to automatically publish changes to the gh-pages sites when a `push` to the master branch is executed.  Check the status of the pages build and deployment under the *Actions* menu.
+
+### Commiting Changes
+
+Once you have your changes made, commit them to your branch, pull the latest main branch from the repo, merge your changes, and then push to the repo.
+
+```
+git add <file>
+git commit -m "description of changes made"
+git checkout main
+git pull
+git merge <yourBranch>
+git push
+```
+
