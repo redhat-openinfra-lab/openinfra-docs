@@ -37,7 +37,7 @@ If you'd like to see the physical layout of the hardware in the lab, check out t
 ## Lab VPN Access
 
 * Connect to the *Red Hat* VPN
-* Access the <a href="https://10.9.57.124/" target="_blank">Fortigate Administration Page</a>.
+* Access the <a href="https://10.9.57.126/" target="_blank">Fortigate Administration Page</a>.
 * You will need to login as the `user_mgr` account. These credentials are in the <a href="https://vault.bitwarden.com/#/login" target="_blank">BitWarden Vault</a> under *Fortigate User Management FW*.
 * After logging in, navigate to the *User & Device -> User Definition* on the left:
 
