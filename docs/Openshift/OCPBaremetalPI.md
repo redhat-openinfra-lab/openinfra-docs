@@ -63,7 +63,7 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
     ```
     quota_vcpus: 100
-    quota_ram: 240000
+    quota_ram: 256000
     quota_instances: 30
     quota_ports: 200
     ```
@@ -93,35 +93,45 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
     ```
     instances:
-      - { name: "bootstrap", image: "rhel-8.2", flavor: "kni.bootstrap", ipmi: "False", extra_volume_size: "0", net_name1: "vlan1117", net_name2: "provisioning0", net_name3: "baremetal0", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "bootstrap", image: "rhel-9.2", flavor: "kni.bootstrap", ipmi: "False", extra_volume_size: "0", net_name1: "vlan1117", net_name2: "provisioning0", net_name3: "baremetal0", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-master1", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-master2", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-master3", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-worker1", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-worker2", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-worker3", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      az: "leaf1"
+      cloud_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIEKzCCAxOgAwIBAgIUKrMQeLIpyjDKKWgtaWfyBIq9auMwDQYJKoZIhvcNAQEL
+    ...
     ```
 
     Without ODF (normal workers):
     ```
     instances:
-      - { name: "bootstrap", image: "rhel-8.2", flavor: "kni.bootstrap", ipmi: "False", extra_volume_size: "0", net_name1: "vlan1117", net_name2: "provisioning0", net_name3: "baremetal0", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "bootstrap", image: "rhel-9.2", flavor: "kni.bootstrap", ipmi: "False", extra_volume_size: "0", net_name1: "vlan1117", net_name2: "provisioning0", net_name3: "baremetal0", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-master1", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-master2", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-master3", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-worker1", image: "pxeboot", flavor: "kni.worker", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-worker2", image: "pxeboot", flavor: "kni.worker", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
       - { name: "kni-worker3", image: "pxeboot", flavor: "kni.worker", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-
+    az: 'leaf1'
+    cloud_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIEKzCCAxOgAwIBAgIUKrMQeLIpyjDKKWgtaWfyBIq9auMwDQYJKoZIhvcNAQEL
+    ...
     ```
 
+    > NOTE: The `cloud_cert` value is that of the openinfraCA.pem root certificate. This is needed for the `ospbmc` service that runs in the IPMI VMs.  If this root certificate is updated, this key value must be updated or this service will not start.  
+  
+    
 8.  Set user/project and password and submit the job using the same project and password used previously when creating the project.  Submit the job. 
   
-9.  Finally, go to *Templates* tab and hit the “rocket” icon next to - *HextupleO - configure OCP BM Bootstrap*
+9.  Finally, go to *Templates* tab and hit the “rocket” icon next to - *HextupleO - configure OCP BM Bootstrap*.  This playbook will configure the credentials on the bootstrap node, set the DNS and NTP servers, and copy some goodies into the /home/kni/GoodieBag directory.  Update the project name, password, and submit the job.
 
-10.  Follow the survey and submit the job
-
-11.  At the end you will be getting a screen similar to this one:
+10.  At the end you will be getting a screen similar to this one:
 
 ![Customized Screenshot](../images/hextupleo-customize1.png)
 
@@ -161,7 +171,7 @@ You can ssh to this IP as the user kni using the password you set in the playboo
     > Repos  
     > Even though you could register to your CDN and start using your own repos, there are local synced repos that are available over LAN. This should be much quicker to download from. Simply grap the rhel8.repo file from here:
     >
-    >[kni@bootstrap ~]$ sudo curl http://172.20.129.19/hextupleo-repo/rhel8.repo -o /etc/yum.repos.d/rhel8.repo
+    >[kni@bootstrap ~]$ sudo curl http://172.20.129.19/hextupleo-repo/rhel9.repo -o /etc/yum.repos.d/rhel9.repo
     >
 
 
@@ -208,17 +218,23 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
     [kni@bootstrap ~]$ sudo systemctl enable libvirtd --now
     [kni@bootstrap ~]$ systemctl status libvirtd
     ● libvirtd.service - Virtualization daemon
-       Loaded: loaded (/usr/lib/systemd/system/libvirtd.service; enabled; vendor preset: enabled)
-       Active: active (running) since Thu 2023-02-16 10:07:21 EST; 1s ago
-         Docs: man:libvirtd(8)
-               https://libvirt.org
-     Main PID: 7506 (libvirtd)
-        Tasks: 21 (limit: 32768)
-       Memory: 18.1M
-       CGroup: /system.slice/libvirtd.service
-           ├─7407 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefile-ro --dhcp-script=/usr/libexec/libvirt_leaseshelper
-           ├─7408 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefile-ro --dhcp-script=/usr/libexec/libvirt_leaseshelper
-           └─7506 /usr/sbin/libvirtd --timeout 120
+          Loaded: loaded (/usr/lib/systemd/system/libvirtd.service; enabled; preset: disabled)
+          Active: active (running) since Thu 2024-02-29 09:44:36 EST; 6s ago
+     TriggeredBy: ● libvirtd.socket
+               ○ libvirtd-tls.socket
+               ○ libvirtd-tcp.socket
+               ● libvirtd-ro.socket
+               ● libvirtd-admin.socket
+           Docs: man:libvirtd(8)
+             https://libvirt.org
+       Main PID: 6459 (libvirtd)
+          Tasks: 21 (limit: 32768)
+         Memory: 18.2M
+            CPU: 493ms
+         CGroup: /system.slice/libvirtd.service
+                ├─6459 /usr/sbin/libvirtd --timeout 120
+                ├─6559 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefil>
+                └─6560 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefil>
     ```
   
 6. Create the default storage pool and start it.
@@ -234,60 +250,82 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
     Pool default marked as autostarted
     ```
 
-7. Set up networking using the reconfig-net.sh script in the ~/GoodieBag directory.  Once the connections are reconfigured, the script will display the final configuration.  The output should look similar to what is displayed below.  The script will also add the baremetal subnet to the external router if it was not completed in the *Accessing Your Project’s OpenStack Environment* section in the Horizon GUI.  
+7. Install the ansible-core package, the openshift.cloud and community.general modules along with the Openshift SDK.
+
+   ```
+   [kni@bootstrap ~]$ sudo dnf install -y ansible-core
+   ...
+   [kni@bootstrap ~]$ python -m pip install openstacksdk
+   ...
+   [kni@bootstrap ~]$ ansible-galaxy collection install openstack.cloud community.general
+   ...
+   ```
+
+8. Configure the network using the Ansible `reconfig-net.yml playbook`.  This playbook will add the `provisioning` and `baremetal` network bridges and add eth1 and eth2 respectively to the bridges. Use the `nmcli con show` command to see the configuration before and after the playbook.
 
     ```
-    [kni@bootstrap ~]$ cd GoodieBag
-    [kni@bootstrap GoodieBag]$ ./reconfig-net.sh -h
-    Script to reconfigure the eth1 and eth2 interfaces on bootstrap server in OpenStack for Openshift deployments.
-    Usage: reconfig-net.sh [-a|--all|interfaceName]
-    If -a or --all is passed, eth1 and eth2 will both be reconfigured as provisioning and baremetal bridge interfaces.
-    If -r or --router is passed, interface reconfiguration is skipped and router configuration will complete.
+    [kni@bootstrap]$ nmcli con show
+    NAME         UUID                                  TYPE      DEVICE 
+    System eth0  5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03  ethernet  eth0   
+    System eth1  9c92fad9-6ecb-3e6c-eb4d-8a47c6f50c04  ethernet  eth1   
+    System eth2  3a73717e-65ab-93e8-b518-24f5af32dc0d  ethernet  eth2   
+    lo           579ab600-7690-4439-84c6-1332da9a68df  loopback  lo     
+    virbr0       691c87ce-bbcc-436f-b936-f9dfd340d9b1  bridge    virbr0 
+    ```
+    
+    ```
+    [kni@bootstrap]$ ansible-playbook GoodieBag/reconfig-net.yml
+    [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match
+    'all'
 
+    PLAY [Configure Networks] *********************************************************************************************
 
-    [kni@bootstrap ~]$ sudo ./reconfig-net.sh -a
-    Connection 'System eth1' successfully deactivated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/2)
-    Connection 'System eth2' (9c92fad9-6ecb-3e6c-eb4d-8a47c6f50c04) successfully deleted.
-    Connection 'provisioning' (1b5a7497-4ff5-43ec-bb3e-df01e8f070e8) successfully added.
-    Connection 'bridge-slave-eth1' (3a46f2d4-5a3e-4b8d-994b-0a055ade7a84) successfully added.
-    Connection 'provisioning' successfully deactivated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/5) 
-    Connection successfully activated (master waiting for slaves) (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/7) 
-    provisioning configured successfully.
+    TASK [Gathering Facts] ************************************************************************************************
+    ok: [localhost]
 
-    Connection 'System eth2' successfully deactivated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/3)
-    Connection 'System eth2' (3a73717e-65ab-93e8-b518-24f5af32dc0d) successfully deleted.
-    Connection 'baremetal' (9ba0964b-3667-42f5-ae81-a0a0936985cf) successfully added.
-    Connection 'bridge-slave-eth2' (f2b52c9b-087f-4b7c-9186-0ed593897c73) successfully added.
-    Connection 'baremetal' successfully deactivated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/9)
-    Connection successfully activated (master waiting for slaves) (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/11)
-    baremetal configured successfully.
+    TASK [Delete eth1 and eth2 connections] *******************************************************************************
+    changed: [localhost] => (item={'conn_name': 'System eth1'})
+    changed: [localhost] => (item={'conn_name': 'System eth2'})
 
-    Current network interface configuration:
+    TASK [Add Linux Bridge for provisioning network on eth1] **************************************************************
+    changed: [localhost]
+
+    TASK [Add eth1 to provisioning bridge] ********************************************************************************
+    changed: [localhost]
+
+    TASK [Add Linux Bridge for baremetal network on eth2] *****************************************************************
+    changed: [localhost]
+
+    TASK [Add eth2 to baremetal bridge] ***********************************************************************************
+    changed: [localhost]
+
+    PLAY RECAP ************************************************************************************************************
+    localhost                  : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    ```
+
+    ```
+    [kni@bootstrap GoodieBag]$ nmcli con show
     NAME               UUID                                  TYPE      DEVICE       
     System eth0        5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03  ethernet  eth0         
-    baremetal          9ba0964b-3667-42f5-ae81-a0a0936985cf  bridge    baremetal    
-    provisioning       1b5a7497-4ff5-43ec-bb3e-df01e8f070e8  bridge    provisioning 
-    virbr0             00fb2639-d510-4c0b-bdad-2a471e7c67c5  bridge    virbr0            
-    bridge-slave-eth1  3a46f2d4-5a3e-4b8d-994b-0a055ade7a84  ethernet  eth1         
-    bridge-slave-eth2  f2b52c9b-087f-4b7c-9186-0ed593897c73  ethernet  eth2         
-
-    Installing required packages to add the baremetal subnet to the external router.
-    Verifying baremetal subnet has been added to external router.
-    External router configuration correctly.
-    [kni@bootstrap GoodieBag]$ 
+    lo                 579ab600-7690-4439-84c6-1332da9a68df  loopback  lo           
+    baremetal          5aab580a-6db3-4f57-9fe6-7f3978d76c13  bridge    baremetal    
+    provisioning       3f8c4f9d-f391-4270-8b7c-944932f0271a  bridge    provisioning 
+    virbr0             691c87ce-bbcc-436f-b936-f9dfd340d9b1  bridge    virbr0       
+    bridge-slave-eth1  7079db87-436b-42a3-be35-04a11dd07135  ethernet  eth1         
+    bridge-slave-eth2  e016724f-cccc-473a-a11d-76d721865ad1  ethernet  eth2         
     ```
 
-8. Create a pull-secret.txt file.  In a web browser, navigate to <a href="https://cloud.redhat.com/openshift/install/metal/user-provisioned" target="_blank"> Install OpenShift on Bare Metal with user-provisioned infrastructure</a>, in the *Pull Secret* section, click the *Copy pull secret* link.  
+9. Create a pull-secret.txt file.  In a web browser, navigate to <a href="https://cloud.redhat.com/openshift/install/metal/user-provisioned" target="_blank"> Install OpenShift on Bare Metal with user-provisioned infrastructure</a>, in the *Pull Secret* section, click the *Copy pull secret* link.  
 
     ![CopyPull Screenshot](../images/hextupleo-copypullsecret.png)
 
-9. Create a pull-secret.txt file in the kni user’s home directory by pasting the data just copied.  
+10. Create a pull-secret.txt file in the kni user’s home directory by pasting the data just copied.  
 
     ```
     [kni@bootstrap ~]$ vi pull-secret.txt
-    {"auths":{"cloud.openshift.com":{"auth":"b3lc3NobGVhc2UtZGaWZ0LXJl9hY2NfNViOTE3NDA1NWIyMWU4ZWQxN2ExYjhmOTU6SDA3UETQxN2Q2NzKSK92JMD3Kkk20kl
+    {"auths":{"cloud.openshift.com":{"auth":"OTE3Nb3lcmOTU6SDA3UENGVhc2Ut9hY2obNfNViA1NWIDZGaWZMWU4ZWQxN2ExYjhTQxN2Q2NzKSK90LXJly2JMk20klD3Kk
     …
-    NLXRmeUxFcFVRZnVuRVGl2czNjckTJWdkNpVQkdaVypeHVX1jTVhBZ2xOQTFScw==","email":"user@redhat.com"}}}
+    NLl2czNjckTJWdkXRQTFScwmeUxFVGNpVQkTVhBZdaVypeHcFVRZnVuRVX1j2xO==","email":"user@redhat.com"}}}
     :wq
     [kni@bootstrap ~]$
     ```
@@ -296,12 +334,12 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
 
 The installation is based on the latest-4.12 version.  This will need to be updated as new versions are released.
 
-1. Retrieve the GA OpenShift Installer using the get-ocp-installer.sh script in the kni user’s ~/GoodieBag directory.  This script will download the openshift-client installer, ensure the required packages are installed, create the install-config.yaml file, update the file with the appropriate IP addresses, ssh public keys, and pull-secret, and configure DHCP and DNS.  
+1. Run the `get-ocp-installer.sh` script in the kni user’s ~/GoodieBag directory.  This script will download the openshift-client installer, creates the install-config.yaml file, generates the ssh keys, updates the install-config.yaml file with the public ssh key and pull-secret, and configures DHCP and DNS.  
 
     ```
     [kni@bootstrap ~]$ GoodieBag/get-ocp-installer.sh -h 
     /tmp/get-ocp-installer.sh usage:
-    -v  Specify version, default is "latest-4.12".
+    -v  Specify version, default is "latest-4.14j".
     -s  Specify full path of pull-secret.txt file, default is "~/pull-secret.txt".
     -d  Specify directory to extract the release image in, default is current directory.
     -h  Display help/usage information.
@@ -312,50 +350,53 @@ The installation is based on the latest-4.12 version.  This will need to be upda
     Extracting the openshift-client installer.
     The openshift-baremetal-installer installed successfully.
 
-    Making sure required packages are installed.
-    Last metadata expiration check: 0:21:44 ago on Mon 13 Feb 2023 03:02:05 PM EST.
-    Package ansible-2.9.27-1.el8ae.noarch is already installed.
-    Package python3-shade-1.32.0-2.20220110211405.47fe056.el8ost.noarch is already installed.
-    Package python3-openstackclient-4.0.2-2.20220427020029.el8ost.noarch is already installed.
-    Dependencies resolved.
-    Nothing to do.
-    Complete!
-    done.
-    Generating the install-config.yaml file.
-    [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+    Generating the install-config.yaml file using the ~/GoodieBag/generate-configs.yml playbook.
+    [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match
+    'all'
 
-    PLAY [Generate configs] **************************************************************************************
-    
-    TASK [Gathering Facts] **************************************************************************************
+    PLAY [Generate configs] ***********************************************************************************************
+
+    TASK [Gathering Facts] ************************************************************************************************
     ok: [localhost]
 
-    TASK [Learn kni instances in the project] **************************************************************************************
+    TASK [Learn kni instances in the project] *****************************************************************************
     ok: [localhost]
 
-    TASK [Show kni  instances] **************************************************************************************
+    TASK [Learn ipmi instances in the project] ****************************************************************************
+    ok: [localhost]
+
+    TASK [Show kni instances] *********************************************************************************************
     ok: [localhost] => {
-        "msg": [
-            {
-                "OS-DCF:diskConfig": "MANUAL",
-                "OS-EXT-AZ:availability_zone": "leaf1",
-                "OS-EXT-SRV-ATTR:host": null,
-                "OS-EXT-SRV-ATTR:hostname": null,
-                "OS-EXT-SRV-ATTR:hypervisor_hostname": null,
-        …
+       "msg": [
+           {
+                "access_ipv4": "",
+                "access_ipv6": "",
+                "addresses": {
+                    "baremetal0": [
+                        {
+                            "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:4c:0a:d5",
+                            "OS-EXT-IPS:type": "fixed",
+                            "addr": "10.20.0.16",
+                            "version": 4
+                        }
+                    ],
+    ...
+    TASK [Create /home/kni/clusterconfigs/] *******************************************************************************
+    ok: [localhost]
 
-    PLAY RECAP **********************************************************************************************
-    Localhost        : ok=6    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    TASK [Copy install-config] ********************************************************************************************
+    changed: [localhost]
+
+    PLAY RECAP ************************************************************************************************************
+    localhost                  : ok=9    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
     done.
-    Updating the install-config yaml file.
-    Configuring DHCP and DNS.
     If you have a failed attempt at the installation, use the ~/GoodieBag/cleanup-ocp.sh script to reset the environment.
     Go forth and deploy openshift-baremetal-installation.
-    [kni@bootstrap ~]$
     ```
 
 
-2. Review the contents of the ~/GoodieBag/install-configs.yaml file.  All IP addresses for the server instances should be updated from the default of X.X.X.X, and the pullSecrets and sshKey variables should be updated with the correct information.  
+2. Review the contents of the ~/GoodieBag/install-configs.yaml file.  All IP addresses for the server instances should be updated to the correct IPMI IP addresses, and the pullSecrets and sshKey variables should be updated with the correct information.  
 
     ```
     [kni@bootstrap ~]$ more GoodieBag/install-config.yaml
