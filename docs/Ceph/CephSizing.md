@@ -1,4 +1,4 @@
-# Ceph Sizing Guidelines
+# Sizing Guidelines
 
 ## Minimum Hardware Architecture
 
