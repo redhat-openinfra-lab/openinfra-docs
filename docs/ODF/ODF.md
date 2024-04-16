@@ -6,9 +6,12 @@ ODF can make use of external Ceph when the OCP cluster is running on:
 * VMware vSphere
 * OSP (Tech Preview)
 
-cccccbkrlteillethekiungfreuhfrcutrklddjrieuu
+## OCS Operator
 
-## Deployment
+[Default CPU/RAM Requirements](https://github.com/red-hat-storage/ocs-operator/blob/main/controllers/defaults/resources.go)
+
+
+## CLI Deployment
 
 Label the respective nodes (in this example the worker nodes):
 ```
@@ -84,6 +87,7 @@ Get the osd-pods:
 oc get pods -n openshift-storage -l app=rook-ceph-osd
 ```
 
+
 ## Storage Classes
 ```
 oc get storageclasses -o name
@@ -119,13 +123,29 @@ volumeBindingMode: Immediate
 allowVolumeExpansion: true
 ```
 
+### Persistent Volume
+
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv0001
+spec:
+  capacity: 
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+```
+> NOTE: Reclaim Policy can be `retain` or `delete`
+
 ### Persistent Volume Claim
 
 ```
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: production-application
+  name: myClaim
 spec:
   accessModes:
   - ReadWriteMany
@@ -134,6 +154,8 @@ spec:
     requests:
       storage: 10Gi
 ```
+> NOTE: Raw block volumes are specified with the `volumeMode: Block` parameters in the spec section
+
 
 Patch the PVC to increase the size:
 ```
@@ -143,6 +165,33 @@ oc patch pvc/examplePVC -p '{spec:{resources:{requests:{storage: 20Gi}}}}'
 ```
 oc rollout latest deploymentconfig.apps.openshift.io/exampleDeployentConfig
 ```
+
+### Claims as Volumes
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+    - name: myfrontend
+      image: dockerfile/nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: mypd
+  volume:
+    - name: mypd
+      persistentVolumeClaim:
+        claimName: myclaim
+```
+> NOTE: The `volumeDevices` is used instead of `volumeMounts` for block devices.
+> ```
+>     volumeDevices:
+        - name: data
+          devicePath: /dev/xvda
+> ```
+
 
 ### Logs
 
@@ -204,6 +253,12 @@ oc adm must-gather --image=registry.redhat.io/ocs4/ocs-must-gather-rhel8:v4.7 --
 ```
 
 ## Rook-Ceph Toolbox
+
+Before installing the Toolbox, consider using the rook-ceph-operator container in the openshift-storage namespace.  Access the terminal for the pod and export the CEPH_ARGS variable and you're all set.
+
+```
+export CEPH_ARGS='-c /var/lib/rook/openshift-storage/openshift-storage.config'
+```
 
 To deploy the toolbox, navigate to Administration --> Custom Resource Definitions --> OCSInitialization --> Instances.  Select the `ocsinit` instance and upddate the YAML with the following:
 
