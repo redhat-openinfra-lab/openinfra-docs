@@ -32,6 +32,11 @@ DWPD - 3
 |-----|-------|
 | TBW = DWPD * SSD Capacity(TB) * Lifetime(years) * 365 Days | DWPD = TBW / (SSD Capacity(TB) * Lifetime(years) * 365 Days) |  
 
+## OSD Default Ratios
+
+| Platform | nearfull | full | backfillfull |
+| --- | --- | --- | --- |
+| Ceph 
 
 ## OSD Flags
 
@@ -52,6 +57,12 @@ Use the .asok socket to pull information from the OSD daemons.  The bluefs stats
 /var/run/ceph/8484edfa-8c65-11ed-a639-90e2babd60b8
 # ceph --admin-daemon ./ceph-osd.5.asok config show
 # ceph --admin-daemon ./ceph-osd.5.asok bluefs stats
+```
+
+## Count of Bluestore Devices
+
+```
+ceph osd count-metadata osd_objectstore
 ```
 
 ## Add OSD to the Ceph Cluster
@@ -99,19 +110,7 @@ Use the following command to ensure the device can be reused if necessary:
 ```
 ceph orch device zap --force 'serverName' /dev/sdx
 ```
-
-## Manage OSDs
-
-Start|stop|restart OSD daemon:
-```
-# ceph orch daemon [start|stop|restart] osd.13
-Scheduled to stop osd.13 on host ‘ServerName’ 
-```
-
-Verify the correct OSD service is stopped
-```
-# ceph orch ps serverName —daemon-type osd 
-```
+> NOTE: sgdisk --zap-all /dev/sdx
 
 ## Updated OSD Device Class:
 
@@ -130,6 +129,18 @@ LUKS keys to unencrypt the drives are stored in the MON.  The key to authenticat
 client.osd-lockbox.f7626ae7-a6df-4229-99c5-aaccb1aebf5c
 	key: AQAm2bVjC/V4ABAA+DIzvkQh7MqoSsUreWnmAQ==
 	caps: [mon] allow command "config-key get" with key="dm-crypt/osd/f7626ae7-a6df-4229-99c5-aaccb1aebf5c/luks"
+```
+
+Clear LUKS key on OCP Cluster Device
+
+```
+$ lsblk
+...
+vdb  252:16   0  250G  0 disk  
+└─ocs-deviceset-default-storage-0-data-0jfpqp-block-dmcrypt
+     253:0    0  250G  0 crypt 
+
+$ sudo cryptsetup luksClose --debug --verbose ocs-deviceset-default-storage-0-data-0jfpqp-block-dmcrypt
 ```
 
 ## Deepscrub
@@ -262,6 +273,20 @@ To have ceph manage all devices automatically:
 # ceph orch apply osd —all-available-devices
 ```
 This creates a systemd service as osd.all-available-devices (ceph orch ls)
+
+## OSD Memory Target
+
+Calculation for `osd_memory_target`
+HCI:
+<RAM> * 1073741824 * 0.2 / <OSDs>
+
+Non-HCI:
+<RAM> * 1073741824 * 0.7 / <OSDs>
+
+General:
+(<RAM> - 30%) / <OSDs>
+
+> NOTE: <RAM> is total memory in server in GB and OSDs are the total number of OSDs on the host
 
 
 ## NVMe Firmware Update

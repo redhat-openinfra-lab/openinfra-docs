@@ -18,12 +18,12 @@
 
 | Service | Cores | RAM | Notes |  
 | --- | --- | --- | --- |  
-| MON | 2 | 8 GiB | Min of 3; 5 > 750 OSDs |   
+| MON | 2 | 8 GiB | Min of 3; Max of 5 |   
 | MGR | 2 | 8 GiB | 1 MGR colocated with MON | 
 | RGW | 2 | 8 GiB | Min 2 per Object Zone; 1/Failure Domain |
-| MDS | 2 | 16 GiB | Min 2; 1/Failure Domain |
+| MDS | 2 | 16 GiB | Min 2; 1/Failure Domain; add 2 nodes/total of 5 |
 | NVMe OSD | 6 | 5 GiB/OSD | 8 GiB recommend; 2 OSD/NVMe | 
-| SSD OSD | 2 | 5 GiB/OSD | 1 OSD/SSD | 
+| SSD OSD | 2 | 5 GiB/OSD | 8 GiB recommended; 1 OSD/SSD | 
 | HDD OSD | 1 | 5 GiB/OSD | 1 OSD/HDD | 
 | Grafana | 2 | 8 GiB | |
 | Prometheus | 2 | 8 GiB |  |

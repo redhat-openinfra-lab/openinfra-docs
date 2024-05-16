@@ -8,19 +8,19 @@ On the left go to `Operators -> OperatorHub`
 
 Search for **nmstate**
 
-![image](../../../images/nmstate_image_operator_hub.png)
+<img src="/images/nmstate_image_operator_hub.png" alt="drawing" width="500"/>
 
 Click on the **Kubernetes NMState Operator**, click `Install`, accept the defaults and click `Install` again.
 
 In a couple of minutes, it will be installed:
 
-![image](../../../images/nmstate_image_install_success.png)
+<img src="/images/nmstate_image_install_success.png" alt="drawing" width="500"/>
 
 Click `View Operator`, go to the **NMState tab**, click `Create NMState`.
 
 Accept the defaults and click `Create`.
 
-![image](../../../images/nmstate_image_create.png)
+<img src="/images/nmstate_image_create.png" alt="drawing" width="700"/>
 
 Doing this will create the **NodeNetwork\*** Custom Resource Definitions required to be able to work with the underlying network configuration in CoreOS on the Openshift Nodes.
 

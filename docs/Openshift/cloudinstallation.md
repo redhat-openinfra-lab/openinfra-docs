@@ -74,12 +74,12 @@ INFO Time elapsed: 29m27s
 
 ### Create Machine Sets for ODF
 
-Login to the ODF Console GUI.  Navigate to Compute, Machine Sets.  Download each of the existing machine sets.  These will be used as templates for the new machine sets.  Click the machine name, select YAML from the top menu bar and then click the Download link in the lower right corner.
+Login to the ODF Console GUI.  Navigate to Compute, Machine Sets.  Download each of the existing machine sets.  These will be used as templates for the new machine sets.  Click the machine name, select YAML from the top menu bar and then click the Download link in the lower right corner.  Alternatively, you can use the `oc get machineset/<machineSetName> -n openshift-machine-api -o yaml` command and save the output to a file.  
 
 For each machine YAML files, make the following edits:
 
 * Delete the highlighted line:
-```hl_lines="9 10 15 16"
+```hl_lines="4-9 10 15 16"
 apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
 metadata:
@@ -142,11 +142,11 @@ spec:
           value: true
 ```
 
-* Update the instanceType to m5.2xlarge; this is the minimal for ODF, 10 vCPUs/32GB RAM
+* Update the instanceType to m5a.4xlarge; this satisfies the minimum requirements for ODF and is the lowest cost EC2 instance.
 ```hl_lines="3"
           iamInstanceProfile:
             id: blm-aws-grv6f-worker-profile
-          instanceType: m5.4xlarge
+          instanceType: m6i.4xlarge
 ```
 
 * Remove the status section from the bottom of the file:
@@ -208,7 +208,7 @@ metadata:
 
 ### Health Checks
 
-Using the yaml file below, add health checks to the worker and storage nodes.  Update the name and the matchLabels parameters to match the node/machine name, execute the `oc apply` command to apply.  Rinse and repeat for each node/machine.
+Using the yaml file below, add health checks to the worker and storage nodes.  Update the `name` and the `matchLabels` parameters to match the node/machine name, execute the `oc apply` command to apply.  Rinse and repeat for each node/machine.
 
 ```hl_lines="4 9"
 apiVersion: machine.openshift.io/v1beta1
