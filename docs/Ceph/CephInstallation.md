@@ -38,7 +38,8 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 4. Update the *project_name* and *project_password* parameters. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  
 
-    ![Screenshot](../images/ceph-launchinst.png)
+
+    <img src="/images/ceph-launchinst.png" alt="drawing" width="500"/>
 
 5. Wait the deployment to finish which can take up to ~10-15 minutes.  
 
@@ -83,9 +84,9 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
       [HextupleO Lab](https://hextupleo.openinfra.lab)  
         
 2. Go to the *Compute->Instances* tab and make sure all of your requested nodes have been created.  Take note of the IP addresses for the VLAN1117 network.  You will use the 172.20.17.*X* addresses to access the servers.  
+ 
 
-    ![Screenshot](../images/ceph-instancelist.png)  
-
+<img src="/images/ceph-instancelist.png" alt="drawing" width="750"/>
   
 3. Start each instance; In the *Actions* colume, select *Start Instance* for each node in the cluster.  
 
@@ -349,4 +350,14 @@ ceph orch ls --service_type type --service_name name --export
 
 ```
 [stack@bgp-undercloud ~] openstack floating ip create --subnet 372459e8-25f9-4885-b71a-6889ffff02bf --project ceph-blm 18743df0-57aa-4571-9d62-439e0570b059
+```
+
+### Ceph Health
+
+```
+ceph health detail
+```
+
+```
+ceph healthcheck history ls
 ```
