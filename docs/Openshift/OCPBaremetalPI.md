@@ -4,7 +4,7 @@
 
 Goals:
 
--   Enable field on OpenShift Baremetal 4.12    
+-   Enable field on OpenShift Baremetal 4.14+
 -   Test basics features work (no regression)
 -   Test new selected set of features    
 -   Optionally test tech preview features
@@ -19,7 +19,7 @@ Goals:
 
 ### HextupleO
 
-The lab access will be provided in the form of nested virtualization managed by RHOSP 17.
+The lab access will be provided in the form of nested virtualization managed by RHOSP 17.1.
 
 We have limited resources available, but there should be enough room for about 10 virtual environments.  
 
@@ -169,9 +169,9 @@ You can ssh to this IP as the user kni using the password you set in the playboo
 
     > INFO:
     > Repos  
-    > Even though you could register to your CDN and start using your own repos, there are local synced repos that are available over LAN. This should be much quicker to download from. Simply grap the rhel8.repo file from here:
+    > Even though you could register to your CDN and start using your own repos, there are local synced repos that are available over LAN that have been already enabled for you. If you dont want to use our local repos, delete this file:
     >
-    >[kni@bootstrap ~]$ sudo curl http://172.20.129.19/hextupleo-repo/rhel9.repo -o /etc/yum.repos.d/rhel9.repo
+    >[kni@bootstrap ~]$ rm /etc/yum.repos.d/rhel9.repo
     >
 
 
@@ -189,30 +189,21 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
     ssh kni@<bootstrapInstance>  / password specified in Tower
     ```
 
-2. Update all packages on the system.  
+2. Install the KNI Packages.  
 
     ```
-    [kni@bootstrap ~]$ sudo dnf update -y
-    ...
-    Complete!
-    [kni@bootstrap ~]$ sudo reboot
-    ```
-
-3. Install the KNI Packages.  
-
-    ```
-    [kni@bootstrap ~]$ sudo dnf install -y libvirt qemu-kvm mkisofs python3-devel jq ipmitool
+    sudo dnf install -y libvirt qemu-kvm mkisofs python3-devel jq ipmitool
     ```
   
-4. Modify the user to add the libvirt group to the newly created kni user.  
+3. Modify the user to add the libvirt group to the newly created kni user.  
 
     ```
-    [kni@bootstrap ~]$ sudo usermod --append --groups libvirt kni
+    sudo usermod --append --groups libvirt kni
     ```
     > NOTE: If you receive the error `DB version too old [0.21], expected [0.23] for domain implicit_files!` stop sssd with the `systemctl stop sssd` command, remove the cache files in */var/lib/sss/db* directory, and restart sssd with the `systemctl start sssd` command
 
 
-5. Start and enable libvirtd; verify the daemon started successfully.
+4. Start and enable libvirtd; verify the daemon started successfully.
 
     ```
     [kni@bootstrap ~]$ sudo systemctl enable libvirtd --now
@@ -237,7 +228,7 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
                 └─6560 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefil>
     ```
   
-6. Create the default storage pool and start it.
+5. Create the default storage pool and start it.
 
     ```
     [kni@bootstrap ~]$ sudo virsh pool-define-as --name default --type dir --target /var/lib/libvirt/images
@@ -250,18 +241,7 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
     Pool default marked as autostarted
     ```
 
-7. Install the ansible-core package, the openshift.cloud and community.general modules along with the Openshift SDK.
-
-   ```
-   [kni@bootstrap ~]$ sudo dnf install -y ansible-core
-   ...
-   [kni@bootstrap ~]$ python -m pip install openstacksdk
-   ...
-   [kni@bootstrap ~]$ ansible-galaxy collection install openstack.cloud community.general
-   ...
-   ```
-
-8. Configure the network using the Ansible `reconfig-net.yml playbook`.  This playbook will add the `provisioning` and `baremetal` network bridges and add eth1 and eth2 respectively to the bridges. Use the `nmcli con show` command to see the configuration before and after the playbook.
+6. Configure the network using the Ansible `reconfig-net.yml playbook`.  This playbook will add the `provisioning` and `baremetal` network bridges and add eth1 and eth2 respectively to the bridges. Use the `nmcli con show` command to see the configuration before and after the playbook.
 
     ```
     [kni@bootstrap]$ nmcli con show
@@ -315,11 +295,11 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
     bridge-slave-eth2  e016724f-cccc-473a-a11d-76d721865ad1  ethernet  eth2         
     ```
 
-9. Create a pull-secret.txt file.  In a web browser, navigate to <a href="https://cloud.redhat.com/openshift/install/metal/user-provisioned" target="_blank"> Install OpenShift on Bare Metal with user-provisioned infrastructure</a>, in the *Pull Secret* section, click the *Copy pull secret* link.  
+7. Create a pull-secret.txt file.  In a web browser, navigate to <a href="https://cloud.redhat.com/openshift/install/metal/user-provisioned" target="_blank"> Install OpenShift on Bare Metal with user-provisioned infrastructure</a>, in the *Pull Secret* section, click the *Copy pull secret* link.  
 
     ![CopyPull Screenshot](../images/hextupleo-copypullsecret.png)
 
-10. Create a pull-secret.txt file in the kni user’s home directory by pasting the data just copied.  
+8. Create a pull-secret.txt file in the kni user’s home directory by pasting the data just copied.  
 
     ```
     [kni@bootstrap ~]$ vi pull-secret.txt
@@ -332,14 +312,14 @@ Steps below are going to be very similar if not mostly identical to Red Hat offi
 
 ## OpenShift Installation
 
-The installation is based on the latest-4.12 version.  This will need to be updated as new versions are released.
+The installation is based on the stable-4.15 version.  This will need to be updated as new versions are released.
 
 1. Run the `get-ocp-installer.sh` script in the kni user’s ~/GoodieBag directory.  This script will download the openshift-client installer, creates the install-config.yaml file, generates the ssh keys, updates the install-config.yaml file with the public ssh key and pull-secret, and configures DHCP and DNS.  
 
     ```
     [kni@bootstrap ~]$ GoodieBag/get-ocp-installer.sh -h 
     /tmp/get-ocp-installer.sh usage:
-    -v  Specify version, default is "latest-4.14j".
+    -v  Specify version, default is "stable-4.15".
     -s  Specify full path of pull-secret.txt file, default is "~/pull-secret.txt".
     -d  Specify directory to extract the release image in, default is current directory.
     -h  Display help/usage information.
@@ -505,7 +485,7 @@ The OpenShift Console is not available on the VPN network the lab environment is
 2.  There isn’t any configuration required to use sshuttle.  You can create the VPN connection using the sshuttle command.  Connect to your project’s bootstrap server’s IP address.  
 
     ```
-    $ sshuttle -r kni@172.20.XX.XX 10.20.0.0/24 [ -vv ]
+    $ sshuttle -r kni@172.20.XX.XX 10.20.0.0/24 --dns --to-ns 10.20.0.10 [ -vv ]
     ```
 
 3. Access your OpenShift Console in your browser using the link:  
