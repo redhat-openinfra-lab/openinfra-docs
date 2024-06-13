@@ -44,7 +44,7 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 4. Update the *Project Name* and *Password* fields. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.
 
-    ![Screenshot](../images/hextupleo-default1.png)
+    <img src="/images/hextupleo-default1.png" alt="drawing" width="400"/>
 
 5. The jobs can be monitored under *Jobs* in the left pane.  Additional jobs will be initiated to create the project, network, instances, and bare metal bootstrap.  Wait the deployment to finish which can take ~10-15 minutes.
 
@@ -59,10 +59,10 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 4. Update the *Project Name* and *Password* fields. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  
 
-    > NOTE:  Ensure the quota_vcpus value is set to at least 100 and the quota_ram value is set to at least 240000.  These the requirements needed to deploy an OCP cluster with ODF Essentials using the kni.worker.xlarge flavor.
+    > NOTE:  Ensure the quota_vcpus value is set to at least 128 and the quota_ram value is set to at least 256000.  These the requirements needed to deploy an OCP cluster with ODF Essentials using the kni.worker.xlarge flavor.
 
     ```
-    quota_vcpus: 100
+    quota_vcpus: 128
     quota_ram: 256000
     quota_instances: 30
     quota_ports: 200
@@ -75,7 +75,10 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
     networks:
     - { name: "provisioning0", cidr: "10.10.0.0/24", dhcp: "False", snat: "False", mtu: "8938" }
     - { name: "baremetal0", cidr: "10.20.0.0/24", dhcp: "False", snat: "False", mtu: "8938" }
-    - { name: "virtualipmi", cidr: "10.30.0.0/24", dhcp: "True", snat: "True", mtu: "8938" }
+    - { name: "storage0", cidr: "10.30.0.0/24", dhcp: "False", snat: "False", mtu: "8938" }
+    - { name: "storagemgmt0", cidr: "10.40.0.0/24", dhcp: "False", snat: "False", mtu: "8938" }
+    - { name: "migration0", cidr: "10.50.0.0/24", dhcp: "False", snat: "False", mtu: "8938" }
+    - { name: "virtualipmi", cidr: "10.60.0.0/24", dhcp: "True", snat: "True", mtu: "8938" }
     ```  
 
 
@@ -94,12 +97,12 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
     ```
     instances:
       - { name: "bootstrap", image: "rhel-9.2", flavor: "kni.bootstrap", ipmi: "False", extra_volume_size: "0", net_name1: "vlan1117", net_name2: "provisioning0", net_name3: "baremetal0", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-master1", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-master2", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-master3", image: "pxeboot", flavor: "kni.master", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-worker1", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-worker2", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
-      - { name: "kni-worker3", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-master1", image: "pxeboot", flavor: "kni.master.odf", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-master2", image: "pxeboot", flavor: "kni.master.odf", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-master3", image: "pxeboot", flavor: "kni.master.odf", ipmi: "True", extra_volume_size: "0", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "", net_name4: "", net_name5: "", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-worker1", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "storage0", net_name4: "storagemgmt0", net_name5: "migration0", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-worker2", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "storage0", net_name4: "storagemgmt0", net_name5: "migration0", net_name6: "",  net_name7: "", net_name8: ""  }
+      - { name: "kni-worker3", image: "pxeboot", flavor: "kni.worker.xlarge", ipmi: "True", extra_volume_size: "100", net_name1: "provisioning0", net_name2: "baremetal0", net_name3: "storage0", net_name4: "storagemgmt0", net_name5: "migration0", net_name6: "",  net_name7: "", net_name8: ""  }
       az: "leaf1"
       cloud_cert: |
         -----BEGIN CERTIFICATE-----
@@ -133,7 +136,8 @@ Standard roles have been pre-defined, but since we are using OpenStack to manage
 
 10.  At the end you will be getting a screen similar to this one:
 
-![Customized Screenshot](../images/hextupleo-customize1.png)
+
+    <img src="/images/hextupleo-customize1.png" alt="drawing" width="400"/>
 
 You can ssh to this IP as the user kni using the password you set in the playbook.
 
@@ -149,7 +153,8 @@ You can ssh to this IP as the user kni using the password you set in the playboo
 
 3. Scroll down to the bottom of the list and note the Undercloud Public IP address. You will use that IP to access your undercloud node. This will match the above output from the Ansible job (even though it does not in this document).  You can SSH to this IP as kni using the password you provided in the playbook.  
 
-    ![Screenshot](../images/hextupleo-horizon1.png)
+
+    <img src="/images/hextupleo-horizon1.png" alt="drawing" width="500"/>
 
   
 4. Go to *Network->Network Topology* and get familiar with how the VMs are connected on the networks.  
@@ -159,7 +164,7 @@ You can ssh to this IP as the user kni using the password you set in the playboo
 
 5. Go to *Routers*, select the existing router (projectName_router); click the *Interfaces* tab and then click the *Add Interface* icon on the right.   Add the *baremetal0* interface in the Subnet dropdown.  Click *Submit*.  
 
-    ![Router Screenshot](../images/hextupleo-horizon2.png)
+    <img src="/images/hextupleo-horizon2.png" alt="drawing" width="500"/>
   
 ### Bootstrap
 
@@ -368,7 +373,7 @@ The installation is based on the stable-4.15 version.  This will need to be upda
     changed: [localhost]
 
     PLAY RECAP ************************************************************************************************************
-    localhost                  : ok=9    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    localhost                  : ok=9    changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
     done.
     If you have a failed attempt at the installation, use the ~/GoodieBag/cleanup-ocp.sh script to reset the environment.
