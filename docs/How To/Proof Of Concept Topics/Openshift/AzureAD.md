@@ -7,7 +7,7 @@
 On the left go to `Administration -> Cluster Settings` and go to **Configuration Tab** and search for **Oauth**.
 
 
-![azure-oauth](/docs/images/azure-oauth.png)
+![azure-oauth](../../../images/azure-oauth.png)
 
 
 
