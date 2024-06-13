@@ -36,22 +36,22 @@ Network Diagrams should include:
 
 Define a Multus Network using a Newtork Attachment Definition (NAD)
 
-```
+```hl_lines="4 11 15"
 apiVersion: k8s.cni.cncf.io/v1
-kind: NetworkAttachment Definition
+kind: NetworkAttachmentDefinition
 metadata:
-  name: public-net     <--- cluster-net
+  name: odf-cluster    
   namespace: openshift-storage
 spec:
   config: |
     {
-       "cniVersion": "0.3.1",  <--see OCP documentation
+       "cniVersion": "0.3.1",  
        "type": "macvlan",
-       "master": "eth1",   <--- "eth2"
+       "master": "eth1",   
        "mode": "bridge",
        "ipam": {
           "type": "whereabouts",
-          "range": "192.168.10.0/24"   <---"192.168.50.0/24
+          "range": "192.168.10.0/24"   
        }
     }
 ```
