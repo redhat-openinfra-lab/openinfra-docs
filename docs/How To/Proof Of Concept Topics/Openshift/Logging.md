@@ -15,7 +15,7 @@ If configuring Logging to push logs to an ElasticSearch instance running on the 
 
 On the left go to `Operators -> OperatorHub` and search for **Openshift Logging Operator**:
 
-<img src="/images/logging_image_1.png" alt="drawing" width="500"/>
+<img src="https://redhat-openinfra-lab.github.io/openinfra-docs/images/logging_image_1.png" alt="drawing" width="500"/>
 
 Click on `Red Hat Openshift Logging`, click `Install`, review the defaults and click `Install`.
 
@@ -106,6 +106,6 @@ EOF
 
 On the left, navigate to `Networking -> Routes` and change to the **openshift-logging** project and you will see a route for **kibana**.
 
-<img src="/images/logging_image_2.png" alt="drawing" width="600"/>
+<img src="https://redhat-openinfra-lab.github.io/openinfra-docs/images/logging_image_2.png" alt="drawing" width="600"/>
 
 Click the **Location** route to open Kibana, login and you’ll need to create indices for **infra-\***, **audit-\*** and **app-\***
