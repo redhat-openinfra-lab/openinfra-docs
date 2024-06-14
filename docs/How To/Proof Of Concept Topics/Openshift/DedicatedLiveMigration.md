@@ -6,7 +6,7 @@ The official documentation basically just links to a description of the `Cluster
 
 ## Process
 
-First, you need to create a Network Attachment Definition (NAD) for the Live Migration Netork.  Here is an example that creates a network called **cnv-migration-network** and excludes some IP addresses that already exist:
+First, you need to create a Network Attachment Definition (NAD) for the Live Migration Network.  Here is an example that creates a network called `cnv-migration-network` and excludes some IP addresses that already exist:
 
 ```
 export KUBECONFIG=~/ocp-trial/kubeconfig
@@ -41,23 +41,23 @@ oc create -f ./create_cnv_migration_nad.yaml
 
 Next, you need to configure the hyperconverged deployment to use the migration network. If you have not already created the HyperConverged deployment, you can set this in the GUI when you're creating the object:
 
-![migrationNetwork](../../../images/migration_network_image_1.png)
+![migrationNetwork](../../../images/liveMigration.png){width=60%}
 
-If you have already created the HyperConverged object, you will need to edit it and add the **network:** line identifying the Network Attachment Definition to use for the migration network. as shown below:
+If you have already created the HyperConverged object, you will need to edit it and add the `network:` line identifying the Network Attachment Definition to use for the migration network. as shown below:
 
 `oc edit hyperconverged kubevirt-hyperconverged -n openshift-cnv`
 
 Example:
 
-```
-spec:
-  certConfig:
-    ca:
-  …
-  liveMigrationConfig:
-    completionTimeoutPerGiB: 800
-    network: cnv-migration-network
-    parallelMigrationsPerCluster: 5
-    parallelOutboundMigrationsPerNode: 2
-    progressTimeout: 150
+```hl_lines="7"
+spec:  
+  certConfig:  
+    ca:  
+  …  
+  liveMigrationConfig:  
+    completionTimeoutPerGiB: 800  
+    network: cnv-migration-network  
+    parallelMigrationsPerCluster: 5  
+    parallelOutboundMigrationsPerNode: 2  
+    progressTimeout: 150  
 ```
