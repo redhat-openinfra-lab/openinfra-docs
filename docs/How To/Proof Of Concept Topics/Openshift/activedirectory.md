@@ -11,7 +11,7 @@ Update the fields appropriately.
 * *BindDN* is the DN from AD that is used for lookups
 * *Bind* password is the password for the BindDN user.
 
-<img src="/images/ldap-add.png" alt="drawing" width="500"/>
+![ldap-add](../../../images/ldap-add.png){width=50%}
 
 Scroll down to the Attributes section.  Update the *Preferred username* to the user friendly name defined in AD.
 > NOTE:  For our environment this is the **sAMAccountName** but can vary for other customer environments.
