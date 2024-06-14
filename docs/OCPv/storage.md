@@ -4,7 +4,7 @@
 
 odf-storage - created by LSO (you provide the name when you create the storageSystem)
 ocs-storagecluster-ceph-rbd  
-ocs-storagecluster-ceph-rge  
+ocs-storagecluster-ceph-rgw  
 ocs-storagecluster-cephfs  
 openshift-storage.noobaa.io  
 
@@ -34,7 +34,7 @@ spec:
 
 ## PVCs for OCPv
 
-With PVCs in Block mode, OpenShift Virtualization transfers the disk image into the volume. The VM disk uses the volume as its back-end device.
+With PVCs in Block mode, OpenShift Virtualization transfers the disk image into the volume. The VM disk uses the volume as its back-end device.  Better option is when the CSI driver supports snapshots/cloning and the source PVC is cloned.
 
 With PVCs in Filesystem mode, OpenShift Virtualization creates a disk.img file at the root of the PV file system and then copies the disk image into the file. The VM disk uses the disk.img file as its back-end device.
 
