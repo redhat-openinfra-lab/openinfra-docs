@@ -41,7 +41,7 @@ oc create -f ./create_cnv_migration_nad.yaml
 
 Next, you need to configure the hyperconverged deployment to use the migration network. If you have not already created the HyperConverged deployment, you can set this in the GUI when you're creating the object:
 
-<img src="/images/migration_network_image_1.png" alt="drawing" width="500"/>
+![migrationNetwork](../../../images/migration_network_image_1.png)
 
 If you have already created the HyperConverged object, you will need to edit it and add the **network:** line identifying the Network Attachment Definition to use for the migration network. as shown below:
 
