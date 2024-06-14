@@ -106,6 +106,6 @@ EOF
 
 On the left, navigate to `Networking -> Routes` and change to the **openshift-logging** project and you will see a route for **kibana**.
 
-![logging-route](../../../images/logging-route.png)
+![logging-route](../../../images/logging-route.png){width=60%}
 
 Click the **Location** route to open Kibana, login and you’ll need to create indices for **infra-\***, **audit-\*** and **app-\***
