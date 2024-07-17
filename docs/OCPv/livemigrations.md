@@ -20,7 +20,21 @@ Default Limits:
 
 ## Node Selector
 
-Kubernetes default schedule can be used or install the [Secondary Scheduler](https://redhat-openinfra-lab.github.io/openinfra-docs/How%20To/Proof%20Of%20Concept%20Topics/Openshift/secondaryScheduler/) Operator which takes load into consideration. 
+Kubernetes default scheduler is used along with `.spec.template.spec.nodeSelector` labels to select the worker node the VM should be scheduled on.  Another option is to install the [Secondary Scheduler](https://redhat-openinfra-lab.github.io/openinfra-docs/How%20To/Proof%20Of%20Concept%20Topics/Openshift/secondaryScheduler/) Operator which takes load into consideration as well. 
+
+```
+metadata:
+  name: example-vm-node-selector
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+spec:
+  template:
+    spec:
+      nodeSelector:
+        example-key-1: example-value-1
+        example-key-2: example-value-2
+...
+```
 
  
 ## Affinity
