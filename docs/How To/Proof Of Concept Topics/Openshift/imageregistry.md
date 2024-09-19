@@ -194,4 +194,4 @@ subjects:
 
 When you create your VMware provider, you can use the image-registry _service_ URL and port along with the full path to the VDDK image.
 
-<img src="/images/vddk.png" alt="drawing" width="800"/>
+<img src="../../../images/vddk.png" alt="drawing" width="800"/>
