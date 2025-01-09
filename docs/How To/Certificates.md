@@ -1,6 +1,6 @@
 # Certificates
 
-## CA Key and Certificate Files
+## CA Key and Certificate Files (How the CA was created)
 
  The CA .key and .pem files are in the /etc/httpd/conf/ssl.key directory on the DNS Utility server in the same directory.
 
@@ -59,7 +59,7 @@ There’s two ways to do this, manual and scripted.  Both are provided here.
 
 Login to the Lab DNS server (172.20.129.19).  
 Switch to the root user.    
-Add an entry in /etc/hosts for the Server/Service you are generating the SSL certificate for.  
+Add an DNS entry for the FQDN of the Server/Service you are generating the SSL certificate for (lab DNS admin interafce is here http://172.20.129.10:5380/)
 Change directory to /root/ssl-certifcates and run the script.  
 
 ```
@@ -71,7 +71,7 @@ cd /root/ssl-certificates
 
 You will be prompted for the pass phrase to the openinfraCA.key. 
 
-> NOTE: The pass phrase is in the Cloud Infra Lab spreadsheet.
+> NOTE: The pass phrase for the CA private key is stored in Bitwarden in entry named "OpenInfraLab CA Pass Phrase".
 
 All output files will start with the FQDN. Example:  
 
