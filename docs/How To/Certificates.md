@@ -56,6 +56,7 @@ There’s two ways to do this, manual and scripted.  Both are provided here.
 
 ### Scripted Process
 
+
 Login to the Lab DNS server (172.20.129.19).  
 Switch to the root user.    
 Add an entry in /etc/hosts for the Server/Service you are generating the SSL certificate for.  
