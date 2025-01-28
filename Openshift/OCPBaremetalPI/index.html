@@ -1,0 +1,3047 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Containers/">
+      
+      
+        <link rel="next" href="../cloudinstallation/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>OCP Baremetal IPI Installation - Openinfrastructure Lab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ocp-baremetal-ipi-installation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Openinfrastructure Lab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OCP Baremetal IPI Installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Go to the dark side"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Go to the dark side" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Light side"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light side" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Openinfrastructure Lab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to the Red Hat NA-SSA Lab's Documentation Site.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MiscellaneousNotes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Miscellaneous Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slideDeckLinks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Presentation Links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Ceph
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Ceph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephAuthorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authorization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephCrushMap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CRUSH Map
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephFS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CephFS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephInstallation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation Instructions v5.x
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephLogging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephNetworking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephOSD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OSDs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephRGW/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RADOS Gateway (RGW)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephRHELUpgrade/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RHEL9 Upgrade
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephRados/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RADOS Block Devices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephSizing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sizing Guidelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephTuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Tuning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/Cephv6installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation Instructions v6.x
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/dataservices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Services SSAs - Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/encryption/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encryption
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    How To
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            How To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Certificates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Certificates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/DNSServer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/DocumentationContribution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation Contribution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/ansiblesync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ansible Tower
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/jirachangerequest/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab Change Requests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Proof Of Concept Topics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            Proof Of Concept Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6_1" id="__nav_5_6_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Openshift
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Openshift
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/AffinityRules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure Affinity / Anti-Affinity Rules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/AzureAD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Integrate with Azure AD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/CPUManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure CPU Pinning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/DedicatedLiveMigration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure Dedicated Live Migration Network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/Logging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure Logging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/NMState/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install NMState Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/activedirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Integrate with LDAP/AD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/imageregistry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Registry and VDDK Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/mustgather/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The must-gather Tool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/secondaryScheduler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secondary Scheduler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    OCPv
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            OCPv
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OCPv/highAvailability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes HA for VMs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OCPv/livemigrations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Live Migrations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OCPv/lvm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lvm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OCPv/mtv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migration Toolkit for Virtualization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OCPv/network/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OCPv/snapshots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VM Snapshots and Clones
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OCPv/storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage for VMs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OCPv/templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    ODF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ODF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/ODF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Foundation Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/backup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backup Restore
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/multipath/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multipath
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/multus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/rbac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quotas and Permisstions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/registry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internal Registry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/snapshot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Snapshots and Clones
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Openshift
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Openshift
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Containers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    OCP Baremetal IPI Installation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    OCP Baremetal IPI Installation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Access
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hextupleo" class="md-nav__link">
+    <span class="md-ellipsis">
+      HextupleO
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-your-kni-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building Your KNI Lab:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building Your KNI Lab:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customized-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customized Deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-your-project-in-horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing Your Project in Horizon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessing Your Project in Horizon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Horizon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bootstrap
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-vanilla-openshift-baremetal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying Vanilla Openshift Baremetal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bootstrap-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bootstrap Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openshift-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-your-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing Your Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessing Your Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-sshuttle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using sshuttle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using sshuttle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-client-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux Client Installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos-client-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      MacOS Client Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-jumphost-from-openstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using a JumpHost from OpenStack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-odf-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying ODF (storage)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-ocpv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying OCPv
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deleting-your-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deleting Your Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloudinstallation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS OCP 4 Cloud Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../disasterrecovery/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Disasterrecovery
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hcp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP Hosted Control Plane
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ocpCertificates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP Certificates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ocpGeneral/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP General Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Openstack
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Openstack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openstack/OSP16.2Instructions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OSP 16.2 Installation Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="ocp-baremetal-ipi-installation">OCP Baremetal IPI Installation</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Goals:</p>
+<ul>
+<li>Enable field on OpenShift Baremetal 4.14+</li>
+<li>Test basics features work (no regression)</li>
+<li>Test new selected set of features    </li>
+<li>Optionally test tech preview features</li>
+<li>Report product and documentation bugs     </li>
+<li>Send valuable feedback to Product management and engineering teams</li>
+<li>Convert the work accomplished into lab training guides in order to enable more folks in the field</li>
+<li>Have fun with OpenShift Baremetal</li>
+<li>Get to work with and get to know each other.</li>
+</ul>
+<h2 id="lab-access">Lab Access</h2>
+<h3 id="hextupleo">HextupleO</h3>
+<p>The lab access will be provided in the form of nested virtualization managed by RHOSP 17.1.</p>
+<p>We have limited resources available, but there should be enough room for about 10 virtual environments.  </p>
+<p>Standard roles have been pre-defined, but since we are using OpenStack to manage it, we are capable of being flexible, with resizing flavors, snap-shotting, adding more cinder volumes to OCS nodes or even adding more networks via either OpenStack CLI, Horizon, or Ansible Tower.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>vRAM</th>
+<th>vCPU</th>
+<th>vNIC</th>
+<th>Disk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bootstrap</td>
+<td>20G</td>
+<td>6</td>
+<td><ul><li>1x pxe</li><li>1x baremetal</li><li>1x virtual IPMI</li></td>
+<td>100GB</td>
+</tr>
+<tr>
+<td>Master</td>
+<td>16GB</td>
+<td>4</td>
+<td><ul><li>1x pxe</li><li>1x baremetal</li><li>1x virtual IPMI</li></td>
+<td>25 GB</td>
+</tr>
+<tr>
+<td>Worker</td>
+<td>24GB</td>
+<td>12</td>
+<td><ul><li>1x pxe</li><li>1x baremetal</li></td>
+<td>50GB 100GB OSD</td>
+</tr>
+<tr>
+<td>Custom (optional)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="building-your-kni-lab">Building Your KNI Lab:</h2>
+<h3 id="default-configuration">Default Configuration</h3>
+<ol>
+<li>
+<p>To build your environment, please ensure you are connected to the NA-SSA VPN first.</p>
+</li>
+<li>
+<p>Access RHAAP via link - <a href="https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login">NA-SSA Ansible Automation Platform</a>.</p>
+</li>
+<li>
+<p>Select <em>Templates</em> in the left pane; click the rocket icon in the Action column to the right of <em>Deploy OpenShift Baremetal Environment</em></p>
+</li>
+<li>
+<p>Update the <em>Project Name</em> and <em>Password</em> fields. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.</p>
+<p><img src="/images/hextupleo-default1.png" alt="drawing" width="400"/></p>
+</li>
+<li>
+<p>The jobs can be monitored under <em>Jobs</em> in the left pane.  Additional jobs will be initiated to create the project, network, instances, and bare metal bootstrap.  Wait the deployment to finish which can take ~10-15 minutes.</p>
+</li>
+</ol>
+<h3 id="customized-deployment">Customized Deployment</h3>
+<ol>
+<li>
+<p>To build your environment, please ensure you are connected to NA-SSA VPN.  </p>
+</li>
+<li>
+<p>Access RHAAP via link - <a href="https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login">NA-SSA Ansible Automation Platform</a>.  </p>
+</li>
+<li>
+<p>Go to <em>Templates</em> tab and hit the “rocket” icon next to - <em>Hextupleo - create  project</em>.  </p>
+</li>
+<li>
+<p>Update the <em>Project Name</em> and <em>Password</em> fields. The project name and password are used to access your environment via CLI and the Horizon GUI.  Choose a password you will remember.  </p>
+<blockquote>
+<p>NOTE:  Ensure the quota_vcpus value is set to at least 128 and the quota_ram value is set to at least 256000.  These the requirements needed to deploy an OCP cluster with ODF Essentials using the kni.worker.xlarge flavor.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>quota_vcpus: 128
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>quota_ram: 256000
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>quota_instances: 30
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>quota_ports: 200
+</code></pre></div>
+</li>
+<li>
+<p>Go to <em>Templates</em> tab and hit the “rocket” icon next to - “Hextupleo - create networks”.  In hexo4 you are encouraged to experiment with different settings. However if you’d like to start with the known network configuration the default templates should be fine.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;ext_network&quot;: &quot;vlan1117&quot;,
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>networks:
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>- { name: &quot;provisioning0&quot;, cidr: &quot;10.10.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>- { name: &quot;baremetal0&quot;, cidr: &quot;10.20.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>- { name: &quot;storage0&quot;, cidr: &quot;10.30.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>- { name: &quot;storagemgmt0&quot;, cidr: &quot;10.40.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>- { name: &quot;migration0&quot;, cidr: &quot;10.50.0.0/24&quot;, dhcp: &quot;False&quot;, snat: &quot;False&quot;, mtu: &quot;8938&quot; }
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>- { name: &quot;virtualipmi&quot;, cidr: &quot;10.60.0.0/24&quot;, dhcp: &quot;True&quot;, snat: &quot;True&quot;, mtu: &quot;8938&quot; }
+</code></pre></div>
+</li>
+<li>
+<p>Set user/project and password using the same project and password used previously when creating the project.  Submit the job.  </p>
+</li>
+<li>
+<p>Go to <em>Templates</em> tab and hit the “rocket” icon next to - “Hextupleo - create instances”.  Below is a good starting config with 3 controllers 2 computes and 3 ceph nodes.  </p>
+<blockquote>
+<p>NOTE: Don't forget to include the az parameter!</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;az&quot;: &quot;leaf1&quot;
+</code></pre></div>
+<p>With OCS (xlarge workers):  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>instances:
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  - { name: &quot;bootstrap&quot;, image: &quot;rhel-9.2&quot;, flavor: &quot;kni.bootstrap&quot;, ipmi: &quot;False&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;vlan1117&quot;, net_name2: &quot;provisioning0&quot;, net_name3: &quot;baremetal0&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  - { name: &quot;kni-master1&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.master.odf&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  - { name: &quot;kni-master2&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.master.odf&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  - { name: &quot;kni-master3&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.master.odf&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  - { name: &quot;kni-worker1&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.worker.xlarge&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;storage0&quot;, net_name4: &quot;storagemgmt0&quot;, net_name5: &quot;migration0&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  - { name: &quot;kni-worker2&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.worker.xlarge&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;storage0&quot;, net_name4: &quot;storagemgmt0&quot;, net_name5: &quot;migration0&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  - { name: &quot;kni-worker3&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.worker.xlarge&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;storage0&quot;, net_name4: &quot;storagemgmt0&quot;, net_name5: &quot;migration0&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  az: &quot;leaf1&quot;
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  cloud_cert: |
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    -----BEGIN CERTIFICATE-----
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    MIIEKzCCAxOgAwIBAgIUKrMQeLIpyjDKKWgtaWfyBIq9auMwDQYJKoZIhvcNAQEL
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>...
+</code></pre></div>
+<p>Without ODF (normal workers):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>instances:
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  - { name: &quot;bootstrap&quot;, image: &quot;rhel-9.2&quot;, flavor: &quot;kni.bootstrap&quot;, ipmi: &quot;False&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;vlan1117&quot;, net_name2: &quot;provisioning0&quot;, net_name3: &quot;baremetal0&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  - { name: &quot;kni-master1&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.master&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  - { name: &quot;kni-master2&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.master&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  - { name: &quot;kni-master3&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.master&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;0&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  - { name: &quot;kni-worker1&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.worker&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>  - { name: &quot;kni-worker2&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.worker&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  - { name: &quot;kni-worker3&quot;, image: &quot;pxeboot&quot;, flavor: &quot;kni.worker&quot;, ipmi: &quot;True&quot;, extra_volume_size: &quot;100&quot;, net_name1: &quot;provisioning0&quot;, net_name2: &quot;baremetal0&quot;, net_name3: &quot;&quot;, net_name4: &quot;&quot;, net_name5: &quot;&quot;, net_name6: &quot;&quot;,  net_name7: &quot;&quot;, net_name8: &quot;&quot;  }
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>az: &#39;leaf1&#39;
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>cloud_cert: |
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    -----BEGIN CERTIFICATE-----
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    MIIEKzCCAxOgAwIBAgIUKrMQeLIpyjDKKWgtaWfyBIq9auMwDQYJKoZIhvcNAQEL
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>...
+</code></pre></div></p>
+<blockquote>
+<p>NOTE: The <code>cloud_cert</code> value is that of the openinfraCA.pem root certificate. This is needed for the <code>ospbmc</code> service that runs in the IPMI VMs.  If this root certificate is updated, this key value must be updated or this service will not start.  </p>
+</blockquote>
+</li>
+<li>
+<p>Set user/project and password and submit the job using the same project and password used previously when creating the project.  Submit the job. </p>
+</li>
+<li>
+<p>Finally, go to <em>Templates</em> tab and hit the “rocket” icon next to - <em>HextupleO - configure OCP BM Bootstrap</em>.  This playbook will configure the credentials on the bootstrap node, set the DNS and NTP servers, and copy some goodies into the /home/kni/GoodieBag directory.  Update the project name, password, and submit the job.</p>
+</li>
+<li>
+<p>At the end you will be getting a screen similar to this one:</p>
+<p><img src="/images/hextupleo-customize1.png" alt="drawing" width="400"/></p>
+</li>
+</ol>
+<p>You can ssh to this IP as the user kni using the password you set in the playbook.</p>
+<h2 id="accessing-your-project-in-horizon">Accessing Your Project in Horizon</h2>
+<h3 id="horizon">Horizon</h3>
+<ol>
+<li>
+<p>Using the project name as the username and password that you specified when you launched your job, log into the Horizon Dashboard with this link: </p>
+<p><a href="https://hextupleo.openinfra.lab">HextupleO Lab</a> </p>
+</li>
+<li>
+<p>Go to the <em>Compute-&gt;Instances</em> tab and make sure all of your requested nodes have been created.</p>
+</li>
+<li>
+<p>Scroll down to the bottom of the list and note the Undercloud Public IP address. You will use that IP to access your undercloud node. This will match the above output from the Ansible job (even though it does not in this document).  You can SSH to this IP as kni using the password you provided in the playbook.  </p>
+<p><img src="/images/hextupleo-horizon1.png" alt="drawing" width="500"/></p>
+</li>
+<li>
+<p>Go to <em>Network-&gt;Network Topology</em> and get familiar with how the VMs are connected on the networks.  </p>
+<blockquote>
+<p>INFO: We have created Tenant (overlay) networks to satisfy all the non-routable networks.    </p>
+</blockquote>
+</li>
+<li>
+<p>Go to <em>Routers</em>, select the existing router (projectName_router); click the <em>Interfaces</em> tab and then click the <em>Add Interface</em> icon on the right.   Add the <em>baremetal0</em> interface in the Subnet dropdown.  Click <em>Submit</em>.  </p>
+<p><img src="/images/hextupleo-horizon2.png" alt="drawing" width="500"/></p>
+</li>
+</ol>
+<h3 id="bootstrap">Bootstrap</h3>
+<ol>
+<li>
+<p>Access the bootstrap server via ssh as the <code>kni</code> user using the IP address obtained in step 3 of the <em>Accessing Your Project’s OpenStack Environment</em> section above and the password specified in Tower when deploying the KNI environment.</p>
+</li>
+<li>
+<p>You can now start deploying Openshift Baremetal (KNI) based on the standard instructions below or feel free to deploy using any other documented process.  </p>
+<blockquote>
+<p>INFO:
+Repos<br />
+Even though you could register to your CDN and start using your own repos, there are local synced repos that are available over LAN that have been already enabled for you. If you dont want to use our local repos, delete this file:</p>
+<p>[kni@bootstrap ~]$ rm /etc/yum.repos.d/rhel9.repo
+</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="deploying-vanilla-openshift-baremetal">Deploying Vanilla Openshift Baremetal</h2>
+<p>Even though you don’t have to follow this guide and just jump right into hacking, we highly encourage everyone to get at least one vanilla deployment done and get familiar with the process.</p>
+<p>Steps below are going to be very similar if not mostly identical to Red Hat official documentation found <a href="https://docs.openshift.com/container-platform/4.12/installing/installing_bare_metal_ipi/ipi-install-overview.html">here</a>.  Please also review the official documentation for accuracy and open any Bugzilla’s against it.</p>
+<h2 id="bootstrap-configuration">Bootstrap Configuration</h2>
+<ol>
+<li>
+<p>Log into Bootstrap VM.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ssh kni@&lt;bootstrapInstance&gt;  / password specified in Tower
+</code></pre></div>
+</li>
+<li>
+<p>Install the KNI Packages.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo dnf install -y libvirt qemu-kvm mkisofs python3-devel jq ipmitool
+</code></pre></div>
+</li>
+<li>
+<p>Modify the user to add the libvirt group to the newly created kni user.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo usermod --append --groups libvirt kni
+</code></pre></div>
+<blockquote>
+<p>NOTE: If you receive the error <code>DB version too old [0.21], expected [0.23] for domain implicit_files!</code> stop sssd with the <code>systemctl stop sssd</code> command, remove the cache files in <em>/var/lib/sss/db</em> directory, and restart sssd with the <code>systemctl start sssd</code> command</p>
+</blockquote>
+</li>
+<li>
+<p>Start and enable libvirtd; verify the daemon started successfully.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>[kni@bootstrap ~]$ sudo systemctl enable libvirtd --now
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>[kni@bootstrap ~]$ systemctl status libvirtd
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>● libvirtd.service - Virtualization daemon
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>      Loaded: loaded (/usr/lib/systemd/system/libvirtd.service; enabled; preset: disabled)
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>      Active: active (running) since Thu 2024-02-29 09:44:36 EST; 6s ago
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a> TriggeredBy: ● libvirtd.socket
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>           ○ libvirtd-tls.socket
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>           ○ libvirtd-tcp.socket
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>           ● libvirtd-ro.socket
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>           ● libvirtd-admin.socket
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>       Docs: man:libvirtd(8)
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>         https://libvirt.org
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>   Main PID: 6459 (libvirtd)
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>      Tasks: 21 (limit: 32768)
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>     Memory: 18.2M
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>        CPU: 493ms
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>     CGroup: /system.slice/libvirtd.service
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>            ├─6459 /usr/sbin/libvirtd --timeout 120
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>            ├─6559 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefil&gt;
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>            └─6560 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefil&gt;
+</code></pre></div>
+</li>
+<li>
+<p>Create the default storage pool and start it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>[kni@bootstrap ~]$ sudo virsh pool-define-as --name default --type dir --target /var/lib/libvirt/images
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Pool default defined
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>[kni@bootstrap ~]$ sudo virsh pool-start default 
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>Pool default started
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>[kni@bootstrap ~]$ sudo virsh pool-autostart default
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>Pool default marked as autostarted
+</code></pre></div>
+</li>
+<li>
+<p>Configure the network using the Ansible <code>reconfig-net.yml playbook</code>.  This playbook will add the <code>provisioning</code> and <code>baremetal</code> network bridges and add eth1 and eth2 respectively to the bridges. Use the <code>nmcli con show</code> command to see the configuration before and after the playbook.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>[kni@bootstrap]$ nmcli con show
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>NAME         UUID                                  TYPE      DEVICE 
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>System eth0  5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03  ethernet  eth0   
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>System eth1  9c92fad9-6ecb-3e6c-eb4d-8a47c6f50c04  ethernet  eth1   
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>System eth2  3a73717e-65ab-93e8-b518-24f5af32dc0d  ethernet  eth2   
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>lo           579ab600-7690-4439-84c6-1332da9a68df  loopback  lo     
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>virbr0       691c87ce-bbcc-436f-b936-f9dfd340d9b1  bridge    virbr0 
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>[kni@bootstrap]$ ansible-playbook GoodieBag/reconfig-net.yml
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>&#39;all&#39;
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>PLAY [Configure Networks] *********************************************************************************************
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>TASK [Gathering Facts] ************************************************************************************************
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>ok: [localhost]
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>TASK [Delete eth1 and eth2 connections] *******************************************************************************
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>changed: [localhost] =&gt; (item={&#39;conn_name&#39;: &#39;System eth1&#39;})
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>changed: [localhost] =&gt; (item={&#39;conn_name&#39;: &#39;System eth2&#39;})
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>TASK [Add Linux Bridge for provisioning network on eth1] **************************************************************
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>changed: [localhost]
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>TASK [Add eth1 to provisioning bridge] ********************************************************************************
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>changed: [localhost]
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>TASK [Add Linux Bridge for baremetal network on eth2] *****************************************************************
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>changed: [localhost]
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>TASK [Add eth2 to baremetal bridge] ***********************************************************************************
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>changed: [localhost]
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>PLAY RECAP ************************************************************************************************************
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>localhost                  : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>[kni@bootstrap GoodieBag]$ nmcli con show
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>NAME               UUID                                  TYPE      DEVICE       
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>System eth0        5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03  ethernet  eth0         
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>lo                 579ab600-7690-4439-84c6-1332da9a68df  loopback  lo           
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>baremetal          5aab580a-6db3-4f57-9fe6-7f3978d76c13  bridge    baremetal    
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>provisioning       3f8c4f9d-f391-4270-8b7c-944932f0271a  bridge    provisioning 
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>virbr0             691c87ce-bbcc-436f-b936-f9dfd340d9b1  bridge    virbr0       
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>bridge-slave-eth1  7079db87-436b-42a3-be35-04a11dd07135  ethernet  eth1         
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>bridge-slave-eth2  e016724f-cccc-473a-a11d-76d721865ad1  ethernet  eth2         
+</code></pre></div>
+</li>
+<li>
+<p>Create a pull-secret.txt file.  In a web browser, navigate to <a href="https://cloud.redhat.com/openshift/install/metal/user-provisioned" target="_blank"> Install OpenShift on Bare Metal with user-provisioned infrastructure</a>, in the <em>Pull Secret</em> section, click the <em>Copy pull secret</em> link.  </p>
+<p><img alt="CopyPull Screenshot" src="../../images/hextupleo-copypullsecret.png" /></p>
+</li>
+<li>
+<p>Create a pull-secret.txt file in the kni user’s home directory by pasting the data just copied.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>[kni@bootstrap ~]$ vi pull-secret.txt
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>{&quot;auths&quot;:{&quot;cloud.openshift.com&quot;:{&quot;auth&quot;:&quot;OTE3Nb3lcmOTU6SDA3UENGVhc2Ut9hY2obNfNViA1NWIDZGaWZMWU4ZWQxN2ExYjhTQxN2Q2NzKSK90LXJly2JMk20klD3Kk
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>…
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>NLl2czNjckTJWdkXRQTFScwmeUxFVGNpVQkTVhBZdaVypeHcFVRZnVuRVX1j2xO==&quot;,&quot;email&quot;:&quot;user@redhat.com&quot;}}}
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>:wq
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>[kni@bootstrap ~]$
+</code></pre></div>
+</li>
+</ol>
+<h2 id="openshift-installation">OpenShift Installation</h2>
+<p>The installation is based on the stable-4.15 version.  This will need to be updated as new versions are released.</p>
+<ol>
+<li>
+<p>Run the <code>get-ocp-installer.sh</code> script in the kni user’s ~/GoodieBag directory.  This script will download the openshift-client installer, creates the install-config.yaml file, generates the ssh keys, updates the install-config.yaml file with the public ssh key and pull-secret, and configures DHCP and DNS.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>[kni@bootstrap ~]$ GoodieBag/get-ocp-installer.sh -h 
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>/tmp/get-ocp-installer.sh usage:
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>-v  Specify version, default is &quot;stable-4.15&quot;.
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>-s  Specify full path of pull-secret.txt file, default is &quot;~/pull-secret.txt&quot;.
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>-d  Specify directory to extract the release image in, default is current directory.
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>-h  Display help/usage information.
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>[kni@bootstrap ~]$ GoodieBag/get-ocp-installer.sh
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>Getting the release image name.
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>Downloading the openshift-client-linux.tar.gz file.
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>Extracting the openshift-client installer.
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>The openshift-baremetal-installer installed successfully.
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>Generating the install-config.yaml file using the ~/GoodieBag/generate-configs.yml playbook.
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>&#39;all&#39;
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>PLAY [Generate configs] ***********************************************************************************************
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>TASK [Gathering Facts] ************************************************************************************************
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>ok: [localhost]
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>TASK [Learn kni instances in the project] *****************************************************************************
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>ok: [localhost]
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>TASK [Learn ipmi instances in the project] ****************************************************************************
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>ok: [localhost]
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>TASK [Show kni instances] *********************************************************************************************
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>ok: [localhost] =&gt; {
+<a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>   &quot;msg&quot;: [
+<a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>       {
+<a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>            &quot;access_ipv4&quot;: &quot;&quot;,
+<a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>            &quot;access_ipv6&quot;: &quot;&quot;,
+<a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>            &quot;addresses&quot;: {
+<a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>                &quot;baremetal0&quot;: [
+<a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a>                    {
+<a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a>                        &quot;OS-EXT-IPS-MAC:mac_addr&quot;: &quot;fa:16:3e:4c:0a:d5&quot;,
+<a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a>                        &quot;OS-EXT-IPS:type&quot;: &quot;fixed&quot;,
+<a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a>                        &quot;addr&quot;: &quot;10.20.0.16&quot;,
+<a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a>                        &quot;version&quot;: 4
+<a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a>                    }
+<a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a>                ],
+<a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a>...
+<a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a>TASK [Create /home/kni/clusterconfigs/] *******************************************************************************
+<a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a>ok: [localhost]
+<a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a>
+<a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a>TASK [Copy install-config] ********************************************************************************************
+<a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a>changed: [localhost]
+<a id="__codelineno-14-50" name="__codelineno-14-50" href="#__codelineno-14-50"></a>
+<a id="__codelineno-14-51" name="__codelineno-14-51" href="#__codelineno-14-51"></a>PLAY RECAP ************************************************************************************************************
+<a id="__codelineno-14-52" name="__codelineno-14-52" href="#__codelineno-14-52"></a>localhost                  : ok=9    changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+<a id="__codelineno-14-53" name="__codelineno-14-53" href="#__codelineno-14-53"></a>
+<a id="__codelineno-14-54" name="__codelineno-14-54" href="#__codelineno-14-54"></a>done.
+<a id="__codelineno-14-55" name="__codelineno-14-55" href="#__codelineno-14-55"></a>If you have a failed attempt at the installation, use the ~/GoodieBag/cleanup-ocp.sh script to reset the environment.
+<a id="__codelineno-14-56" name="__codelineno-14-56" href="#__codelineno-14-56"></a>Go forth and deploy openshift-baremetal-installation.
+</code></pre></div>
+</li>
+<li>
+<p>Review the contents of the ~/GoodieBag/install-configs.yaml file.  All IP addresses for the server instances should be updated to the correct IPMI IP addresses, and the pullSecrets and sshKey variables should be updated with the correct information.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[kni@bootstrap ~]$ more GoodieBag/install-config.yaml
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>…
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>      - name: &quot;kni-master1&quot;
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>        bootMACAddress: &quot;fa:16:3e:a7:80:64&quot;
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        role: master
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        rootDeviceHints:
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>          deviceName: &quot;/dev/vda&quot;
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>        hardwareProfile: default
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>        bmc:
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>          address: &quot;ipmi://10.30.0.129&quot;
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>          username: &quot;deployodf&quot;
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>          password: &quot;Passw0rd&quot;
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>…
+</code></pre></div>
+</li>
+<li>
+<p>To ensure the installation doesn’t get interrupted if there is a disconnect in your ssh session, run the installation in a tmux window.  The tmux utility was installed by the get-ocp-installer.sh script.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>[kni@bootstrap ~]$ tmux
+</code></pre></div>
+</li>
+<li>
+<p>Deploy OpenShift using the openshift-baremetal-install command.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>[kni@bootstrap ~]$ openshift-baremetal-install --dir ~/clusterconfigs --log-level debug create cluster
+</code></pre></div>
+</li>
+<li>
+<p>You can monitor your deployment in another window.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>[kni@bootstrap ~]$ sudo virsh list
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a> Id   Name                        State
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a> -------------------------------------------
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a> 1    kni-test2-ntpgv-bootstrap   running
+</code></pre></div>
+<p>To display the console output of the boostrap-vm (ctrl + <code>]</code> to exit):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>[kni@bootstrap ~]$ sudo virsh console &lt;bootstrap-vm&gt;
+</code></pre></div></p>
+<p>View the status of the servers deployed through OpenStack:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>[kni@bootstrap ~]$ source GoodieBag/&lt;project_name&gt;rc
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>(kni-test2) [kni@bootstrap ~]$ openstack server list --insecure
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>+--------------------------------------+------------------+---------+----------
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>| ID                                   | Name             | Status  | Networks                                                                        | Image          | Flavor |
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>+--------------------------------------+------------------+---------+----------
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>| d339db1a-4e50-4c69-8063-d7d92bfcc190 | ipmi_kni-master1 | ACTIVE  | virtualipmi=10.30.0.132                                                         | virtualipmi    |        |
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>| ccfaf78c-80f5-4b01-b3ee-ab0fd82a07c0 | ipmi_kni-master2 | ACTIVE  | virtualipmi=10.30.0.85                                                          | virtualipmi    |        |
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>| 14a636dd-3709-48e9-a6e2-be689d434ac7 | ipmi_kni-master3 | ACTIVE  | virtualipmi=10.30.0.49                                                          | virtualipmi    |        |
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>| 77fda0c4-8a88-4970-806e-540e3946dd3a | ipmi_kni-worker1 | ACTIVE  | virtualipmi=10.30.0.45                                                          | virtualipmi    |        | 
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>| 80c13e57-2869-4473-99e2-c4748daaf84c | ipmi_kni-worker2 | ACTIVE  | virtualipmi=10.30.0.147                                                         | virtualipmi    |        |
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>| 32f1de18-8bdb-4bdf-bdc3-57ddb0e522d8 | ipmi_kni-worker3 | ACTIVE  | virtualipmi=10.30.0.210                                                         | virtualipmi    |        |
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>| 85369613-44ec-47fa-9a9b-2476ca9278e8 | kni-master1      | ACTIVE  | baremetal0=10.20.0.8; provisioning0=10.10.0.200                                 | pxeboot        |        |
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>| 438088a3-0182-4f9f-bcce-485bce5973d3 | kni-master2      | ACTIVE  | baremetal0=10.20.0.119; provisioning0=10.10.0.160                               | pxeboot        |        |
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>| 0239711f-e661-47f3-bc71-eea60eec8763 | kni-master3      | ACTIVE  | baremetal0=10.20.0.100; provisioning0=10.10.0.209                               | pxeboot        |        |
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>| 26798b59-1d6c-4d93-b51a-26b59c725a33 | kni-worker1      | SHUTOFF | baremetal0=10.20.0.77; provisioning0=10.10.0.91                                 | pxeboot        |        |
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>| 3f11240b-5806-40f9-92d4-82a58df4053b | kni-worker2      | SHUTOFF | baremetal0=10.20.0.236; provisioning0=10.10.0.94                                | pxeboot        |        |
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>| 75015e47-7210-4bb8-8f45-8da5f3f78829 | kni-worker3      | SHUTOFF | baremetal0=10.20.0.124; provisioning0=10.10.0.109                               | pxeboot        |        || 27c33f7a-ea95-4cd6-aec9-691fbcfe27c1 | bootstrap        | ACTIVE  | baremetal0=10.20.0.122; vlan1117=10.9.65.140; provisioning0=10.10.0.45 | rhel82-update1 |        |
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>+--------------------------------------+------------------+---------+----------
+</code></pre></div></p>
+<p>Other commands that will come in handy in the later state of the deployment:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>[kni@bootstrap ~]$ export KUBECONFIG=/home/kni/clusterconfigs/auth/kubeconfig
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>[kni@bootstrap ~]$ oc get clusteroperators
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>[kni@bootstrap ~]$ oc get nodes
+</code></pre></div>
+<p>We hope it works! If it has, then at the end of the deployment you will see something like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>INFO Install complete!
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>INFO To access the cluster as the system:admin user when using &#39;oc&#39;, run &#39;export KUBECONFIG=/home/kni/clusterconfigs/auth/kubeconfig&#39;
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>INFO Access the OpenShift web-console here: https://console-openshift-console.apps.kni-test2.hexo.lab
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>INFO Login to the console with user: &quot;kubeadmin&quot;, and password: &quot;mv22Z-Tv2Zb-pTFgq-xAvki&quot;
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>DEBUG Time elapsed per stage:
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>DEBUG     Infrastructure: 29m15s
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>DEBUG Bootstrap Complete: 9m54s
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>DEBUG  Bootstrap Destroy: 13s
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>DEBUG  Cluster Operators: 34m31s
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>INFO Time elapsed: 1h13m54s
+</code></pre></div>
+</li>
+</ol>
+<h2 id="accessing-your-environment">Accessing Your Environment</h2>
+<p>There should be a few ways to access your environment including using sshuttle or a jumphost.</p>
+<h3 id="using-sshuttle">Using sshuttle</h3>
+<p>The OpenShift Console is not available on the VPN network the lab environment is deployed on but rather the private network of your project.  To access the console, you can use the sshuttle utility which allows you to create a VPN connection using an ssh connection to the bootstrap server.  You need root access on the client machine but not on the bootstrap server.  The sshuttle utility requirements are python 2.3 or higher which are already installed on the bootstrap server. </p>
+<h4 id="linux-client-installation">Linux Client Installation</h4>
+<ol>
+<li>
+<p>Install using the dnf command from the EPEL repository.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>$ dnf install -y sshuttle
+</code></pre></div>
+</li>
+<li>
+<p>There isn’t any configuration required to use sshuttle.  You can create the VPN connection using the sshuttle command.  Connect to your project’s bootstrap server’s IP address.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>$ sshuttle -r kni@172.20.XX.XX 10.20.0.0/24 --dns --to-ns 10.20.0.10 [ -vv ]
+</code></pre></div>
+</li>
+<li>
+<p>Access your OpenShift Console in your browser using the link:  </p>
+<p>https://console-openshift-console.apps.<em>projectName</em>.hexo.lab  </p>
+<blockquote>
+<p>NOTE: The user name is kubeadmin.  The password can be found on the bootstrap server in the kni users’ ~/clusterconfig/auth directory in the the kubeadmin-password file.</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="macos-client-installation">MacOS Client Installation</h4>
+<ol>
+<li>
+<p>If not installed already, install homebrew.  Open a terminal window and grab the install.sh script from GitHub and run it.  Wait for the command to finish.  If you are prompted to enter a password, enter your Mac user’s login password and press ENTER.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
+</code></pre></div>
+</li>
+<li>
+<p>Make the brew command available inside the terminal window.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>&quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#39; &gt;&gt; ~/.zprofile
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>. ~/.zprofile
+</code></pre></div>
+</li>
+<li>
+<p>Install sshuttle.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>$ brew install sshuttle
+</code></pre></div>
+</li>
+<li>
+<p>There isn’t any configuration required.  You can create the VPN connection using the sshuttle command.  Connect to your project’s bootstrap server’s IP address.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>~ % sshuttle -r kni@172.20.XX.XX 10.20.0.0/24 [ -vv ]
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>[local sudo] Password: 
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>kni@172.20.17.124&#39;s password: 
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>c : Connected to server.
+</code></pre></div>
+<blockquote>
+<p>NOTE: As traffic is generated on the VPN connection, warning messages will be displayed in the terminal.</p>
+<p>Example:</p>
+<p>s: warning: closed channel 7 got cmd=TCP_DATA len=517
+ c : warning: closed channel 11 got cmd=TCP_STOP_SENDING len=0
+  s: warning: closed channel 11 got cmd=TCP_DATA len=517
+  s: warning: closed channel 11 got cmd=TCP_EOF len=0</p>
+</blockquote>
+</li>
+<li>
+<p>Access your OpenShift Console in your browser using the link:</p>
+<p>https://console-openshift-console.apps.<em>projectName</em>.hexo.lab  </p>
+<blockquote>
+<p>NOTE: The user name is kubeadmin.  The password can be found on the bootstrap server in the kni users’ ~/clusterconfig/auth directory in the the kubeadmin-password file.</p>
+<p>You will also need to add an entry in your /etc/hosts file for the DNS resolution.</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="using-a-jumphost-from-openstack">Using a JumpHost from OpenStack</h2>
+<ol>
+<li>
+<p>Access your OpenStack environment, select <em>Compute-&gt;Instances</em>.  Click the <em>Launch Instance</em> icon on the right.  Enter the Instance Name, Description, AZ, and Count.  Click <em>Next</em>.  </p>
+<blockquote>
+<p>NOTE: At this time, the procedures below will yield issues with accessing the jumphost due to a known issue with injecting the ssh keys. Please use the procedures under Using sshuttle above.</p>
+</blockquote>
+</li>
+<li>
+<p>On the Source screen, make sure Select Boot Source is Image and Create New Volume is No.  In the Available list of images, find fedora-cloud37 and click the up arrow to the right of the entry to move it up to the Allocated section.  Scroll to the bottom, click Next.</p>
+</li>
+<li>
+<p>On the Flavor screen, find t2.medium in the list of Available flavors, click the up arrow to the right of the entry to move it to Allocated.  Scroll to the bottom, click Next.</p>
+</li>
+<li>
+<p>On the Networks screen, add the vlan1117 and baremetal0 entries in the Available list to the Allocated list.  Scroll to the bottom, click Next.</p>
+</li>
+<li>
+<p>Click Next in the lower right on the Network Ports screen.  On the Security Groups screen, click the down arrow next to the default security group in the Allocated section to move it to the Available section.  Scroll to the bottom, click Next.</p>
+</li>
+<li>
+<p>On the Key Pair screen, import your ssh keys using the Import Key Pair icon.  Remove the hextupleo_pub_key key from Allocated by clicking the down arrow to the far right.  Once complete, click the Launch Instance in the lower right as the remaining sections are not required or needing to be updated.</p>
+</li>
+<li>
+<p>Ssh to environment and enable x11 and maybe firefox/chrome if you’d like.  </p>
+<p>```
+[fedora@fedora-jumpbox ~]$ sudo dnf -y groupinstall gnome
+[fedora@fedora-jumpbox ~]$ sudo dnf -y group install "Basic Desktop" GNOME
+[fedora@fedora-jumpbox ~]$ sudo systemctl set-default graphical.target
+Removed /etc/systemd/system/default.target.
+Created symlink /etc/systemd/system/default.target → /usr/lib/systemd/system/graphical.target.
+[fedora@fedora-jumpbox ~]$ sudo -i
+[root@fedora-jumpbox ~]# passwd fedora
+Changing password for user fedora.
+New password: 
+BAD PASSWORD: The password fails the dictionary check - it is based on a dictionary word
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+[root@fedora-jumpbox ~]# reboot</p>
+</li>
+<li>
+<p>Adding DNS is optional and not a requirement.</p>
+</li>
+</ol>
+<h2 id="deploying-odf-storage">Deploying ODF (storage)</h2>
+<p>Official docs -&gt; https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.12/html/deploying_openshift_data_foundation_using_bare_metal_infrastructure/index </p>
+<ol>
+<li>
+<p>Install local storage operator; click <em>Operators-&gt;OperatorHub</em>.  Search for local.  Select the <em>Local Storage Operator</em>, in the pop up window, click the <em>Install</em> icon.  </p>
+<p><img alt="DeployLocalStorage" src="../../images/hextupleo-operatorhub.png" /></p>
+</li>
+<li>
+<p>Keep the defaults; scroll to the bottom of the screen and click the <em>Install</em> icon.  </p>
+<p><img alt="UpdateChannel" src="../../images/hextupleo-updatechannel.png" /></p>
+</li>
+<li>
+<p>Install ODF Operator; click <em>Operators-&gt;OperatorHub</em>, search for Data Foundation.  Select the <em>OpenShift Data Foundation Operator</em>, in the pop-up window keep the defaults, scroll to the bottom and click <em>Install</em>.  </p>
+<p><img alt="DeployODF" src="../../images/hextupleo-operatorhub2.png" /></p>
+</li>
+<li>
+<p>Once the operator has successfully been installed, the GUI will indicate that a change has occurred and to refresh.  Create the <em>StorageSystem</em>; select <em>Storage-&gt;Data Foundation</em>.  Click the <em>Storage System</em> tab; click the <em>Create StorageSystem</em> icon on the right.  </p>
+<p><img alt="CreateSS" src="../../images/hextupleo-createss.png" /></p>
+</li>
+<li>
+<p>For the Backing storage type, select <em>Create a new StorageClass using local storage devices</em>.  Click <em>Next</em>.  </p>
+<p><img alt="BackingStore" src="../../images/hextupleo-backingstore.png" /></p>
+</li>
+<li>
+<p>The worker nodes have been preconfigured with 100GB secondary drives.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>[kni@bootstrap ~]$ ssh core@kni-worker1
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>Red Hat Enterprise Linux CoreOS 412.86.202301191053-0
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>Part of OpenShift 4.12, RHCOS is a Kubernetes native operating system
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>managed by the Machine Config Operator (`clusteroperator/machine-config`).
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>WARNING: Direct SSH access to machines is not recommended; instead,
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>make configuration changes via `machineconfig` objects:
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>https://docs.openshift.com/container-platform/4.12/architecture/architecture-rhcos.html
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>[core@kni-worker1 ~]$ sudo fdisk -l | grep vdb
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>Disk /dev/vdb: 100 GiB, 107374182400 bytes, 209715200 sectors
+</code></pre></div>
+</li>
+<li>
+<p>On the Create local volume set screen, enter a name for the volume set.  In the example below, localvolumes is used.  Verify the <em>Disks on all nodes (3 node)</em> is selected in the <em>Filter disks by</em> section and <em>All</em> is selected for the <em>Disk type</em>.  Click the <em>Next</em> icon.  </p>
+<p><img alt="LocalVolumes" src="../../images/hextupleo-localvolume.png" /></p>
+</li>
+<li>
+<p>A pop up confirmation window will display providing additional information to consider if this is a stretched cluster.   Click the <em>Yes</em> icon if the settings are correct to create the LocalVolumeSet.  </p>
+</li>
+<li>
+<p>On the Capacity and nodes screen, accept the defaults and click <em>Next</em>.  </p>
+<p><img alt="CapacityAndNodes" src="../../images/hextupleo-capacity.png" /></p>
+</li>
+<li>
+<p>On the <em>Security and network</em> screen, accept the default of SDN.  Click <em>Next</em>.</p>
+</li>
+<li>
+<p>On the <em>Review and create</em> screen, review the configuration and click <em>Next</em> if correct to create the Storage System.</p>
+</li>
+<li>
+<p>It will take several minutes to create the local volumes and configure the storage.  You can monitor the progress on the <em>Storage-&gt;Data Foundation-&gt;StorageSystems</em> screen.  Click the <em>ocs-storage-cluster-storagesystem</em> link to access the Overview dashboard.  As the system configures the storages, messages will be logged in the Activity section.  Once complete, the <em>Status for Storage Cluster and Data Resiliency</em> should be green.  </p>
+<p><img alt="BlockAndFile" src="../../images/hextupleo-blockandfile.png" /></p>
+</li>
+<li>
+<p>To verify local storage has been create, click the <em>BlockPools</em> menu item along the top; click the <em>ocs-storagecluster-cephblockpool</em> link.  In the <em>Inventory</em> widget, click the links to view the available <em>Storage Classes</em> or the <em>Persistent Volume Claims</em>.  </p>
+<p><img alt="CephBlockPool" src="../../images/hextupleo-cephblockpool.png" /></p>
+<p>Storage Class:</p>
+<p><img alt="StorageClass" src="../../images/hextupleo-pvc.png" /></p>
+<p>PersistentVolumeClaims:</p>
+<p><img alt="PVCs" src="../../images/hextupleo-pvc.png" /></p>
+</li>
+<li>
+<p>The local storage and volume claims can be viewed with the CLI.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>[kni@bootstrap ~]$ oc get all -n openshift-local-storage
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>NAME                                         READY   STATUS    RESTARTS   AGE
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>pod/diskmaker-discovery-2xnxv                2/2     Running   0          3m46s
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>pod/diskmaker-discovery-9vjbf                2/2     Running   0          3m49s
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>pod/diskmaker-discovery-ff2cc                2/2     Running   0          4m2s
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>pod/diskmaker-manager-c54j8                  2/2     Running   0          2m10s
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>pod/diskmaker-manager-prgbh                  2/2     Running   0          2m10s
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>pod/diskmaker-manager-xtw58                  2/2     Running   0          2m10s
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>pod/local-storage-operator-9bc77c9cf-rzqjt   1/1     Running   0          32m
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>NAME                                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>service/local-storage-discovery-metrics   ClusterIP   172.30.23.42    &lt;none&gt;        8383/TCP   11m
+<a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>service/local-storage-diskmaker-metrics   ClusterIP   172.30.248.10   &lt;none&gt;        8383/TCP   2m10s
+<a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a>
+<a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>NAME                                 DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+<a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a>daemonset.apps/diskmaker-discovery   3         3         3       3            3           &lt;none&gt;          11m
+<a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a>daemonset.apps/diskmaker-manager     3         3         3       3            3           &lt;none&gt;          2m10s
+<a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a>
+<a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a>NAME                                     READY   UP-TO-DATE   AVAILABLE   AGE
+<a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a>deployment.apps/local-storage-operator   1/1     1            1           32m
+<a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a>
+<a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a>NAME                                               DESIRED   CURRENT   READY   AGE
+<a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a>replicaset.apps/local-storage-operator-9bc77c9cf   1         1         1       32m
+<a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a>
+<a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a>[kni@bootstrap ~]$ oc get pv
+<a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a>NAME                CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
+<a id="__codelineno-30-27" name="__codelineno-30-27" href="#__codelineno-30-27"></a>local-pv-2cc6fb0    100Gi      RWO            Delete           Available           localvolumes            113s
+<a id="__codelineno-30-28" name="__codelineno-30-28" href="#__codelineno-30-28"></a>local-pv-3faa9a90   100Gi      RWO            Delete           Available           localvolumes            113s
+<a id="__codelineno-30-29" name="__codelineno-30-29" href="#__codelineno-30-29"></a>local-pv-e2c0ad97   100Gi      RWO            Delete           Available           localvolumes            114s     3m45s
+</code></pre></div>
+</li>
+</ol>
+<h2 id="deploying-ocpv">Deploying OCPv</h2>
+<h2 id="deleting-your-project">Deleting Your Project</h2>
+<ol>
+<li>
+<p>To remove your entire project, use the Template in Ansible Automation Platform.</p>
+<p><a href="https://cloud-infra-tower.apps.ocp-bm.openinfra.lab/#/login">Ansible Automation Platform</a></p>
+</li>
+<li>
+<p>Select <em>Templates</em> in the left pane; click the rocket icon in the Action column to the right of <em>Hextupleo - delete my project</em>.</p>
+<p><img alt="DeleteMyProject" src="../../images/hextupleo-deletemyproject.png" /></p>
+</li>
+<li>
+<p>Update the project_name: and project_password: fields.  Click the <em>Next</em> icon in the lower left.</p>
+</li>
+<li>
+<p>Review the information on the <em>Preview</em> screen.  When ready to move forward, click the <em>Launch</em> icon in the lower left corner.  The <em>Jobs Output</em> screen for the new job will display ongoing output as the system progresses through the Ansible playbook.  You can monitor to completion or just check back to ensure your Job finishes successfully.</p>
+<p><img alt="Output" src="../../images/hextupleo-output.png" /></p>
+</li>
+<li>
+<p>Verify your job finished successfully in the Jobs listing.</p>
+<p><img alt="Jobs" src="../../images/hextupleo-jobs.png" /></p>
+</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>Getting NTP applied for workers and masters.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>[kni@bootstrap ~]$ wget 
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>[kni@bootstrap ~]$ wget 
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>[kni@bootstrap ~]$ export KUBECONFIG=/home/kni/clusterconfigs/auth/kubeconfig
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>[kni@bootstrap ~]$ oc apply -f 99_workers-chrony-configuration.yaml
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>[kni@bootstrap ~]$ oc apply -f 99_masters-chrony-configuration.yaml
+</code></pre></div>
+<p>Check status of IPMI.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>kni@bootstrap ~]$ ipmitool -I lanplus -H 10.30.0.129 -U deployodf -P Passw0rd chassis power status
+</code></pre></div>
+<h2 id="appendix">Appendix</h2>
+<p>The get-ocp-installer.sh script is provided as a quick method to complete the prep work before installing OpenShift.  If you want to execute manually, the commands are provided below for your reference.  </p>
+<p>Set the environment variables and download the openshift-client-linux.tar.gz file.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>[kni@bootstrap ~]$ export VERSION=latest-4.12
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>[kni@bootstrap ~]$ export RELEASE_IMAGE=$(curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$VERSION/release.txt | grep &#39;Pull From: quay.io&#39; | awk -F &#39; &#39; &#39;{print $3}&#39;)
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>[kni@bootstrap ~]$ export cmd=openshift-baremetal-install
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>[kni@bootstrap ~]$ export pullsecret_file=~/pull-secret.txt
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>[kni@bootstrap ~]$ export extract_dir=$(pwd)
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>[kni@bootstrap ~]$ curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$VERSION/openshift-client-linux.tar.gz | tar zxvf - oc
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>oc
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>[kni@bootstrap ~]$ sudo cp oc /usr/local/bin
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>[kni@bootstrap ~]$ oc adm release extract --registry-config &quot;${pullsecret_file}&quot; --command=$cmd --to &quot;${extract_dir}&quot; ${RELEASE_IMAGE}
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>[kni@bootstrap ~]$ sudo cp openshift-baremetal-install /usr/local/bin
+</code></pre></div>
+<p>Verify the installer file has been downloaded.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>[kni@bootstrap ~]$ ls
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>GoodieBag  nohup.out  oc  openshift-baremetal-install  pull-secret.txt
+</code></pre></div>
+<p>Create or generate install-config.yaml.</p>
+<p>For your convenience, there is an ansible playbook inside a Goodiebag directory that helps gather mac information for the OCP nodes. It uses openstack APIs to gather the information. Install the required packages first
+Note: This step would typically not be performed on different hardware.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>[kni@bootstrap ~]$ sudo dnf -y install ansible python3-shade python3-openstackclient
+</code></pre></div>
+<p>Generate the install-config.yaml  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>[kni@bootstrap ~]$ ansible-playbook GoodieBag/generate-configs.yml
+</code></pre></div>
+<p>The file will look similar to this:  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>[kni@bootstrap ~]$ cat GoodieBag/install-config.yaml 
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>apiVersion: v1
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>basedomain: hexo4.lab
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>metadata:
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>  name: &quot;kni-test&quot;
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>networking:
+<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>  machineCIDR: 10.20.0.0/24
+<a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>  networkType: OVNKubernetes
+<a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>compute:
+<a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>  - name: worker
+<a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a>     replicas: 3
+<a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a>controlPlane:
+<a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a>  name: master
+<a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a>  replicas: 3
+<a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a>  platform:
+<a id="__codelineno-37-16" name="__codelineno-37-16" href="#__codelineno-37-16"></a>    baremetal: {}
+<a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a>platform:
+<a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a>  baremetal:
+<a id="__codelineno-37-19" name="__codelineno-37-19" href="#__codelineno-37-19"></a>    apiVIP: &lt;api-ip&gt;
+<a id="__codelineno-37-20" name="__codelineno-37-20" href="#__codelineno-37-20"></a>    ingressVIP: &lt;wildcard-ip&gt;
+<a id="__codelineno-37-21" name="__codelineno-37-21" href="#__codelineno-37-21"></a>    provisioningNetworkCIDR: &lt;CIDR&gt;
+<a id="__codelineno-37-22" name="__codelineno-37-22" href="#__codelineno-37-22"></a>    hosts:
+<a id="__codelineno-37-23" name="__codelineno-37-23" href="#__codelineno-37-23"></a>      - name: &quot;kni_worker3&quot;
+<a id="__codelineno-37-24" name="__codelineno-37-24" href="#__codelineno-37-24"></a>        bootMACAddress: &quot;fa:16:3e:0f:21:4d&quot;
+<a id="__codelineno-37-25" name="__codelineno-37-25" href="#__codelineno-37-25"></a>        role: worker
+<a id="__codelineno-37-26" name="__codelineno-37-26" href="#__codelineno-37-26"></a>        hardwareProfile: unknown
+<a id="__codelineno-37-27" name="__codelineno-37-27" href="#__codelineno-37-27"></a>        bmc:
+<a id="__codelineno-37-28" name="__codelineno-37-28" href="#__codelineno-37-28"></a>          address: &quot;ipmi://X.X.X.X&quot;
+<a id="__codelineno-37-29" name="__codelineno-37-29" href="#__codelineno-37-29"></a>          username: &quot;kni-test&quot;
+<a id="__codelineno-37-30" name="__codelineno-37-30" href="#__codelineno-37-30"></a>          password: &quot;changeme&quot;
+<a id="__codelineno-37-31" name="__codelineno-37-31" href="#__codelineno-37-31"></a>      - name: &quot;kni_worker2&quot;
+<a id="__codelineno-37-32" name="__codelineno-37-32" href="#__codelineno-37-32"></a>        bootMACAddress: &quot;fa:16:3e:5c:94:dd&quot;
+<a id="__codelineno-37-33" name="__codelineno-37-33" href="#__codelineno-37-33"></a>        role: worker
+<a id="__codelineno-37-34" name="__codelineno-37-34" href="#__codelineno-37-34"></a>        hardwareProfile: unknown
+<a id="__codelineno-37-35" name="__codelineno-37-35" href="#__codelineno-37-35"></a>        bmc:
+<a id="__codelineno-37-36" name="__codelineno-37-36" href="#__codelineno-37-36"></a>          address: &quot;ipmi://X.X.X.X&quot;
+<a id="__codelineno-37-37" name="__codelineno-37-37" href="#__codelineno-37-37"></a>          username: &quot;kni-test&quot;
+<a id="__codelineno-37-38" name="__codelineno-37-38" href="#__codelineno-37-38"></a>          password: &quot;changeme&quot;
+<a id="__codelineno-37-39" name="__codelineno-37-39" href="#__codelineno-37-39"></a>      - name: &quot;kni_worker1&quot;
+<a id="__codelineno-37-40" name="__codelineno-37-40" href="#__codelineno-37-40"></a>        bootMACAddress: &quot;fa:16:3e:86:ce:e8&quot;
+<a id="__codelineno-37-41" name="__codelineno-37-41" href="#__codelineno-37-41"></a>        role: worker
+<a id="__codelineno-37-42" name="__codelineno-37-42" href="#__codelineno-37-42"></a>        hardwareProfile: unknown
+<a id="__codelineno-37-43" name="__codelineno-37-43" href="#__codelineno-37-43"></a>        bmc:
+<a id="__codelineno-37-44" name="__codelineno-37-44" href="#__codelineno-37-44"></a>          address: &quot;ipmi://X.X.X.X&quot;
+<a id="__codelineno-37-45" name="__codelineno-37-45" href="#__codelineno-37-45"></a>          username: &quot;kni-test&quot;
+<a id="__codelineno-37-46" name="__codelineno-37-46" href="#__codelineno-37-46"></a>          password: &quot;changeme&quot;
+<a id="__codelineno-37-47" name="__codelineno-37-47" href="#__codelineno-37-47"></a>      - name: &quot;kni-master3&quot;
+<a id="__codelineno-37-48" name="__codelineno-37-48" href="#__codelineno-37-48"></a>        bootMACAddress: &quot;fa:16:3e:2e:7a:86&quot;
+<a id="__codelineno-37-49" name="__codelineno-37-49" href="#__codelineno-37-49"></a>        role: master
+<a id="__codelineno-37-50" name="__codelineno-37-50" href="#__codelineno-37-50"></a>        hardwareProfile: default
+<a id="__codelineno-37-51" name="__codelineno-37-51" href="#__codelineno-37-51"></a>        bmc:
+<a id="__codelineno-37-52" name="__codelineno-37-52" href="#__codelineno-37-52"></a>          address: &quot;ipmi://X.X.X.X&quot;
+<a id="__codelineno-37-53" name="__codelineno-37-53" href="#__codelineno-37-53"></a>          username: &quot;kni-test&quot;
+<a id="__codelineno-37-54" name="__codelineno-37-54" href="#__codelineno-37-54"></a>          password: &quot;changeme&quot;
+<a id="__codelineno-37-55" name="__codelineno-37-55" href="#__codelineno-37-55"></a>      - name: &quot;kni-master2&quot;
+<a id="__codelineno-37-56" name="__codelineno-37-56" href="#__codelineno-37-56"></a>        bootMACAddress: &quot;fa:16:3e:23:03:f5&quot;
+<a id="__codelineno-37-57" name="__codelineno-37-57" href="#__codelineno-37-57"></a>        role: master
+<a id="__codelineno-37-58" name="__codelineno-37-58" href="#__codelineno-37-58"></a>        hardwareProfile: default
+<a id="__codelineno-37-59" name="__codelineno-37-59" href="#__codelineno-37-59"></a>        bmc:
+<a id="__codelineno-37-60" name="__codelineno-37-60" href="#__codelineno-37-60"></a>          address: &quot;ipmi://X.X.X.X&quot;
+<a id="__codelineno-37-61" name="__codelineno-37-61" href="#__codelineno-37-61"></a>          username: &quot;kni-test&quot;
+<a id="__codelineno-37-62" name="__codelineno-37-62" href="#__codelineno-37-62"></a>          password: &quot;changeme&quot;
+<a id="__codelineno-37-63" name="__codelineno-37-63" href="#__codelineno-37-63"></a>      - name: &quot;kni-master1&quot;
+<a id="__codelineno-37-64" name="__codelineno-37-64" href="#__codelineno-37-64"></a>        bootMACAddress: &quot;fa:16:3e:43:75:71&quot;
+<a id="__codelineno-37-65" name="__codelineno-37-65" href="#__codelineno-37-65"></a>        role: master
+<a id="__codelineno-37-66" name="__codelineno-37-66" href="#__codelineno-37-66"></a>        hardwareProfile: default
+<a id="__codelineno-37-67" name="__codelineno-37-67" href="#__codelineno-37-67"></a>        bmc:
+<a id="__codelineno-37-68" name="__codelineno-37-68" href="#__codelineno-37-68"></a>          address: &quot;ipmi://X.X.X.X&quot;
+<a id="__codelineno-37-69" name="__codelineno-37-69" href="#__codelineno-37-69"></a>          username: &quot;kni-test&quot;
+<a id="__codelineno-37-70" name="__codelineno-37-70" href="#__codelineno-37-70"></a>          password: &quot;changeme&quot;
+<a id="__codelineno-37-71" name="__codelineno-37-71" href="#__codelineno-37-71"></a>pullSecret: &#39;&lt;pull_secret&gt;&#39;
+<a id="__codelineno-37-72" name="__codelineno-37-72" href="#__codelineno-37-72"></a>sshKey: &#39;&lt;ssh_pub_key&gt;&#39;
+</code></pre></div>
+<p>You must update the ipmi IP addresses for each of the server instances, the pullSecret, and sshKey variables.  Get the ipmi addresses using the openstack server command.  First, you need to source the variables in the ~/GoodieBag/<project_name>rc file.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>[kni@bootstrap ~]$ source GoodieBag/&lt;project_name&gt;rc   &lt; - replace with your projectname
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>(kni-test) [kni@bootstrap ~]$ openstack server list --insecure | awk &#39;/ipmi_/ { print $4 &quot;      &quot; $8 }&#39;
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>ipmi_kni_worker3      virtualipmi=10.30.0.106
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>ipmi_kni_worker2      virtualipmi=10.30.0.122
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>ipmi_kni_worker1      virtualipmi=10.30.0.139
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>ipmi_kni-master3      virtualipmi=10.30.0.37
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>ipmi_kni-master2      virtualipmi=10.30.0.150
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>ipmi_kni-master1      virtualipmi=10.30.0.132
+</code></pre></div>
+<p>Update each server’s host section replacing the X.X.X.X with the correct IP address.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>hosts:
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>      - name: &quot;kni_worker3&quot;
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>      bootMACAddress: &quot;fa:16:3e:0f:21:4d&quot;
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>      role: worker
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>      hardwareProfile: unknown
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>      bmc:
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a>        address: &quot;ipmi://X.X.X.X&quot;  ← replace with 10.30.0.106
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>        username: &quot;kni-test&quot;
+<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a>        password: &quot;changeme&quot;
+</code></pre></div>
+<p>Update the pullSecret variable at the bottom of the file with the pull-secret.txt file contents you created in the Openshift Installation.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>(kni-test) [kni@bootstrap ~]$ cat pull-secret.txt 
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>{&quot;auths&quot;:{&quot;cloud.openshift.com&quot;:{&quot;auth&quot;:.....
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>pullSecret:&#39;{&quot;auths&quot;:{&quot;cloud.openshift.com&quot;:{&quot;auth&quot;:&quot;b3BlbnNoaWHVXQkdaVy1jTVhZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NMkRRN1RTWQxN2ExYjhmOTU6TQxN2Q2NzViOTESDA3UEFGOFNA4QzJTQVOTDNDUFU5SlJY8UV0pSWl
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>…
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>nZnVzNfN3NDA1NWIyMWU4Zjckx2ZGJHVVzFJd1FNLXRmeUxFcFVRZnVuRTJWdkNpo3MEw3MlJGl2czNkRzLUdpeBZ2xOQTFScw==&quot;,&quot;email&quot;:&quot;user@redhat.com&quot;}}}&#39;
+</code></pre></div>
+<p>Update the sshKey variable with your ssh public key.  If you have not generated it, use the ssh-keygen command.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>[kni@bootstrap ~]$ ssh-keygen 
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>Generating public/private rsa key pair.
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>Enter file in which to save the key (/home/kni/.ssh/id_rsa): &lt;enter&gt;
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>Enter passphrase (empty for no passphrase): &lt;enter&gt; 
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>Enter same passphrase again: 
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>Your identification has been saved in /home/kni/.ssh/crapid_rsa.
+<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>Your public key has been saved in /home/kni/.ssh/crapid_rsa.pub.
+<a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>The key fingerprint is:
+<a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>SHA256:CVnMl7uiOYLFK1jNkWQZ7M29cbsNhdP13Hfvbsy5Yfg kni@bootstrap
+<a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>The key&#39;s randomart image is:
+<a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a>+---[RSA 3072]----+
+<a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a>|   ..o o.  .     |
+<a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>|    =  oo o   .  |
+<a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a>|   + +o. . + . o.|
+<a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a>|    + o.o.= o   *|
+<a id="__codelineno-41-16" name="__codelineno-41-16" href="#__codelineno-41-16"></a>|   + .  S+ =    +|
+<a id="__codelineno-41-17" name="__codelineno-41-17" href="#__codelineno-41-17"></a>|  . =   o +   . .|
+<a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a>| o o . o . + . *.|
+<a id="__codelineno-41-19" name="__codelineno-41-19" href="#__codelineno-41-19"></a>|. o o +   . . o.*|
+<a id="__codelineno-41-20" name="__codelineno-41-20" href="#__codelineno-41-20"></a>|   . . .       Eo|
+<a id="__codelineno-41-21" name="__codelineno-41-21" href="#__codelineno-41-21"></a>+----[SHA256]-----+
+<a id="__codelineno-41-22" name="__codelineno-41-22" href="#__codelineno-41-22"></a>[kni@bootstrap ~]$ cat .ssh/id_rsa.pub 
+<a id="__codelineno-41-23" name="__codelineno-41-23" href="#__codelineno-41-23"></a>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAkkfCV0+7GCSABgQC1VX0CnifVays6EnaWHfeP5Qg30FOcr6m3PtY3V32PbEbXpuVaaPV
+<a id="__codelineno-41-24" name="__codelineno-41-24" href="#__codelineno-41-24"></a>…
+<a id="__codelineno-41-25" name="__codelineno-41-25" href="#__codelineno-41-25"></a>fionHKM8gdFbXo8yWqCTdT3HuMs9gjjjffMI/PAXZG0WXgEBsQlNoGrExgk/5116aZx7ioqqU= kni@bootstrap
+</code></pre></div>
+<p>Copy the id_rsa.pub contents and paste as the sshKey.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>sshKey: &#39;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAkkfCV0+7GCSABgQC1VX0CnifVays6EnaWHfeP5Qg30FOcr6m3Pt  
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>…
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>fjffMI/PAXZG0WXgEBsQlNoGrExgk/5116aZx7ioqqU= kni@bootstrap&#39;
+</code></pre></div>
+<p>Openshift Baremetal IPI also requires DHCP and DNS to be configured.  Copy the respective files from the GoodieBag directory to /etc.  Enable and start the dnsmasq daemon.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>[kni@bootstrap ~]$ sudo cp GoodieBag/hosts /etc/
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>[kni@bootstrap ~]$ sudo cp GoodieBag/kni.dns /etc/dnsmasq.d/
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>[kni@bootstrap ~]$ sudo cp GoodieBag/resolv.conf.upstream /etc/
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>[kni@bootstrap ~]$ sudo cp GoodieBag/resolv.conf /etc/
+<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>[kni@bootstrap ~]$ sudo systemctl enable dnsmasq
+<a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>Created symlink /etc/systemd/system/multi-user.target.wants/dnsmasq.service → /usr/lib/systemd/system/dnsmasq.service.
+<a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a>[kni@bootstrap ~]$ sudo systemctl start dnsmasq
+</code></pre></div>
+<p>If this is not your first attempt at installing OpenShift, cleanup the remnants of the first attempt. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>[kni@bootstrap ~]$ for i in $(sudo virsh list | tail -n +3 | grep bootstrap | awk {&#39;print $2&#39;})
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>do
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    sudo virsh destroy $i;
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>    sudo virsh undefine $i;
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>    sudo virsh vol-delete $i --pool default;
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>    sudo virsh vol-delete $i.ign --pool default;
+<a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>done
+<a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>[kni@bootstrap ~]$ rm -rf ~/clusterconfigs/auth ~/clusterconfigs/terraform* ~/clusterconfigs/tls ~/clusterconfigs/metadata.json
+</code></pre></div>
+<p>Create the clusterconfigs working directory in the kni home directory.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>[kni@bootstrap ~]$ mkdir ~/clusterconfigs
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Red Hat NA-SSA Team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+    
+  </body>
+</html>

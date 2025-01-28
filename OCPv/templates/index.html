@@ -1,0 +1,2194 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../storage/">
+      
+      
+        <link rel="next" href="../../ODF/ODF/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Templates - Openinfrastructure Lab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#templates" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Openinfrastructure Lab" class="md-header__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Openinfrastructure Lab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Templates
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Go to the dark side"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Go to the dark side" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Light side"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light side" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Openinfrastructure Lab" class="md-nav__button md-logo" aria-label="Openinfrastructure Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Openinfrastructure Lab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to the Red Hat NA-SSA Lab's Documentation Site.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MiscellaneousNotes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Miscellaneous Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slideDeckLinks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Presentation Links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Ceph
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Ceph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephAuthorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authorization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephCrushMap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CRUSH Map
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephFS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CephFS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephInstallation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation Instructions v5.x
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephLogging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephNetworking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephOSD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OSDs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephRGW/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RADOS Gateway (RGW)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephRHELUpgrade/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RHEL9 Upgrade
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephRados/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RADOS Block Devices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephSizing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sizing Guidelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/CephTuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Tuning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/Cephv6installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation Instructions v6.x
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/dataservices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Services SSAs - Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ceph/encryption/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encryption
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    How To
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            How To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Certificates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Certificates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/DNSServer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/DocumentationContribution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation Contribution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/ansiblesync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ansible Tower
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/jirachangerequest/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab Change Requests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Proof Of Concept Topics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            Proof Of Concept Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6_1" id="__nav_5_6_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Openshift
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Openshift
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/AffinityRules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure Affinity / Anti-Affinity Rules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/AzureAD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Integrate with Azure AD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/CPUManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure CPU Pinning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/DedicatedLiveMigration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure Dedicated Live Migration Network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/Logging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure Logging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/NMState/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install NMState Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/activedirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Integrate with LDAP/AD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/imageregistry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Registry and VDDK Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/mustgather/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The must-gather Tool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../How%20To/Proof%20Of%20Concept%20Topics/Openshift/secondaryScheduler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secondary Scheduler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    OCPv
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            OCPv
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highAvailability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes HA for VMs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../livemigrations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Live Migrations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lvm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lvm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mtv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migration Toolkit for Virtualization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../snapshots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VM Snapshots and Clones
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage for VMs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cdi-and-data-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      CDI and Data Volumes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-template-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Template Creation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    ODF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ODF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/ODF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Foundation Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/backup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backup Restore
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/multipath/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multipath
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/multus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/rbac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quotas and Permisstions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/registry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internal Registry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODF/snapshot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Snapshots and Clones
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Openshift
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Openshift
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openshift/Containers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openshift/OCPBaremetalPI/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP Baremetal IPI Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openshift/cloudinstallation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS OCP 4 Cloud Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openshift/disasterrecovery/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Disasterrecovery
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openshift/hcp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP Hosted Control Plane
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openshift/ocpCertificates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP Certificates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openshift/ocpGeneral/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP General Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Openstack
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Openstack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Openstack/OSP16.2Instructions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OSP 16.2 Installation Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="templates">Templates</h1>
+<p><strong>Boot Source</strong></p>
+<ul>
+<li>PVC (creates PVC): Clone an existing PVC available in the cluster to create a new PVC. </li>
+<li>Registry (creates PVC): Create a new PVC by importing content from a container registry.  </li>
+<li>URL (creates PVC): Create a new PVC by importing content from a URL with a HTTP or S3 endpoint.  </li>
+<li>PXE (network boot - adds network interface): Boots an operating system stored on a server on the network (a PXE bootable network attachment definition is required).  </li>
+</ul>
+<p><strong>Flavor</strong> </p>
+<p>This field indicates the size of your VM in terms of CPU and memory and includes the following options:  </p>
+<ul>
+<li>Tiny: Creates a VM with 1 CPU and 1 GiB memory; recommended for testing VM creation.  </li>
+<li>Small: Creates a VM with 1 CPU and 2 GiB memory; this is the default option for any preconfigured template.  </li>
+<li>Medium: Creates a VM with 1 CPU and 4 GiB memory; appropriate for code testing or to store basic application resources. </li>
+<li>Large: Creates a VM with 2 CPU and 8 GiB memory; recommended for systems that require a significant consumption of resources. </li>
+<li>Custom: Specify custom values of CPU and memory as needed for your VM.  </li>
+</ul>
+<p><strong>Workload</strong> </p>
+<p>This field indicates the workload type for your VM and includes the following options:  </p>
+<ul>
+<li>Desktop: A configuration for a desktop system that prioritizes VM density over guaranteed VM performance. VMs with this configuration are recommended for use in the OpenShift web console.  </li>
+<li>Server: The default option for any preconfigured template and compatible with various server workloads. This option balances performance and prioritizes VM density over VM performance.  </li>
+<li>High-Performance: Optimized for high-performance or high-consumption workloads. This option prioritizes guaranteed VM performance over VM density.  </li>
+</ul>
+<p><strong>Storage</strong>
+A preconfigured Linux-based template has two partitions by default, cloud-init and root disk. However, it is possible to configure additional disks. Each field has several available options for customizing your template:  </p>
+<ul>
+<li>Source: You can create or import a disk from an existing or blank PVC, from an external source such as a container registry or URL, or by using a container in a registry that is accessible from the cluster.  </li>
+<li>Type: You can customize the storage type, such as a disk or CD-ROM, according to the needs of your VM.  </li>
+<li>Interface: You can select the communication interface of your disk based on compatibility standards and desired performance of your VM. The available options are <em>virtio, SATA</em>, or <em>SCSI</em>. </li>
+<li>Storage Class: Select the storage class for the disk. The storage profile sets the optimized access mode and the volume mode for the storage class.  </li>
+<li>Access mode: You can customize the disk's access mode, overriding the default storage profile settings. The available access modes are <strong>Single user (RWO), Shared access (RWX)</strong>, or <strong>Read only (ROX)</strong>.  </li>
+<li>Volume mode: You can choose between <strong>Filesystem</strong> and <strong>Block</strong> storage volume modes for your VM, depending upon the selected storage class.  </li>
+</ul>
+<blockquote>
+<p>Note: VMs must have a PVC with a shared ReadWriteMany (RWX) access mode to enable live migration.</p>
+</blockquote>
+<p><strong>Networking</strong></p>
+<p>Red Hat provides templates that are set with a default network interface connected to the pod network. You can configure additional network interfaces for your VM. For each field, you have several options available to customize your template:  </p>
+<ul>
+<li>Interface model: You can choose either <code>virtio</code> or <code>e1000e</code>, based on your VM's needs and required performance. The <code>virtio</code> model is optimized for best performance and is supported by most Linux distributions. Additional drivers are needed for Windows VMs. The <code>e1000e</code> model is supported by most operating systems, including Windows, but offers slower performance compared to the <code>virtio</code> model. </li>
+<li>Network: You can select from a list of available network attachment definitions to connect to additional networks. Additional networks must use the <code>bridge</code> binding method.  </li>
+<li>Type: You can select from a list of available binding methods. You must use the <code>masquerade</code> binding method on the default pod network. Additional networks must use the <code>bridge</code> binding method.  </li>
+<li>MAC Address: You can specify a custom MAC address for the network interface. MAC addresses are automatically assigned unless you specify a custom address.  </li>
+</ul>
+<p><strong>Cloud-init</strong></p>
+<p>Available on compatible systems, you can use the <code>cloud-init</code> service to configure the guest operating system post-installation. You can use this service to install tools and packages, configure users and passwords, and manage system applications.  </p>
+<h2 id="cdi-and-data-volumes">CDI and Data Volumes</h2>
+<p>The Containerized Data Importer (CDI) is an add-on that manages persistent storage for VMs in OpenShift Virtualization. CDI provides the ability to import, upload, and clone existing PVCs for your VMs. CDI provides a custom resource definition (CRD) for DataVolume objects that orchestrate the import, clone, and upload operations associated with an underlying PVC.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>apiVersion: kubevirt.io/v1
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>kind: VirtualMachine
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>metadata:
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  name: vm-clone-pvc
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  labels:
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    kubevirt.io/vm: vm-clone-pvc
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  namespace: backup-vms 
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>spec:
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  running: false
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  template:
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    metadata:
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>      labels:
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        kubevirt.io/vm: vm-clone-pvc
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    spec:
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>      domain:
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>          cpu:
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>          cores: 1
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        devices:
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>          disks:
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>          - disk:
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>              bus: virtio
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>            name: root-disk
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        resources:
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>          requests:
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>            memory: 2Gi
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>      terminationGracePeriodSeconds: 0
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>      volumes:
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        - dataVolume:
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>            name: new-pvc-from-clone
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>          name: root-disk
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>  dataVolumeTemplates:  
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    - apiVersion: cdi.kubevirt.io/v1beta1
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>      metadata:
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>        name: new-pvc-from-clone
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>      spec:
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>        pvc:
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>          accessModes:
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>          - ReadWriteOnce
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>          resources:
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>            requests:
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>              storage: 10Gi 
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>        source:
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>          pvc:
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>            namespace: storage-vm
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>            name: database-storage-pvc
+</code></pre></div>
+<p>Red Hat Images:</p>
+<p>https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.3/x86_64/product-software</p>
+<h2 id="custom-template-creation">Custom Template Creation</h2>
+<p>To make custom templates available to all projects, create the template in the <code>openshift</code> namespace. To view the list of available templates use the <code>oc get templates -n openshift</code> command.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Yes</td>
+<td>Display name.</td>
+</tr>
+<tr>
+<td>Template Provider</td>
+<td>Yes</td>
+<td>Specifies the author.</td>
+</tr>
+<tr>
+<td>Template Support</td>
+<td>No</td>
+<td>Denotes support level</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>No</td>
+<td>Descriptive description</td>
+</tr>
+<tr>
+<td>Operating System</td>
+<td>Yes</td>
+<td>List of available VM OS; selecting an OS automatically configures the default flavor and workload</td>
+</tr>
+<tr>
+<td>Boot Source</td>
+<td>Yes</td>
+<td>Manner of access to the OS image file i.e. URL</td>
+</tr>
+<tr>
+<td>Flavor</td>
+<td>Yes</td>
+<td>Selection of machine resource configuration for both memory and processing requirements</td>
+</tr>
+<tr>
+<td>Workload Type</td>
+<td>Yes</td>
+<td>Purpose for the VM; workstation or server</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>kind: Template
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>apiVersion: template.openshift.io/v1
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>metadata:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  name: vm-template-example 1
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  namespace: default 2
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  annotations:
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    name.os.template.kubevirt.io/rhel8.5: Red Hat Enterprise Linux 8.0 or higher
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    description: VM template example
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    iconClass: icon-rhel
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    template.kubevirt.ui/parent-support-level: Full 3
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    template.kubevirt.ui/parent-provider: Red Hat 4
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    template.kubevirt.ui/parent-provider-url: &#39;https://www.redhat.com&#39; 5
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  labels:
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    os.template.kubevirt.io/rhel8.5: &#39;true&#39; 6
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    flavor.template.kubevirt.io/tiny: &#39;true&#39; 7
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    workload.template.kubevirt.io/server: &#39;true&#39; 8
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    vm.kubevirt.io/template: rhel8-server-tiny
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    vm.kubevirt.io/template.namespace: openshift
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    template.kubevirt.io/type: vm
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>parameters:
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>  - description: VM name
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    from: rhel8-[a-z0-9]{16}
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    generate: expression
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    name: NAME 9
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>  - description: Name of the DataSource to clone
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    name: DATA_SOURCE_NAME 10
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    value: rhel8
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>  - description: Namespace of the DataSource
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    name: DATA_SOURCE_NAMESPACE 11
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>    value: openshift-virtualization-os-images
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>  - description: Randomized password for the cloud-init user cloud-user
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    from: &#39;[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}&#39;
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    generate: expression
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>    name: CLOUD_USER_PASSWORD 12
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>objects:
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>  - apiVersion: kubevirt.io/v1
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>    kind: VirtualMachine
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>    metadata:
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>      annotations:
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>        vm.kubevirt.io/validations: |
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>          [
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>            {
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>              &quot;name&quot;: &quot;minimal-required-memory&quot;,
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>              &quot;path&quot;: &quot;jsonpath::.spec.domain.resources.requests.memory&quot;,
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>              &quot;rule&quot;: &quot;integer&quot;,
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>              &quot;message&quot;: &quot;This VM requires more memory.&quot;,
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>              &quot;min&quot;: 1610612736
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>            }
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>          ]
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>      labels:
+<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>        app: &#39;${NAME}&#39;
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>        vm.kubevirt.io/template: rhel8-server-tiny
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>        vm.kubevirt.io/template.revision: &#39;1&#39;
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a>        vm.kubevirt.io/template.version: v0.19.3
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a>      name: &#39;${NAME}&#39;
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a>    spec:
+<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a>      running: false
+<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>      template:
+<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>        metadata:
+<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>          annotations:
+<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a>            vm.kubevirt.io/flavor: tiny
+<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a>            vm.kubevirt.io/os: rhel8
+<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>            vm.kubevirt.io/workload: server
+<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a>          labels:
+<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a>            kubevirt.io/domain: &#39;${NAME}&#39;
+<a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a>            kubevirt.io/size: tiny
+<a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a>        spec:
+<a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a>          domain:
+<a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a>            cpu:
+<a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a>              cores: 1
+<a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a>              sockets: 1
+<a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a>              threads: 1
+<a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a>            devices:
+<a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a>              disks: 13
+<a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a>                - name: containerdisk
+<a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a>                  bootOrder: 1
+<a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a>                  disk:
+<a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a>                    bus: virtio
+<a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a>                - disk:
+<a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a>                    bus: virtio
+<a id="__codelineno-1-81" name="__codelineno-1-81" href="#__codelineno-1-81"></a>                  name: cloudinitdisk
+<a id="__codelineno-1-82" name="__codelineno-1-82" href="#__codelineno-1-82"></a>              interfaces: 14
+<a id="__codelineno-1-83" name="__codelineno-1-83" href="#__codelineno-1-83"></a>                - masquerade: {}
+<a id="__codelineno-1-84" name="__codelineno-1-84" href="#__codelineno-1-84"></a>                  name: default
+<a id="__codelineno-1-85" name="__codelineno-1-85" href="#__codelineno-1-85"></a>                  model: virtio
+<a id="__codelineno-1-86" name="__codelineno-1-86" href="#__codelineno-1-86"></a>              networkInterfaceMultiqueue: true
+<a id="__codelineno-1-87" name="__codelineno-1-87" href="#__codelineno-1-87"></a>              rng: {}
+<a id="__codelineno-1-88" name="__codelineno-1-88" href="#__codelineno-1-88"></a>            machine:
+<a id="__codelineno-1-89" name="__codelineno-1-89" href="#__codelineno-1-89"></a>              type: pc-q35-rhel8.4.0
+<a id="__codelineno-1-90" name="__codelineno-1-90" href="#__codelineno-1-90"></a>            resources:
+<a id="__codelineno-1-91" name="__codelineno-1-91" href="#__codelineno-1-91"></a>              requests:
+<a id="__codelineno-1-92" name="__codelineno-1-92" href="#__codelineno-1-92"></a>                memory: 1.5Gi
+<a id="__codelineno-1-93" name="__codelineno-1-93" href="#__codelineno-1-93"></a>          evictionStrategy: LiveMigrate
+<a id="__codelineno-1-94" name="__codelineno-1-94" href="#__codelineno-1-94"></a>          networks:
+<a id="__codelineno-1-95" name="__codelineno-1-95" href="#__codelineno-1-95"></a>            - name: default
+<a id="__codelineno-1-96" name="__codelineno-1-96" href="#__codelineno-1-96"></a>              pod: {}
+<a id="__codelineno-1-97" name="__codelineno-1-97" href="#__codelineno-1-97"></a>          terminationGracePeriodSeconds: 180
+<a id="__codelineno-1-98" name="__codelineno-1-98" href="#__codelineno-1-98"></a>          volumes:
+<a id="__codelineno-1-99" name="__codelineno-1-99" href="#__codelineno-1-99"></a>            - name: containerdisk
+<a id="__codelineno-1-100" name="__codelineno-1-100" href="#__codelineno-1-100"></a>              containerDisk:
+<a id="__codelineno-1-101" name="__codelineno-1-101" href="#__codelineno-1-101"></a>                image: registry.redhat.io/rhel8/rhel-guest-image
+<a id="__codelineno-1-102" name="__codelineno-1-102" href="#__codelineno-1-102"></a>            - name: cloudinitdisk
+<a id="__codelineno-1-103" name="__codelineno-1-103" href="#__codelineno-1-103"></a>              cloudInitNoCloud: 15
+<a id="__codelineno-1-104" name="__codelineno-1-104" href="#__codelineno-1-104"></a>                userData: |
+<a id="__codelineno-1-105" name="__codelineno-1-105" href="#__codelineno-1-105"></a>                  #cloud-config
+<a id="__codelineno-1-106" name="__codelineno-1-106" href="#__codelineno-1-106"></a>                  user: cloud-user
+<a id="__codelineno-1-107" name="__codelineno-1-107" href="#__codelineno-1-107"></a>                  password: 1n4u-4qfw-wxsg
+<a id="__codelineno-1-108" name="__codelineno-1-108" href="#__codelineno-1-108"></a>                  chpasswd:
+<a id="__codelineno-1-109" name="__codelineno-1-109" href="#__codelineno-1-109"></a>                    expire: false
+<a id="__codelineno-1-110" name="__codelineno-1-110" href="#__codelineno-1-110"></a>          hostname: &#39;${NAME}&#39;
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Red Hat NA-SSA Team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instance", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+    
+  </body>
+</html>
